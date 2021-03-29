@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Shovel]]></title>
+  <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-03-29T17:26:06+08:00</updated>
+  <updated>2021-03-29T17:39:37+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
     
   </author>
-  <generator uri="http://www.mweb.im">MWeb</generator>
+  <generator uri="http://www.coderforart.com/">CoderForArt</generator>
 
   
   <entry>
@@ -21,14 +21,14 @@
     <content type="html"><![CDATA[
 <h5 id="toc_0">公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程。</h5>
 
-<h3 id="toc_1">备份Gitlab</h3>
+<h4 id="toc_1">备份Gitlab</h4>
 
 <pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:create
 </code></pre>
 
 <h5 id="toc_2">执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包</h5>
 
-<h3 id="toc_3">Gitlab升级</h3>
+<h4 id="toc_3">Gitlab升级</h4>
 
 <h5 id="toc_4">升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&gt; 13.0.12 -&gt; 13.2.3</h5>
 
@@ -49,14 +49,14 @@
 <pre class="line-numbers"><code class="language-shell">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
 </code></pre>
 
-<h3 id="toc_8">Gitlab恢复</h3>
+<h4 id="toc_8">Gitlab恢复</h4>
 
 <p>首先关闭服务</p>
 
 <pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:restore BACKUP 1597233443_2020_08_12_9.3.1
 </code></pre>
 
-<h3 id="toc_9">Gitlab 502解决(查看pid)</h3>
+<h4 id="toc_9">Gitlab 502解决(查看pid)</h4>
 
 <pre class="line-numbers"><code class="language-shell">gitlab-ctl status
 </code></pre>
