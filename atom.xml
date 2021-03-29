@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[blog]]></title>
+  <title><![CDATA[铁铲小伙]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-03-29T17:11:11+08:00</updated>
+  <updated>2021-03-29T17:24:53+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -19,7 +19,7 @@
     <updated>2021-03-29T13:40:39+08:00</updated>
     <id>https://mitirrli.github.io/blogs/16169964390881.html</id>
     <content type="html"><![CDATA[
-<h4 id="toc_0">#公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程。</h4>
+<h5 id="toc_0">公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程。</h5>
 
 <h3 id="toc_1">备份Gitlab</h3>
 
