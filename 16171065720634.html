@@ -10,7 +10,7 @@
 
     <title>
       
-    Gitlab版本升级 - Mitirrli
+    Clean code - Mitirrli
     
     </title>
 
@@ -88,63 +88,185 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Gitlab版本升级</h1>	
+				<h1 class="post-title itemprop="name headline">Clean code</h1>	
 				<div class="post-data">
-					<time datetime="2020-03-29T13:40:39+08:00" pubdate data-updated="true">2020/03/29</time>
+					<time datetime="2021-03-30T20:16:12+08:00" pubdate data-updated="true">2021/03/30</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Gitlab.html'>Gitlab</a>&nbsp;
+		<a href='Php.html'>Php</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
-		<blockquote>
-<p>公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程</p>
-</blockquote>
+		<h2 id="toc_0">php特性</h2>
 
-<h2 id="toc_0">备份Gitlab</h2>
+<h3 id="toc_1">合并所有元素(使用数组解包)</h3>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:create
+<pre class="line-numbers"><code class="language-php">&lt;?php
+
+    $a = 1;
+    $b = [2, 3];
+
+    var_dump(array_merge([$a], $b));//php7.4前
+    var_dump([$a, ...$b]);//php7.4
 </code></pre>
 
-<h3 id="toc_1">执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包</h3>
+<h3 id="toc_2">null 合并运算符</h3>
 
-<h2 id="toc_2">Gitlab升级</h2>
+<pre class="line-numbers"><code class="language-php">&lt;?php
 
-<h5 id="toc_3">升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&gt; 13.0.12 -&gt; 13.2.3</h5>
+    $default = &#39;a&#39;;
+    $username = $default ?? &#39;username&#39;;
 
-<p><a href="https://docs.gitlab.com/ee/policy/maintenance.html#upgrade-recommendations">按照官网升级顺序依次升级</a></p>
-
-<h5 id="toc_4">下载deb包(*为版本号)</h5>
-
-<pre class="line-numbers"><code class="language-shell">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_*-ce.0_amd64.deb
+    var_dump($username);//php7.0
 </code></pre>
 
-<h5 id="toc_5">安装deb包</h5>
+<pre class="line-numbers"><code class="language-php">&lt;?php
 
-<pre class="line-numbers"><code class="language-shell">dpkg -i *.deb
+    var_dump(isset($username) ? &#39;hi&#39; : &#39;username&#39;);//php7.0前
 </code></pre>
 
-<h5 id="toc_6">查看版本</h5>
+<h3 id="toc_3">空合并运算符赋值</h3>
 
-<pre class="line-numbers"><code class="language-shell">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
+<pre class="line-numbers"><code class="language-php">&lt;?php
+
+    $q = isset($q) ? 1 : 2;//php7.4前
+
+    $a ??= 1;//php7.4
+
+    var_dump($q);
+    var_dump($a);
 </code></pre>
 
-<h2 id="toc_7">Gitlab恢复</h2>
+<h3 id="toc_4">可为空(Nullable)类型</h3>
 
-<p>首先关闭服务</p>
-
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:restore BACKUP 1597233443_2020_03_12_9.3.1
+<pre class="line-numbers"><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
+当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
 </code></pre>
 
-<h2 id="toc_8">Gitlab 502解决(查看pid)</h2>
+<pre class="line-numbers"><code class="language-php">&lt;?php
 
-<pre class="line-numbers"><code class="language-shell">gitlab-ctl status
+    function test(?string $name)
+    {
+        var_dump($name);
+    }
+
+    test(&#39;test&#39;);   //&quot;test&quot;
+    test(null);     //null
+    test();         //Uncaught Error: Too few arguments ...
 </code></pre>
+
+<h3 id="toc_5">多异常捕获处理</h3>
+
+<pre class="line-numbers"><code class="language-php">&lt;?php
+
+    try {
+        // some code
+    } catch (Exception1 | Exception2 $e) {
+    }
+</code></pre>
+
+<h3 id="toc_6">list 函数</h3>
+
+<pre class="line-numbers"><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
+
+list($fruit, $color) = $arr;
+
+var_dump($fruit, $color);
+</code></pre>
+
+<pre class="line-numbers"><code class="language-php"># 列出他们的其中一个
+$arr = [&#39;apple&#39;, &#39;red&#39;];
+
+list(, $color) = $arr;
+
+var_dump($color);
+</code></pre>
+
+<pre class="line-numbers"><code class="language-php"># php7.1后可以指定键名
+$arr = [
+    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
+    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
+];
+
+list(&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val) = reset($arr);
+var_dump($id, $val);
+</code></pre>
+
+<pre class="line-numbers"><code class="language-php">$arr = [
+    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
+    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
+];
+
+foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
+    var_dump($id, $val);
+}
+</code></pre>
+
+<h3 id="toc_7">箭头函数</h3>
+
+<pre class="line-numbers"><code class="language-php">&lt;?php
+    //php7.4前
+    $demo1 = array_map(function ($val){
+        return $val * $val;
+    }, [1,2]);
+
+    //php7.4后
+    $demo2 = array_map(fn($val) =&gt; $val * $val, [1,2]);
+</code></pre>
+
+<h3 id="toc_8">取出数组中的元素</h3>
+
+<pre class="line-numbers"><code class="language-php">&lt;?php
+
+    $arr = [
+        [&#39;id&#39; =&gt; &#39;zx&#39;, &#39;name&#39; =&gt; &#39;ZX&#39;],
+        [&#39;id&#39; =&gt; &#39;as&#39;, &#39;name&#39; =&gt; &#39;AS&#39;],
+        [&#39;id&#39; =&gt; &#39;qw&#39;, &#39;name&#39; =&gt; &#39;QW&#39;],
+    ];
+
+    # 如何快速取出二维数组对于id的值
+    var_dump(array_column($arr, &#39;id&#39;));
+</code></pre>
+
+<h3 id="toc_9">match</h3>
+
+<pre class="line-numbers"><code class="language-php">&lt;?php
+    //php8前
+    switch ($input) {
+        case &quot;true&quot;:
+            $result = 1;
+            break;
+        case &quot;false&quot;:
+            $result = 0;
+            break;
+        case &quot;null&quot;:
+            $result = NULL;
+        break;
+    }
+
+    //php8后
+    $result = match($input) {
+        &quot;true&quot; =&gt; 1,
+        &quot;false&quot; =&gt; 0,
+        &quot;null&quot; =&gt; NULL,
+    };
+
+    $result = match($input) {
+        &quot;true&quot;, &quot;on&quot; =&gt; 1,
+        &quot;false&quot;, &quot;off&quot; =&gt; 0,
+        &quot;null&quot;, &quot;empty&quot;, &quot;NaN&quot; =&gt; NULL,
+    };
+
+    # match使用的是严格比较(===)，值和类型都要完全相等
+    # 当input并不能被match中的所有条件满足的时候，match会抛出一个UnhandledMatchError exception
+</code></pre>
+
+<p><a href="https://www.laruence.com/">参考文章</a></p>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -245,20 +367,18 @@
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-29T13:40:39+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-30T20:16:12+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
 				<footer class="post-footer clearfix">	    			
 				    <div class="meta">
 					    
-					    <P style="float: left;">
-					    	<a href="16170664988742.html" 
-					        title="Previous Post: PHP-FPM 是啥">&laquo; PHP-FPM 是啥</a>
-					    </p>
-					    <p style="float:right; ">
 					    	
-					    	
+					        <a href="16170664988742.html" 
+					        title="Next Post: PHP-FPM 是啥">PHP-FPM 是啥 &raquo;</a>
+					    </p> 
+					    
 				    </div>
 			  	</footer>
 	<!-- footer end -->
