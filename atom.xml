@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-03-30T21:18:09+08:00</updated>
+  <updated>2021-03-30T21:18:56+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,181 +12,6 @@
   </author>
   <generator uri="http://www.coderforart.com/">CoderForArt</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Clean code]]></title>
-    <link href="https://mitirrli.github.io/blogs/16171065720634.html"/>
-    <updated>2021-03-30T20:16:12+08:00</updated>
-    <id>https://mitirrli.github.io/blogs/16171065720634.html</id>
-    <content type="html"><![CDATA[
-<h2 id="toc_0">php特性</h2>
-
-<h3 id="toc_1">合并所有元素(使用数组解包)</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    $a = 1;
-    $b = [2, 3];
-
-    var_dump(array_merge([$a], $b));//php7.4前
-    var_dump([$a, ...$b]);//php7.4
-</code></pre>
-
-<h3 id="toc_2">null 合并运算符</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    $default = &#39;a&#39;;
-    $username = $default ?? &#39;username&#39;;
-
-    var_dump($username);//php7.0
-</code></pre>
-
-<pre><code class="language-php">&lt;?php
-
-    var_dump(isset($username) ? &#39;hi&#39; : &#39;username&#39;);//php7.0前
-</code></pre>
-
-<h3 id="toc_3">空合并运算符赋值</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    $q = isset($q) ? 1 : 2;//php7.4前
-
-    $a ??= 1;//php7.4
-
-    var_dump($q);
-    var_dump($a);
-</code></pre>
-
-<h3 id="toc_4">可为空(Nullable)类型</h3>
-
-<pre><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
-当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
-</code></pre>
-
-<pre><code class="language-php">&lt;?php
-
-    function test(?string $name)
-    {
-        var_dump($name);
-    }
-
-    test(&#39;test&#39;);   //&quot;test&quot;
-    test(null);     //null
-    test();         //Uncaught Error: Too few arguments ...
-</code></pre>
-
-<h3 id="toc_5">多异常捕获处理</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    try {
-        // some code
-    } catch (Exception1 | Exception2 $e) {
-    }
-</code></pre>
-
-<h3 id="toc_6">list 函数</h3>
-
-<pre><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
-
-list($fruit, $color) = $arr;
-
-var_dump($fruit, $color);
-</code></pre>
-
-<pre><code class="language-php"># 列出他们的其中一个
-$arr = [&#39;apple&#39;, &#39;red&#39;];
-
-list(, $color) = $arr;
-
-var_dump($color);
-</code></pre>
-
-<pre><code class="language-php"># php7.1后可以指定键名
-$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
-
-list(&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val) = reset($arr);
-var_dump($id, $val);
-</code></pre>
-
-<pre><code class="language-php">$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
-
-foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
-    var_dump($id, $val);
-}
-</code></pre>
-
-<h3 id="toc_7">箭头函数</h3>
-
-<pre><code class="language-php">&lt;?php
-    //php7.4前
-    $demo1 = array_map(function ($val){
-        return $val * $val;
-    }, [1,2]);
-
-    //php7.4后
-    $demo2 = array_map(fn($val) =&gt; $val * $val, [1,2]);
-</code></pre>
-
-<h3 id="toc_8">取出数组中的元素</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    $arr = [
-        [&#39;id&#39; =&gt; &#39;zx&#39;, &#39;name&#39; =&gt; &#39;ZX&#39;],
-        [&#39;id&#39; =&gt; &#39;as&#39;, &#39;name&#39; =&gt; &#39;AS&#39;],
-        [&#39;id&#39; =&gt; &#39;qw&#39;, &#39;name&#39; =&gt; &#39;QW&#39;],
-    ];
-
-    # 如何快速取出二维数组对于id的值
-    var_dump(array_column($arr, &#39;id&#39;));
-</code></pre>
-
-<h3 id="toc_9">match</h3>
-
-<pre><code class="language-php">&lt;?php
-    //php8前
-    switch ($input) {
-        case &quot;true&quot;:
-            $result = 1;
-            break;
-        case &quot;false&quot;:
-            $result = 0;
-            break;
-        case &quot;null&quot;:
-            $result = NULL;
-        break;
-    }
-
-    //php8后
-    $result = match($input) {
-        &quot;true&quot; =&gt; 1,
-        &quot;false&quot; =&gt; 0,
-        &quot;null&quot; =&gt; NULL,
-    };
-
-    $result = match($input) {
-        &quot;true&quot;, &quot;on&quot; =&gt; 1,
-        &quot;false&quot;, &quot;off&quot; =&gt; 0,
-        &quot;null&quot;, &quot;empty&quot;, &quot;NaN&quot; =&gt; NULL,
-    };
-
-    # match使用的是严格比较(===)，值和类型都要完全相等
-    # 当input并不能被match中的所有条件满足的时候，match会抛出一个UnhandledMatchError exception
-</code></pre>
-
-<p><a href="https://www.laruence.com/">参考文章</a></p>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[PHP-FPM 是啥]]></title>
@@ -557,6 +382,181 @@ rlimit_core = 0
 </code></pre>
 
 <p><a href="https://learnku.com/articles/44835#85187d">参考文章</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Clean code]]></title>
+    <link href="https://mitirrli.github.io/blogs/16171065720634.html"/>
+    <updated>2021-03-30T20:16:12+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16171065720634.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0">php特性</h2>
+
+<h3 id="toc_1">合并所有元素(使用数组解包)</h3>
+
+<pre><code class="language-php">&lt;?php
+
+    $a = 1;
+    $b = [2, 3];
+
+    var_dump(array_merge([$a], $b));//php7.4前
+    var_dump([$a, ...$b]);//php7.4
+</code></pre>
+
+<h3 id="toc_2">null 合并运算符</h3>
+
+<pre><code class="language-php">&lt;?php
+
+    $default = &#39;a&#39;;
+    $username = $default ?? &#39;username&#39;;
+
+    var_dump($username);//php7.0
+</code></pre>
+
+<pre><code class="language-php">&lt;?php
+
+    var_dump(isset($username) ? &#39;hi&#39; : &#39;username&#39;);//php7.0前
+</code></pre>
+
+<h3 id="toc_3">空合并运算符赋值</h3>
+
+<pre><code class="language-php">&lt;?php
+
+    $q = isset($q) ? 1 : 2;//php7.4前
+
+    $a ??= 1;//php7.4
+
+    var_dump($q);
+    var_dump($a);
+</code></pre>
+
+<h3 id="toc_4">可为空(Nullable)类型</h3>
+
+<pre><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
+当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
+</code></pre>
+
+<pre><code class="language-php">&lt;?php
+
+    function test(?string $name)
+    {
+        var_dump($name);
+    }
+
+    test(&#39;test&#39;);   //&quot;test&quot;
+    test(null);     //null
+    test();         //Uncaught Error: Too few arguments ...
+</code></pre>
+
+<h3 id="toc_5">多异常捕获处理</h3>
+
+<pre><code class="language-php">&lt;?php
+
+    try {
+        // some code
+    } catch (Exception1 | Exception2 $e) {
+    }
+</code></pre>
+
+<h3 id="toc_6">list 函数</h3>
+
+<pre><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
+
+list($fruit, $color) = $arr;
+
+var_dump($fruit, $color);
+</code></pre>
+
+<pre><code class="language-php"># 列出他们的其中一个
+$arr = [&#39;apple&#39;, &#39;red&#39;];
+
+list(, $color) = $arr;
+
+var_dump($color);
+</code></pre>
+
+<pre><code class="language-php"># php7.1后可以指定键名
+$arr = [
+    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
+    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
+];
+
+list(&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val) = reset($arr);
+var_dump($id, $val);
+</code></pre>
+
+<pre><code class="language-php">$arr = [
+    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
+    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
+];
+
+foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
+    var_dump($id, $val);
+}
+</code></pre>
+
+<h3 id="toc_7">箭头函数</h3>
+
+<pre><code class="language-php">&lt;?php
+    //php7.4前
+    $demo1 = array_map(function ($val){
+        return $val * $val;
+    }, [1,2]);
+
+    //php7.4后
+    $demo2 = array_map(fn($val) =&gt; $val * $val, [1,2]);
+</code></pre>
+
+<h3 id="toc_8">取出数组中的元素</h3>
+
+<pre><code class="language-php">&lt;?php
+
+    $arr = [
+        [&#39;id&#39; =&gt; &#39;zx&#39;, &#39;name&#39; =&gt; &#39;ZX&#39;],
+        [&#39;id&#39; =&gt; &#39;as&#39;, &#39;name&#39; =&gt; &#39;AS&#39;],
+        [&#39;id&#39; =&gt; &#39;qw&#39;, &#39;name&#39; =&gt; &#39;QW&#39;],
+    ];
+
+    # 如何快速取出二维数组对于id的值
+    var_dump(array_column($arr, &#39;id&#39;));
+</code></pre>
+
+<h3 id="toc_9">match</h3>
+
+<pre><code class="language-php">&lt;?php
+    //php8前
+    switch ($input) {
+        case &quot;true&quot;:
+            $result = 1;
+            break;
+        case &quot;false&quot;:
+            $result = 0;
+            break;
+        case &quot;null&quot;:
+            $result = NULL;
+        break;
+    }
+
+    //php8后
+    $result = match($input) {
+        &quot;true&quot; =&gt; 1,
+        &quot;false&quot; =&gt; 0,
+        &quot;null&quot; =&gt; NULL,
+    };
+
+    $result = match($input) {
+        &quot;true&quot;, &quot;on&quot; =&gt; 1,
+        &quot;false&quot;, &quot;off&quot; =&gt; 0,
+        &quot;null&quot;, &quot;empty&quot;, &quot;NaN&quot; =&gt; NULL,
+    };
+
+    # match使用的是严格比较(===)，值和类型都要完全相等
+    # 当input并不能被match中的所有条件满足的时候，match会抛出一个UnhandledMatchError exception
+</code></pre>
+
+<p><a href="https://www.laruence.com/">参考文章</a></p>
 
 ]]></content>
   </entry>
