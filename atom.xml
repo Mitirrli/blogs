@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-03-30T21:18:56+08:00</updated>
+  <updated>2021-04-01T22:25:52+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,133 @@
   </author>
   <generator uri="http://www.coderforart.com/">CoderForArt</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[本地调试组件]]></title>
+    <link href="https://mitirrli.github.io/blogs/16172870405989.html"/>
+    <updated>2021-04-01T22:24:00+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16172870405989.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0">目录结构</h2>
+
+<h3 id="toc_1">在项目根目录创建一个packagist包，用来放置组件包，加入到.gitignore文件中。通过path的方式，让composer将test组件作为依赖加载到project中</h3>
+
+<pre><code class="language-text">.
+├── packagist
+│   └── test
+│       └── src
+└── project
+    ├── app
+    ├── config
+    ├── runtime
+    └── vendor
+</code></pre>
+
+<h3 id="toc_2">创建新的组件</h3>
+
+<pre><code class="language-shell">$ cd packagist
+
+$ mkdir -p test/src &amp;&amp; cd test
+
+$ composer init  //初始化git仓库,填写对应的信息后会生成对应的composer.json文件
+
+$ composer i
+
+$ vim composer.json
+</code></pre>
+
+<h3 id="toc_3">修改composer内容</h3>
+
+<pre><code class="language-text">{
+    &quot;name&quot;: &quot;qjdata/test&quot;,
+    &quot;authors&quot;: [
+        {
+            &quot;name&quot;: &quot;Huanglei&quot;,
+            &quot;email&quot;: &quot;huanglei@quanjingshuju.com&quot;
+        }
+    ],
+    &quot;require&quot;: {},
+    &quot;autoload&quot;: {
+        &quot;psr-4&quot;: {
+            &quot;Qwertyuiop\\&quot;: &quot;./src&quot;
+        }
+    }
+}
+</code></pre>
+
+<h3 id="toc_4">增加测试类</h3>
+
+<pre><code class="language-shell">$ cd src
+
+$ vim Test.php
+</code></pre>
+
+<pre><code class="language-php">&lt;?php
+
+namespace Qwertyuiop;
+
+class Test
+{
+    public function test()
+    {
+        echo &#39;qwerty&#39;;
+    }
+}
+</code></pre>
+
+<h3 id="toc_5">在项目中使用未发布的组件包</h3>
+
+<pre><code class="language-text">&quot;repositories&quot;: {
+    &quot;qjdata/test&quot;: {
+        &quot;type&quot;: &quot;path&quot;,
+        &quot;url&quot;: &quot;./packagist/test&quot;
+    }
+}
+</code></pre>
+
+<pre><code class="language-shell">$ composer require qjdata/test dev-master   //现在就实现了在子项目更改代码,主项目代码也动态改变的目的
+
+$ cd /var/www/html/yaoxiebang-php-skeleton/vendor/ &amp;&amp; ls -l qjdata    //test -&gt; ../../packagist/test
+</code></pre>
+
+<pre><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
+</code></pre>
+
+<h1 id="toc_6">上传组件至私有gitlab</h1>
+
+<h2 id="toc_7">在gitlab中创建一个项目，命名为test</h2>
+
+<h2 id="toc_8">接下来我们把上篇packagist下的test目录传到gitlab中</h2>
+
+<pre><code class="language-shell">$ cd /var/www/html/yaoxiebang-php-skeleton/packagist/test
+
+$ git init
+
+$ git remote add origin &lt;远程地址&gt;
+
+$ git add . &amp;&amp; git commit -m &quot;Initial commit&quot; &amp;&amp; git push -u origin master
+</code></pre>
+
+<h2 id="toc_9">使用私有gitlab作为源(修改composer.json)</h2>
+
+<h3 id="toc_10">使用ssh地址，需要将克隆仓库用户的id_rsa.pub文件添加到Gitlab</h3>
+
+<pre><code class="language-text">&quot;repositories&quot;: {
+    &quot;qjdata/test&quot;: {
+        &quot;type&quot;: &quot;vcs&quot;,
+        &quot;url&quot;: &quot;&lt;url&gt;&quot;
+    }
+}
+</code></pre>
+
+<pre><code class="language-shell">$ composer require qjdata/test dev-master
+</code></pre>
+
+<pre><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
+</code></pre>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[PHP-FPM 是啥]]></title>
