@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-02T23:02:16+08:00</updated>
+  <updated>2021-04-02T23:03:54+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -14,81 +14,17 @@
 
   
   <entry>
-    <title type="html"><![CDATA[子模块]]></title>
-    <link href="https://mitirrli.github.io/blogs/16173755899187.html"/>
-    <updated>2021-04-02T22:59:49+08:00</updated>
-    <id>https://mitirrli.github.io/blogs/16173755899187.html</id>
+    <title type="html"><![CDATA[Mysql的几种锁]]></title>
+    <link href="https://mitirrli.github.io/blogs/16173762986851.html"/>
+    <updated>2021-04-02T23:11:38+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16173762986851.html</id>
     <content type="html"><![CDATA[
-<blockquote>
-<p>子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立</p>
-</blockquote>
+<h3 id="toc_0">使用docker搞一个mysql实例</h3>
 
-<h3 id="toc_0">添加子模块</h3>
-
-<pre><code class="language-shell">你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对URL来添加新的子模块
-
-$ git submodule add ... //默认情况下,子模块会将子项目放到一个与仓库同名的目录中,如果你想要放到其他地方,那么可以在命令结尾添加一个不同的路径
+<pre><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
 </code></pre>
 
-<pre><code class="language-text">此时.gitmodules文件保存了项目 URL 与已经拉取的本地目录之间的映射。
-
-修改子模块url: git config submodule.&lt;模块名&gt;.url &lt;私有URL&gt; 来覆盖这个选项的值
-</code></pre>
-
-<h3 id="toc_1">克隆含有子模块的项目</h3>
-
-<pre><code class="language-shell">$ git clone &lt;url&gt;
-
-$ git submodule init //初始化本地配置文件
-
-$ git submodule update //从该项目中抓取所有数据并检出父项目中列出的合适的提交
-</code></pre>
-
-<pre><code class="language-shell">$ git clone --recurse-submodules &lt;url&gt; //传递--recurse-submodules选项,它就会自动初始化并更新仓库中的每一个子模块,包括可能存在的嵌套子模块
-
-如果你已经克隆了项目但忘记了--recurse-submodule,那么可以运行git submodule update --init将git submodule init和git submodule update合并成一步
-如果还要初始化、抓取并检出任何嵌套的子模块,请使用简明的git submodule update --init --recursive
-</code></pre>
-
-<h3 id="toc_2">在主项目更新子模块</h3>
-
-<pre><code class="language-shell">$ git submodule update --remote &lt;模块名&gt;
-
-$ git config -f .gitmodules submodule.&lt;模块名&gt;.branch &lt;分支名&gt; //设置模块默认的分支
-
-如果不用 -f .gitmodules 选项,那么它只会为你做修改
-</code></pre>
-
-<h3 id="toc_3">更新包含子模块的项目</h3>
-
-<pre><code class="language-shell">$ git submodule update --init --recursive //如果MainProject提交了你刚拉取的新子模块,应该在 git submodule update 后面添加--init选项,如果子模块有嵌套的子模块,则应使用--recursive选项
-
-如果你想自动化此过程,那么可以为 git pull 命令添加--recurse-submodules选项
-如果你想让Git总是以--recurse-submodules拉取,可以将配置选项submodule.recurse设置为true.此选项会让Git为所有支持--recurse-submodules的命令使用该选项(除clone以外)
-</code></pre>
-
-<h3 id="toc_4">子模块遍历</h3>
-
-<pre><code class="language-shell">有一个foreach子模块命令,它能在每一个子模块中运行任意命令
-
-$ git submodule foreach &#39;git stash&#39;
-</code></pre>
-
-<h3 id="toc_5">增加子模块别名</h3>
-
-<pre><code class="language-shell">$ git config alias.sdiff &#39;!&#39;&quot;git diff &amp;&amp; git submodule foreach &#39;git diff&#39;&quot;
-$ git config alias.spush &#39;push --recurse-submodules=on-demand&#39;
-$ git config alias.supdate &#39;submodule update --remote --merge&#39;
-</code></pre>
-
-<h3 id="toc_6">删除子模块</h3>
-
-<pre><code class="language-shell">$ git submodule deinit &lt;子模块&gt; //逆初始化模块
-$ git rm --cached &lt;子模块&gt; //删除.gitmodules中记录的模块信息(--cached选项清除.git/modules中的缓存)
-$ git commit -m &#39;comment&#39;
-</code></pre>
-
-<p><a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97#_cloning_submodules">git官方文档</a></p>
+<h3 id="toc_1">行锁</h3>
 
 ]]></content>
   </entry>
@@ -817,6 +753,86 @@ $ git add . &amp;&amp; git commit -m &quot;Initial commit&quot; &amp;&amp; git p
 
 <pre><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
 </code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[子模块]]></title>
+    <link href="https://mitirrli.github.io/blogs/16173755899187.html"/>
+    <updated>2021-04-02T22:59:49+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16173755899187.html</id>
+    <content type="html"><![CDATA[
+<blockquote>
+<p>子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立</p>
+</blockquote>
+
+<h3 id="toc_0">添加子模块</h3>
+
+<pre><code class="language-shell">你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对URL来添加新的子模块
+
+$ git submodule add ... //默认情况下,子模块会将子项目放到一个与仓库同名的目录中,如果你想要放到其他地方,那么可以在命令结尾添加一个不同的路径
+</code></pre>
+
+<pre><code class="language-text">此时.gitmodules文件保存了项目 URL 与已经拉取的本地目录之间的映射。
+
+修改子模块url: git config submodule.&lt;模块名&gt;.url &lt;私有URL&gt; 来覆盖这个选项的值
+</code></pre>
+
+<h3 id="toc_1">克隆含有子模块的项目</h3>
+
+<pre><code class="language-shell">$ git clone &lt;url&gt;
+
+$ git submodule init //初始化本地配置文件
+
+$ git submodule update //从该项目中抓取所有数据并检出父项目中列出的合适的提交
+</code></pre>
+
+<pre><code class="language-shell">$ git clone --recurse-submodules &lt;url&gt; //传递--recurse-submodules选项,它就会自动初始化并更新仓库中的每一个子模块,包括可能存在的嵌套子模块
+
+如果你已经克隆了项目但忘记了--recurse-submodule,那么可以运行git submodule update --init将git submodule init和git submodule update合并成一步
+如果还要初始化、抓取并检出任何嵌套的子模块,请使用简明的git submodule update --init --recursive
+</code></pre>
+
+<h3 id="toc_2">在主项目更新子模块</h3>
+
+<pre><code class="language-shell">$ git submodule update --remote &lt;模块名&gt;
+
+$ git config -f .gitmodules submodule.&lt;模块名&gt;.branch &lt;分支名&gt; //设置模块默认的分支
+
+如果不用 -f .gitmodules 选项,那么它只会为你做修改
+</code></pre>
+
+<h3 id="toc_3">更新包含子模块的项目</h3>
+
+<pre><code class="language-shell">$ git submodule update --init --recursive //如果MainProject提交了你刚拉取的新子模块,应该在 git submodule update 后面添加--init选项,如果子模块有嵌套的子模块,则应使用--recursive选项
+
+如果你想自动化此过程,那么可以为 git pull 命令添加--recurse-submodules选项
+如果你想让Git总是以--recurse-submodules拉取,可以将配置选项submodule.recurse设置为true.此选项会让Git为所有支持--recurse-submodules的命令使用该选项(除clone以外)
+</code></pre>
+
+<h3 id="toc_4">子模块遍历</h3>
+
+<pre><code class="language-shell">有一个foreach子模块命令,它能在每一个子模块中运行任意命令
+
+$ git submodule foreach &#39;git stash&#39;
+</code></pre>
+
+<h3 id="toc_5">增加子模块别名</h3>
+
+<pre><code class="language-shell">$ git config alias.sdiff &#39;!&#39;&quot;git diff &amp;&amp; git submodule foreach &#39;git diff&#39;&quot;
+$ git config alias.spush &#39;push --recurse-submodules=on-demand&#39;
+$ git config alias.supdate &#39;submodule update --remote --merge&#39;
+</code></pre>
+
+<h3 id="toc_6">删除子模块</h3>
+
+<pre><code class="language-shell">$ git submodule deinit &lt;子模块&gt; //逆初始化模块
+$ git rm --cached &lt;子模块&gt; //删除.gitmodules中记录的模块信息(--cached选项清除.git/modules中的缓存)
+$ git commit -m &#39;comment&#39;
+</code></pre>
+
+<p><a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97#_cloning_submodules">git官方文档</a></p>
 
 ]]></content>
   </entry>
