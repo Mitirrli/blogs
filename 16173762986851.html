@@ -104,10 +104,34 @@
 		<p>
 		<h3 id="toc_0">使用docker搞一个mysql实例</h3>
 
-<pre><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
+<pre><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
+
+$ docker exec -it mysql-test bash
 </code></pre>
 
-<h3 id="toc_1">行锁</h3>
+<h3 id="toc_1">准备工作</h3>
+
+<h4 id="toc_2">进入数据库</h4>
+
+<pre><code class="language-shell">$ mysql -u root -p
+</code></pre>
+
+<h4 id="toc_3">创建一个数据库</h4>
+
+<pre><code class="language-sql">CREATE DATABASE lock_demo;
+</code></pre>
+
+<h4 id="toc_4">展示数据库</h4>
+
+<pre><code class="language-sql">show databases;
+</code></pre>
+
+<h4 id="toc_5">选择数据库</h4>
+
+<pre><code class="language-sql">use lock_demo;
+</code></pre>
+
+<h3 id="toc_6">行锁</h3>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -298,6 +322,15 @@
             
             <li>
             <a href="Git.html">Git&nbsp;(1)</a>
+            <p>
+            
+            </p>
+            </li>
+            
+             
+            
+            <li>
+            <a href="Mysql.html">Mysql&nbsp;(1)</a>
             <p>
             
             </p>
