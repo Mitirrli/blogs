@@ -98,7 +98,31 @@
 							<div class="item-desc"> 
 								<p>使用docker搞一个mysql实例
 
-$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
+$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
+
+$ docker exec -it mysql-test bash
+
+
+准备工作
+
+进入数据库
+
+$ mysql -u root -p
+
+
+创建一个数据库
+
+CREATE DATABASE lock_demo;
+
+
+展示数据库
+
+show databases;
+
+
+选择数据库
+
+use lock_demo;
 
 
 行锁
@@ -193,6 +217,15 @@ $ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
             
             <li>
             <a href="Git.html">Git&nbsp;(1)</a>
+            <p>
+            
+            </p>
+            </li>
+            
+             
+            
+            <li>
+            <a href="Mysql.html">Mysql&nbsp;(1)</a>
             <p>
             
             </p>
