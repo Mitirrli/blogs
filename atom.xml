@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-03T10:36:08+08:00</updated>
+  <updated>2021-04-03T13:41:11+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -84,13 +84,68 @@ INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 13, &#39;c add
 <pre><code class="language-sql">shell 1:
 STEP 1. set autocommit=0; //关闭自动提交
 STEP 2. UPDATE lock_demo SET address = &#39;q address&#39; WHERE id = 1;
-STEP 3. SELECT * FROM lock_demo; //这里修改的值已经改变了
+STEP 3. SELECT * FROM lock_demo; //这里值已经改变了
 STEP 5. COMMIT;
 
 
 shell 2:
 STEP 4. SELECT * FROM lock_demo; //这里值并没有修改
 STEP 6. SELECT * FROM lock_demo; //这里值已经修改
+</code></pre>
+
+<h2 id="toc_12">表锁</h2>
+
+<blockquote>
+<p>索引失效导致表锁</p>
+</blockquote>
+
+<h3 id="toc_13">开启两个shell进行测试</h3>
+
+<pre><code class="language-sql">shell1:
+STEP 1. UPDATE lock_demo SET age = 1 WHERE id = 1 OR id = 2;
+STEP 2. SELECT * FROM lock_demo; //这里值已经改变了
+STEP 5. SELECT * FROM lock_demo; //这里值并没有改变
+STEP 6. COMMIT; //提交后两者均变化了
+
+shell2:
+STEP 3. SELECT * FROM lock_demo; //这里值没有修改
+STEP 4. UPDATE lock_demo SET age = 0 WHERE id = 3;
+</code></pre>
+
+<h2 id="toc_14">间隙锁</h2>
+
+<blockquote>
+<p>间隙锁将整个范围都锁住了</p>
+</blockquote>
+
+<h3 id="toc_15">插入一些数据</h3>
+
+<pre><code class="language-sql">DELETE FROM lock_demo WHERE id &gt;= 1;
+
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 1, &#39;a address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 3, &#39;b address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 5, &#39;c address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;que&#39;, 7, &#39;d address&#39;);
+</code></pre>
+
+<h3 id="toc_16">开启两个shell进行测试</h3>
+
+<pre><code class="language-sql">shell1:
+STEP 1. UPDATE lock_demo SET name = &#39;c&#39; WHERE age &gt;= 1 and age &lt;= 7;
+
+shell2:
+STEP 2. INSERT INTO lock_demo (name, age, address) VALUES (&#39;d&#39;, 2, &#39;q address&#39;);
+</code></pre>
+
+<h2 id="toc_17">查看当前innodb锁的状态</h2>
+
+<pre><code class="language-sql">show status like &#39;innodb_row_lock%&#39;;
+
+Innodb_row_lock_current_waits 当前锁等待数
+Innodb_row_lock_time 总共锁的时间
+Innodb_row_lock_time_avg 平均锁的时间
+Innodb_row_lock_time_max 最大锁的时间
+Innodb_row_lock_waits 锁的次数
 </code></pre>
 
 ]]></content>
