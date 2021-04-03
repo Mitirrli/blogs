@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-03T09:38:17+08:00</updated>
+  <updated>2021-04-03T10:36:08+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -19,36 +19,79 @@
     <updated>2021-04-02T23:11:38+08:00</updated>
     <id>https://mitirrli.github.io/blogs/16173762986851.html</id>
     <content type="html"><![CDATA[
-<h3 id="toc_0">使用docker搞一个mysql实例</h3>
+<h2 id="toc_0">使用docker搞一个mysql实例</h2>
 
 <pre><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
 
 $ docker exec -it mysql-test bash
 </code></pre>
 
-<h3 id="toc_1">准备工作</h3>
+<h2 id="toc_1">准备工作</h2>
 
-<h4 id="toc_2">进入数据库</h4>
+<h3 id="toc_2">进入数据库</h3>
 
 <pre><code class="language-shell">$ mysql -u root -p
 </code></pre>
 
-<h4 id="toc_3">创建一个数据库</h4>
+<h3 id="toc_3">创建一个数据库</h3>
 
 <pre><code class="language-sql">CREATE DATABASE lock_demo;
 </code></pre>
 
-<h4 id="toc_4">展示数据库</h4>
+<h3 id="toc_4">展示数据库</h3>
 
 <pre><code class="language-sql">show databases;
 </code></pre>
 
-<h4 id="toc_5">选择数据库</h4>
+<h3 id="toc_5">选择数据库</h3>
 
 <pre><code class="language-sql">use lock_demo;
 </code></pre>
 
-<h3 id="toc_6">行锁</h3>
+<h2 id="toc_6">行锁</h2>
+
+<h3 id="toc_7">创建一个demo表</h3>
+
+<pre><code class="language-sql">DROP TABLE lock_demo;
+CREATE TABLE lock_demo (
+    id INT(10) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(10) NOT NULL DEFAULT &#39;&#39;,
+    age TINYINT(3) NOT NULL DEFAULT 0,
+    address VARCHAR(25) NOT NULL DEFAULT &#39;&#39;,
+    primary key(id)
+) engine=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+</code></pre>
+
+<h3 id="toc_8">查看表结构</h3>
+
+<pre><code class="language-sql">show create table lock_demo;
+</code></pre>
+
+<h3 id="toc_9">插入一些数据</h3>
+
+<pre><code class="language-sql">INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 10, &#39;a address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 12, &#39;b address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 13, &#39;c address&#39;);
+</code></pre>
+
+<h3 id="toc_10">查看数据</h3>
+
+<pre><code class="language-sql">SELECT * FROM lock_demo;
+</code></pre>
+
+<h3 id="toc_11">开启两个shell进行测试</h3>
+
+<pre><code class="language-sql">shell 1:
+STEP 1. set autocommit=0; //关闭自动提交
+STEP 2. UPDATE lock_demo SET address = &#39;q address&#39; WHERE id = 1;
+STEP 3. SELECT * FROM lock_demo; //这里修改的值已经改变了
+STEP 5. COMMIT;
+
+
+shell 2:
+STEP 4. SELECT * FROM lock_demo; //这里值并没有修改
+STEP 6. SELECT * FROM lock_demo; //这里值已经修改
+</code></pre>
 
 ]]></content>
   </entry>
