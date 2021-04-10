@@ -10,7 +10,7 @@
 
     <title>
       
-    Git - Mitirrli
+    Kibana - Mitirrli
     
     </title>
 
@@ -94,22 +94,34 @@
                          	<div class="item-thumb bg-deepgrey" style="background-image:url();">
 						
 						</div> 
-						<a href="16173755899187.html"> 
+						<a href="16180194244918.html"> 
 							<div class="item-desc"> 
-								<p>
-子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立
+								<p>ES 管道
+
+导入数据通过管道对ip进行处理
+
+ES 7版本之后, 自带GEOIP, 无需安装, 解析ip
+
+创建管道
+
+PUT _ingest/pipeline/geoip_pipeline
+{
+  &quot;description&quot; : &quot;geo_pipeline&quot;,
+  &quot;processors&quot; : [
+    {
+      &quot;geoip&quot; : {
+        &quot;field&quot; : &quot;ip&quot;
+      }
+    }
+  ]
+}
 
 
-添加子模块
+查看数据
 
-你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对URL来添加新的子模块
+字段有增加
 
-$ git submodule add ... //默认情况下,子模块会将子项目放到一个与仓库同名的目录中,如果你想要放到其他地方,那么可以在命令结尾添加一个不同的路径
-
-
-此时.gitmodules文件保存了项目 URL 与已经拉取的本地目录之间的映射。
-
-修改子模块url: git config submodule.&lt;模块名</p> 
+增加了con</p> 
 							</div> 
 						</a> 
 <!-- 自定义Post颜色 -->
@@ -120,7 +132,7 @@ $ git submodule add ... //默认情况下,子模块会将子项目放到一个�
 						<div class="item-slant"></div>
 		 				<div class="item-label">
 	  						<div class="item-title">
-	  							<a href="16173755899187.html">子模块</a>
+	  							<a href="16180194244918.html">Kibana制作用户访问热力地图</a>
 	  						</div>
 		   					<div class="item-meta clearfix"> 
 <!-- 自定义Icon -->
@@ -131,7 +143,7 @@ $ git submodule add ... //默认情况下,子模块会将子项目放到一个�
 
 		   						<div class="item-meta-cat">
 	  							
-			    			<a class='category' href='Git.html'>Git</a>
+			    			<a class='category' href='Kibana.html'>Kibana</a>
 								
 		   						</div> 
 		   					</div> 
