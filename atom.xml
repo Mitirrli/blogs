@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-10T12:07:41+08:00</updated>
+  <updated>2021-04-10T19:00:34+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -707,11 +707,7 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
     <content type="html"><![CDATA[
 <h2 id="toc_0">ES 管道</h2>
 
-<h3 id="toc_1">导入数据通过管道对ip进行处理</h3>
-
-<p>ES 7版本之后, 自带GEOIP, 无需安装, 解析ip</p>
-
-<h3 id="toc_2">创建管道</h3>
+<h3 id="toc_1">创建管道</h3>
 
 <pre><code class="language-text">PUT _ingest/pipeline/geoip_pipeline
 {
@@ -726,24 +722,21 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 }
 </code></pre>
 
-<h2 id="toc_3">查看数据</h2>
+<h2 id="toc_2">查看数据</h2>
 
-<h3 id="toc_4">字段有增加</h3>
+<h3 id="toc_3">字段有增加</h3>
 
 <pre><code class="language-text">增加了continent_name, country_iso_code, country_name, region_iso_code, region_name, city_name, location
 </code></pre>
 
-<h2 id="toc_5">kibana中开始绘图</h2>
+<h2 id="toc_4">kibana中开始绘图</h2>
 
-<h3 id="toc_6">配置</h3>
+<h3 id="toc_5">配置</h3>
 
 <pre><code class="language-text">选择矢量形状 =&gt; 中国省份
 设置词连接 =&gt; 左源 (ISO 3166-2代码)
 右源 (选择索引) =&gt; geoip.region_iso_code.keyword
-选择用户id 唯一计数
 </code></pre>
-
-<h3 id="toc_7">保存</h3>
 
 <p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/geoip-processor.html">ES手册1</a><br/>
 <a href="https://www.elastic.co/guide/en/ecs/current/ecs-geo.html">ES手册2</a></p>
