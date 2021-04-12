@@ -106,11 +106,7 @@
 
 <h4 id="toc_1">在项目根目录创建一个packagist包，用来放置组件包，加入到.gitignore文件中。通过path的方式，让composer将test组件作为依赖加载到project中</h4>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">.
-=======
-<pre><code class="language-text">.
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 ├── packagist
 │   └── test
 │       └── src
@@ -123,11 +119,7 @@
 
 <h4 id="toc_2">创建新的组件</h4>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ cd packagist
-=======
-<pre><code class="language-shell">$ cd packagist
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ mkdir -p test/src &amp;&amp; cd test
 
@@ -140,11 +132,7 @@ $ vim composer.json
 
 <h4 id="toc_3">修改composer内容</h4>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">{
-=======
-<pre><code class="language-text">{
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     &quot;name&quot;: &quot;qjdata/test&quot;,
     &quot;authors&quot;: [
         {
@@ -163,20 +151,12 @@ $ vim composer.json
 
 <h4 id="toc_4">增加测试类</h4>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ cd src
-=======
-<pre><code class="language-shell">$ cd src
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ vim Test.php
 </code></pre>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
-=======
-<pre><code class="language-php">&lt;?php
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 namespace Qwertyuiop;
 
@@ -191,11 +171,7 @@ class Test
 
 <h4 id="toc_5">在项目中使用未发布的组件包</h4>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">&quot;repositories&quot;: {
-=======
-<pre><code class="language-text">&quot;repositories&quot;: {
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     &quot;qjdata/test&quot;: {
         &quot;type&quot;: &quot;path&quot;,
         &quot;url&quot;: &quot;./packagist/test&quot;
@@ -203,20 +179,12 @@ class Test
 }
 </code></pre>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ composer require qjdata/test dev-master   //现在就实现了在子项目更改代码,主项目代码也动态改变的目的
-=======
-<pre><code class="language-shell">$ composer require qjdata/test dev-master   //现在就实现了在子项目更改代码,主项目代码也动态改变的目的
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ cd /var/www/html/yaoxiebang-php-skeleton/vendor/ &amp;&amp; ls -l qjdata    //test -&gt; ../../packagist/test
 </code></pre>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
-=======
-<pre><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h2 id="toc_6">上传组件至私有gitlab</h2>
@@ -225,11 +193,7 @@ $ cd /var/www/html/yaoxiebang-php-skeleton/vendor/ &amp;&amp; ls -l qjdata    //
 
 <h3 id="toc_8">接下来我们把上篇packagist下的test目录传到gitlab中</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ cd /var/www/html/yaoxiebang-php-skeleton/packagist/test
-=======
-<pre><code class="language-shell">$ cd /var/www/html/yaoxiebang-php-skeleton/packagist/test
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ git init
 
@@ -242,11 +206,7 @@ $ git add . &amp;&amp; git commit -m &quot;Initial commit&quot; &amp;&amp; git p
 
 <h4 id="toc_10">使用ssh地址，需要将克隆仓库用户的id_rsa.pub文件添加到Gitlab</h4>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">&quot;repositories&quot;: {
-=======
-<pre><code class="language-text">&quot;repositories&quot;: {
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     &quot;qjdata/test&quot;: {
         &quot;type&quot;: &quot;vcs&quot;,
         &quot;url&quot;: &quot;&lt;url&gt;&quot;
@@ -254,17 +214,10 @@ $ git add . &amp;&amp; git commit -m &quot;Initial commit&quot; &amp;&amp; git p
 }
 </code></pre>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ composer require qjdata/test dev-master
 </code></pre>
 
 <pre class="line-numbers"><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
-=======
-<pre><code class="language-shell">$ composer require qjdata/test dev-master
-</code></pre>
-
-<pre><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 		</p>
@@ -470,11 +423,7 @@ $ git add . &amp;&amp; git commit -m &quot;Initial commit&quot; &amp;&amp; git p
              
             
             <li>
-<<<<<<< HEAD
             <a href="Mysql.html">Mysql&nbsp;(2)</a>
-=======
-            <a href="Mysql.html">Mysql&nbsp;(1)</a>
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
             <p>
             
             </p>
@@ -494,15 +443,12 @@ $ git add . &amp;&amp; git commit -m &quot;Initial commit&quot; &amp;&amp; git p
           
           
          <li>
-<<<<<<< HEAD
-           <a href="16182714235900.html">[Mycli](https://www.mycli.net/)</a><br>
+           <a href="16182714235900.html">Mycli</a><br>
          </li>
           
           
           
          <li>
-=======
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
            <a href="16173762986851.html">Mysql的几种锁</a><br>
          </li>
           
@@ -526,13 +472,6 @@ $ git add . &amp;&amp; git commit -m &quot;Initial commit&quot; &amp;&amp; git p
           
           
           
-<<<<<<< HEAD
-=======
-         <li>
-           <a href="16169964390881.html">Gitlab版本升级</a><br>
-         </li>
-          
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
           
           
           

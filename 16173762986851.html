@@ -104,11 +104,7 @@
 		<p>
 		<h2 id="toc_0">使用docker搞一个mysql实例</h2>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
-=======
-<pre><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ docker exec -it mysql-test bash
 </code></pre>
@@ -117,49 +113,29 @@ $ docker exec -it mysql-test bash
 
 <h3 id="toc_2">进入数据库</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ mysql -u root -p
-=======
-<pre><code class="language-shell">$ mysql -u root -p
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_3">创建一个数据库</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">CREATE DATABASE lock_demo;
-=======
-<pre><code class="language-sql">CREATE DATABASE lock_demo;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_4">展示数据库</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">show databases;
-=======
-<pre><code class="language-sql">show databases;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_5">选择数据库</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">use lock_demo;
-=======
-<pre><code class="language-sql">use lock_demo;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h2 id="toc_6">行锁</h2>
 
 <h3 id="toc_7">创建一个demo表</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">DROP TABLE lock_demo;
-=======
-<pre><code class="language-sql">DROP TABLE lock_demo;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 CREATE TABLE lock_demo (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(10) NOT NULL DEFAULT &#39;&#39;,
@@ -171,40 +147,24 @@ CREATE TABLE lock_demo (
 
 <h3 id="toc_8">查看表结构</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">show create table lock_demo;
-=======
-<pre><code class="language-sql">show create table lock_demo;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_9">插入一些数据</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 10, &#39;a address&#39;);
-=======
-<pre><code class="language-sql">INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 10, &#39;a address&#39;);
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 12, &#39;b address&#39;);
 INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 13, &#39;c address&#39;);
 </code></pre>
 
 <h3 id="toc_10">查看数据</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">SELECT * FROM lock_demo;
-=======
-<pre><code class="language-sql">SELECT * FROM lock_demo;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_11">开启两个shell进行测试</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">shell 1:
-=======
-<pre><code class="language-sql">shell 1:
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 STEP 1. set autocommit=0; //关闭自动提交
 STEP 2. UPDATE lock_demo SET address = &#39;q address&#39; WHERE id = 1;
 STEP 3. SELECT * FROM lock_demo; //这里值已经改变了
@@ -224,11 +184,7 @@ STEP 6. SELECT * FROM lock_demo; //这里值已经修改
 
 <h3 id="toc_13">开启两个shell进行测试</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">shell1:
-=======
-<pre><code class="language-sql">shell1:
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 STEP 1. UPDATE lock_demo SET age = 1 WHERE id = 1 OR id = 2;
 STEP 2. SELECT * FROM lock_demo; //这里值已经改变了
 STEP 5. SELECT * FROM lock_demo; //这里值并没有改变
@@ -247,11 +203,7 @@ STEP 4. UPDATE lock_demo SET age = 0 WHERE id = 3;
 
 <h3 id="toc_15">插入一些数据</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">DELETE FROM lock_demo WHERE id &gt;= 1;
-=======
-<pre><code class="language-sql">DELETE FROM lock_demo WHERE id &gt;= 1;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 1, &#39;a address&#39;);
 INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 3, &#39;b address&#39;);
@@ -261,11 +213,7 @@ INSERT INTO lock_demo (name, age, address) VALUES (&#39;que&#39;, 7, &#39;d addr
 
 <h3 id="toc_16">开启两个shell进行测试</h3>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">shell1:
-=======
-<pre><code class="language-sql">shell1:
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 STEP 1. UPDATE lock_demo SET name = &#39;c&#39; WHERE age &gt;= 1 and age &lt;= 7;
 
 shell2:
@@ -274,11 +222,7 @@ STEP 2. INSERT INTO lock_demo (name, age, address) VALUES (&#39;d&#39;, 2, &#39;
 
 <h2 id="toc_17">查看当前innodb锁的状态</h2>
 
-<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">show status like &#39;innodb_row_lock%&#39;;
-=======
-<pre><code class="language-sql">show status like &#39;innodb_row_lock%&#39;;
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 Innodb_row_lock_current_waits 当前锁等待数
 Innodb_row_lock_time 总共锁的时间
@@ -393,15 +337,12 @@ Innodb_row_lock_waits 锁的次数
 				<footer class="post-footer clearfix">	    			
 				    <div class="meta">
 					    
-<<<<<<< HEAD
 					    <P style="float: left;">
 					    	<a href="16182714235900.html" 
-					        title="Previous Post: [Mycli](https://www.mycli.net/)">&laquo; [Mycli](https://www.mycli.net/)</a>
+					        title="Previous Post: Mycli">&laquo; Mycli</a>
 					    </p>
 					    <p style="float:right; ">
 					    	
-=======
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 					    	
 					        <a href="16170664988742.html" 
 					        title="Next Post: PHP-FPM 是啥">PHP-FPM 是啥 &raquo;</a>
@@ -493,11 +434,7 @@ Innodb_row_lock_waits 锁的次数
              
             
             <li>
-<<<<<<< HEAD
             <a href="Mysql.html">Mysql&nbsp;(2)</a>
-=======
-            <a href="Mysql.html">Mysql&nbsp;(1)</a>
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
             <p>
             
             </p>
@@ -517,15 +454,12 @@ Innodb_row_lock_waits 锁的次数
           
           
          <li>
-<<<<<<< HEAD
-           <a href="16182714235900.html">[Mycli](https://www.mycli.net/)</a><br>
+           <a href="16182714235900.html">Mycli</a><br>
          </li>
           
           
           
          <li>
-=======
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
            <a href="16173762986851.html">Mysql的几种锁</a><br>
          </li>
           
@@ -549,13 +483,6 @@ Innodb_row_lock_waits 锁的次数
           
           
           
-<<<<<<< HEAD
-=======
-         <li>
-           <a href="16169964390881.html">Gitlab版本升级</a><br>
-         </li>
-          
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
           
           
           
