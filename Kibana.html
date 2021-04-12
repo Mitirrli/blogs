@@ -10,7 +10,7 @@
 
     <title>
       
-    Gitlab - Mitirrli
+    Kibana - Mitirrli
     
     </title>
 
@@ -94,22 +94,30 @@
                          	<div class="item-thumb bg-deepgrey" style="background-image:url();">
 						
 						</div> 
-						<a href="16169964390881.html"> 
+						<a href="16180194244918.html"> 
 							<div class="item-desc"> 
-								<p>
-公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程
+								<p>ES 管道
+
+创建管道
+
+PUT _ingest/pipeline/geoip_pipeline
+{
+  &quot;description&quot; : &quot;geo_pipeline&quot;,
+  &quot;processors&quot; : [
+    {
+      &quot;geoip&quot; : {
+        &quot;field&quot; : &quot;ip&quot;
+      }
+    }
+  ]
+}
 
 
-备份Gitlab
+查看数据
 
-gitlab-rake gitlab:backup:create
+字段有增加
 
-
-执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包
-
-Gitlab升级
-
-升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&</p> 
+增加了continent_name, country_iso_code, country_name, reg</p> 
 							</div> 
 						</a> 
 <!-- 自定义Post颜色 -->
@@ -120,7 +128,7 @@ Gitlab升级
 						<div class="item-slant"></div>
 		 				<div class="item-label">
 	  						<div class="item-title">
-	  							<a href="16169964390881.html">Gitlab版本升级</a>
+	  							<a href="16180194244918.html">Kibana制作用户访问热力地图</a>
 	  						</div>
 		   					<div class="item-meta clearfix"> 
 <!-- 自定义Icon -->
@@ -131,7 +139,7 @@ Gitlab升级
 
 		   						<div class="item-meta-cat">
 	  							
-			    			<a class='category' href='Gitlab.html'>Gitlab</a>
+			    			<a class='category' href='Kibana.html'>Kibana</a>
 								
 		   						</div> 
 		   					</div> 

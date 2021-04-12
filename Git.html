@@ -10,7 +10,7 @@
 
     <title>
       
-    Gitlab - Mitirrli
+    Git - Mitirrli
     
     </title>
 
@@ -94,22 +94,22 @@
                          	<div class="item-thumb bg-deepgrey" style="background-image:url();">
 						
 						</div> 
-						<a href="16169964390881.html"> 
+						<a href="16173755899187.html"> 
 							<div class="item-desc"> 
 								<p>
-公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程
+子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立
 
 
-备份Gitlab
+添加子模块
 
-gitlab-rake gitlab:backup:create
+你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对URL来添加新的子模块
+
+$ git submodule add ... //默认情况下,子模块会将子项目放到一个与仓库同名的目录中,如果你想要放到其他地方,那么可以在命令结尾添加一个不同的路径
 
 
-执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包
+此时.gitmodules文件保存了项目 URL 与已经拉取的本地目录之间的映射。
 
-Gitlab升级
-
-升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&</p> 
+修改子模块url: git config submodule.&lt;模块名</p> 
 							</div> 
 						</a> 
 <!-- 自定义Post颜色 -->
@@ -120,7 +120,7 @@ Gitlab升级
 						<div class="item-slant"></div>
 		 				<div class="item-label">
 	  						<div class="item-title">
-	  							<a href="16169964390881.html">Gitlab版本升级</a>
+	  							<a href="16173755899187.html">子模块</a>
 	  						</div>
 		   					<div class="item-meta clearfix"> 
 <!-- 自定义Icon -->
@@ -131,7 +131,7 @@ Gitlab升级
 
 		   						<div class="item-meta-cat">
 	  							
-			    			<a class='category' href='Gitlab.html'>Gitlab</a>
+			    			<a class='category' href='Git.html'>Git</a>
 								
 		   						</div> 
 		   					</div> 
