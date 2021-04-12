@@ -108,26 +108,42 @@
 
 <h3 id="toc_0">添加子模块</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对URL来添加新的子模块
+=======
+<pre><code class="language-shell">你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对URL来添加新的子模块
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ git submodule add ... //默认情况下,子模块会将子项目放到一个与仓库同名的目录中,如果你想要放到其他地方,那么可以在命令结尾添加一个不同的路径
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">此时.gitmodules文件保存了项目 URL 与已经拉取的本地目录之间的映射。
+=======
+<pre><code class="language-text">此时.gitmodules文件保存了项目 URL 与已经拉取的本地目录之间的映射。
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 修改子模块url: git config submodule.&lt;模块名&gt;.url &lt;私有URL&gt; 来覆盖这个选项的值
 </code></pre>
 
 <h3 id="toc_1">克隆含有子模块的项目</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ git clone &lt;url&gt;
+=======
+<pre><code class="language-shell">$ git clone &lt;url&gt;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ git submodule init //初始化本地配置文件
 
 $ git submodule update //从该项目中抓取所有数据并检出父项目中列出的合适的提交
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ git clone --recurse-submodules &lt;url&gt; //传递--recurse-submodules选项,它就会自动初始化并更新仓库中的每一个子模块,包括可能存在的嵌套子模块
+=======
+<pre><code class="language-shell">$ git clone --recurse-submodules &lt;url&gt; //传递--recurse-submodules选项,它就会自动初始化并更新仓库中的每一个子模块,包括可能存在的嵌套子模块
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 如果你已经克隆了项目但忘记了--recurse-submodule,那么可以运行git submodule update --init将git submodule init和git submodule update合并成一步
 如果还要初始化、抓取并检出任何嵌套的子模块,请使用简明的git submodule update --init --recursive
@@ -135,7 +151,11 @@ $ git submodule update //从该项目中抓取所有数据并检出父项目中�
 
 <h3 id="toc_2">在主项目更新子模块</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ git submodule update --remote &lt;模块名&gt;
+=======
+<pre><code class="language-shell">$ git submodule update --remote &lt;模块名&gt;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ git config -f .gitmodules submodule.&lt;模块名&gt;.branch &lt;分支名&gt; //设置模块默认的分支
 
@@ -144,7 +164,11 @@ $ git config -f .gitmodules submodule.&lt;模块名&gt;.branch &lt;分支名&gt;
 
 <h3 id="toc_3">更新包含子模块的项目</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ git submodule update --init --recursive //如果MainProject提交了你刚拉取的新子模块,应该在 git submodule update 后面添加--init选项,如果子模块有嵌套的子模块,则应使用--recursive选项
+=======
+<pre><code class="language-shell">$ git submodule update --init --recursive //如果MainProject提交了你刚拉取的新子模块,应该在 git submodule update 后面添加--init选项,如果子模块有嵌套的子模块,则应使用--recursive选项
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 如果你想自动化此过程,那么可以为 git pull 命令添加--recurse-submodules选项
 如果你想让Git总是以--recurse-submodules拉取,可以将配置选项submodule.recurse设置为true.此选项会让Git为所有支持--recurse-submodules的命令使用该选项(除clone以外)
@@ -152,21 +176,33 @@ $ git config -f .gitmodules submodule.&lt;模块名&gt;.branch &lt;分支名&gt;
 
 <h3 id="toc_4">子模块遍历</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">有一个foreach子模块命令,它能在每一个子模块中运行任意命令
+=======
+<pre><code class="language-shell">有一个foreach子模块命令,它能在每一个子模块中运行任意命令
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ git submodule foreach &#39;git stash&#39;
 </code></pre>
 
 <h3 id="toc_5">增加子模块别名</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ git config alias.sdiff &#39;!&#39;&quot;git diff &amp;&amp; git submodule foreach &#39;git diff&#39;&quot;
+=======
+<pre><code class="language-shell">$ git config alias.sdiff &#39;!&#39;&quot;git diff &amp;&amp; git submodule foreach &#39;git diff&#39;&quot;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 $ git config alias.spush &#39;push --recurse-submodules=on-demand&#39;
 $ git config alias.supdate &#39;submodule update --remote --merge&#39;
 </code></pre>
 
 <h3 id="toc_6">删除子模块</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ git submodule deinit &lt;子模块&gt; //逆初始化模块
+=======
+<pre><code class="language-shell">$ git submodule deinit &lt;子模块&gt; //逆初始化模块
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 $ git rm --cached &lt;子模块&gt; //删除.gitmodules中记录的模块信息(--cached选项清除.git/modules中的缓存)
 $ git commit -m &#39;comment&#39;
 </code></pre>
@@ -372,7 +408,11 @@ $ git commit -m &#39;comment&#39;
              
             
             <li>
+<<<<<<< HEAD
             <a href="Mysql.html">Mysql&nbsp;(2)</a>
+=======
+            <a href="Mysql.html">Mysql&nbsp;(1)</a>
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
             <p>
             
             </p>
@@ -392,12 +432,15 @@ $ git commit -m &#39;comment&#39;
           
           
          <li>
+<<<<<<< HEAD
            <a href="16182714235900.html">[Mycli](https://www.mycli.net/)</a><br>
          </li>
           
           
           
          <li>
+=======
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
            <a href="16173762986851.html">Mysql的几种锁</a><br>
          </li>
           
@@ -421,6 +464,13 @@ $ git commit -m &#39;comment&#39;
           
           
           
+<<<<<<< HEAD
+=======
+         <li>
+           <a href="16169964390881.html">Gitlab版本升级</a><br>
+         </li>
+          
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
           
           
           

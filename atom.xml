@@ -4,7 +4,11 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
+<<<<<<< HEAD
   <updated>2021-04-11T09:10:23+08:00</updated>
+=======
+  <updated>2021-04-10T19:00:34+08:00</updated>
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -14,6 +18,7 @@
 
   
   <entry>
+<<<<<<< HEAD
     <title type="html"><![CDATA[[Mycli](https://www.mycli.net/)]]></title>
     <link href="https://mitirrli.github.io/blogs/16182714235900.html"/>
     <updated>2021-04-13T07:50:23+08:00</updated>
@@ -98,6 +103,8 @@ Options:
   </entry>
   
   <entry>
+=======
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     <title type="html"><![CDATA[Mysql的几种锁]]></title>
     <link href="https://mitirrli.github.io/blogs/16173762986851.html"/>
     <updated>2021-04-02T23:11:38+08:00</updated>
@@ -105,7 +112,11 @@ Options:
     <content type="html"><![CDATA[
 <h2 id="toc_0">使用docker搞一个mysql实例</h2>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
+=======
+<pre><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 $ docker exec -it mysql-test bash
 </code></pre>
@@ -114,29 +125,49 @@ $ docker exec -it mysql-test bash
 
 <h3 id="toc_2">进入数据库</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-shell">$ mysql -u root -p
+=======
+<pre><code class="language-shell">$ mysql -u root -p
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_3">创建一个数据库</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">CREATE DATABASE lock_demo;
+=======
+<pre><code class="language-sql">CREATE DATABASE lock_demo;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_4">展示数据库</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">show databases;
+=======
+<pre><code class="language-sql">show databases;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_5">选择数据库</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">use lock_demo;
+=======
+<pre><code class="language-sql">use lock_demo;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h2 id="toc_6">行锁</h2>
 
 <h3 id="toc_7">创建一个demo表</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">DROP TABLE lock_demo;
+=======
+<pre><code class="language-sql">DROP TABLE lock_demo;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 CREATE TABLE lock_demo (
     id INT(10) NOT NULL AUTO_INCREMENT,
     name VARCHAR(10) NOT NULL DEFAULT &#39;&#39;,
@@ -148,24 +179,40 @@ CREATE TABLE lock_demo (
 
 <h3 id="toc_8">查看表结构</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">show create table lock_demo;
+=======
+<pre><code class="language-sql">show create table lock_demo;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_9">插入一些数据</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 10, &#39;a address&#39;);
+=======
+<pre><code class="language-sql">INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 10, &#39;a address&#39;);
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 12, &#39;b address&#39;);
 INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 13, &#39;c address&#39;);
 </code></pre>
 
 <h3 id="toc_10">查看数据</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">SELECT * FROM lock_demo;
+=======
+<pre><code class="language-sql">SELECT * FROM lock_demo;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h3 id="toc_11">开启两个shell进行测试</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">shell 1:
+=======
+<pre><code class="language-sql">shell 1:
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 STEP 1. set autocommit=0; //关闭自动提交
 STEP 2. UPDATE lock_demo SET address = &#39;q address&#39; WHERE id = 1;
 STEP 3. SELECT * FROM lock_demo; //这里值已经改变了
@@ -185,7 +232,11 @@ STEP 6. SELECT * FROM lock_demo; //这里值已经修改
 
 <h3 id="toc_13">开启两个shell进行测试</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">shell1:
+=======
+<pre><code class="language-sql">shell1:
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 STEP 1. UPDATE lock_demo SET age = 1 WHERE id = 1 OR id = 2;
 STEP 2. SELECT * FROM lock_demo; //这里值已经改变了
 STEP 5. SELECT * FROM lock_demo; //这里值并没有改变
@@ -204,7 +255,11 @@ STEP 4. UPDATE lock_demo SET age = 0 WHERE id = 3;
 
 <h3 id="toc_15">插入一些数据</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">DELETE FROM lock_demo WHERE id &gt;= 1;
+=======
+<pre><code class="language-sql">DELETE FROM lock_demo WHERE id &gt;= 1;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 1, &#39;a address&#39;);
 INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 3, &#39;b address&#39;);
@@ -214,7 +269,11 @@ INSERT INTO lock_demo (name, age, address) VALUES (&#39;que&#39;, 7, &#39;d addr
 
 <h3 id="toc_16">开启两个shell进行测试</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">shell1:
+=======
+<pre><code class="language-sql">shell1:
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 STEP 1. UPDATE lock_demo SET name = &#39;c&#39; WHERE age &gt;= 1 and age &lt;= 7;
 
 shell2:
@@ -223,7 +282,11 @@ STEP 2. INSERT INTO lock_demo (name, age, address) VALUES (&#39;d&#39;, 2, &#39;
 
 <h2 id="toc_17">查看当前innodb锁的状态</h2>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-sql">show status like &#39;innodb_row_lock%&#39;;
+=======
+<pre><code class="language-sql">show status like &#39;innodb_row_lock%&#39;;
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 Innodb_row_lock_current_waits 当前锁等待数
 Innodb_row_lock_time 总共锁的时间
@@ -249,7 +312,7 @@ Innodb_row_lock_waits 锁的次数
 
 <h3 id="toc_1">CGI 和 FastCGI</h3>
 
-<pre class="line-numbers"><code class="language-text">1. CGI(common gateway interface 公共网关接口)
+<pre><code class="language-text">1. CGI(common gateway interface 公共网关接口)
 对于动态的请求，需要用到cgi协议，将请求数据转换成php能理解的信息，然后php根据这些信息返回的信息也要通过cgi协议转换成nginx可以理解的信息，最后nginx接到这些信息再返回给浏览器
 
 2. FastCGI
@@ -262,7 +325,7 @@ Innodb_row_lock_waits 锁的次数
 <p>php-cgi 是 php 提供给 web serve 的 cgi 协议接口程序</p>
 </blockquote>
 
-<pre class="line-numbers"><code class="language-text">当每次接到http前端服务器的请求都会开启一个php-cgi进程进行处理
+<pre><code class="language-text">当每次接到http前端服务器的请求都会开启一个php-cgi进程进行处理
 
 而且开启的php-cgi的过程中会先要重载配置，数据结构以及初始化运行环境，如果更新了php配置，那么就需要重启php-cgi才能生效
 
@@ -275,7 +338,7 @@ Innodb_row_lock_waits 锁的次数
 <p>php-fpm 是 php 提供给 web serve 的 fastcgi 协议接口程序</p>
 </blockquote>
 
-<pre class="line-numbers"><code class="language-text">PHP-FPM 允许一个进程对多个连接进行处理，而不会立即关闭这个进程，而是会接着处理下一个连接,它可以说是php-cgi的一个管理程序，是对php-cgi的改进
+<pre><code class="language-text">PHP-FPM 允许一个进程对多个连接进行处理，而不会立即关闭这个进程，而是会接着处理下一个连接,它可以说是php-cgi的一个管理程序，是对php-cgi的改进
 
 php-fpm会开启多个php-cgi程序，并且php-fpm常驻内存
 
@@ -288,7 +351,7 @@ php-fpm将新的连接发送给新的子程序php-cgi，这个时候加载的是
 
 <h3 id="toc_4">FastCGI 的工作流程</h3>
 
-<pre class="line-numbers"><code class="language-text">Web Server启动时载入FastCGI进程管理器
+<pre><code class="language-text">Web Server启动时载入FastCGI进程管理器
 FastCGI进程管理器自身初始化，启动多个CGI解释器进程(可见多个php-cgi)并等待来自Web Server的连接
 当客户端请求到达Web Server时，FastCGI进程管理器选择并连接到一个CGI解释器。 Web server将CGI环境变量和标准输入发送到FastCGI子进程php-cgi
 FastCGI 子进程完成处理后将标准输出和错误信息从同一连接返回Web Server。当FastCGI子进程关闭连接时，请求便告处理完成。FastCGI子进程接着等待并处理来自FastCGI进程管理器(运行在Web Server中)的下一个连接。在CGI模式中，php-cgi在此便退出了
@@ -298,7 +361,7 @@ FastCGI 子进程完成处理后将标准输出和错误信息从同一连接返
 
 <h3 id="toc_5">编译安装 php 搭建一个 ubuntu 的 docker 环境</h3>
 
-<pre class="line-numbers"><code class="language-shell">$ docker pull ubuntu:latest
+<pre><code class="language-shell">$ docker pull ubuntu:latest
 
 $ docker run --name ubuntu --cap-add=SYS_PTRACE -p 6767:80 -d ubuntu /bin/bash -c &quot;while true; do echo 1; sleep 1; done&quot;
 
@@ -325,17 +388,17 @@ $ make install //安装(make install后可以执行$prefix/bin/php,此时在/tmp
 
 <h3 id="toc_6">重命名配置文件</h3>
 
-<pre class="line-numbers"><code class="language-shell">$ mv /tmp/php-8.0.0beta3/output/etc/php-fpm.conf.default /tmp/php-8.0.0beta3/output/etc/php-fpm.conf &amp;&amp; mv /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf.default /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf
+<pre><code class="language-shell">$ mv /tmp/php-8.0.0beta3/output/etc/php-fpm.conf.default /tmp/php-8.0.0beta3/output/etc/php-fpm.conf &amp;&amp; mv /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf.default /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf
 </code></pre>
 
 <h3 id="toc_7">安装 nginx</h3>
 
-<pre class="line-numbers"><code class="language-shell">$ apt install -y nginx
+<pre><code class="language-shell">$ apt install -y nginx
 </code></pre>
 
 <h3 id="toc_8">使用 unix 套接字通讯</h3>
 
-<pre class="line-numbers"><code class="language-shell">$ mkdir -p /var/run/php-fpm
+<pre><code class="language-shell">$ mkdir -p /var/run/php-fpm
 
 $ vim /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf
 // 修改 listen = /var/run/php-fpm/php8-fpm.sock
@@ -354,20 +417,20 @@ $ ps -ef | grep php-fpm //这样已经可以看到对应的php-fpm进程了
 
 <h3 id="toc_9">创建一个 php 文件</h3>
 
-<pre class="line-numbers"><code class="language-shell">$ vim /opt/index.php
+<pre><code class="language-shell">$ vim /opt/index.php
 </code></pre>
 
-<pre class="line-numbers"><code class="language-php">&lt;?php
+<pre><code class="language-php">&lt;?php
 
     echo phpinfo();
 </code></pre>
 
 <h3 id="toc_10">nginx 创建一个配置文件</h3>
 
-<pre class="line-numbers"><code class="language-shell">$ vim /etc/nginx/conf.d/demo.conf //创建一个配置文件
+<pre><code class="language-shell">$ vim /etc/nginx/conf.d/demo.conf //创建一个配置文件
 </code></pre>
 
-<pre class="line-numbers"><code class="language-nginx">server {
+<pre><code class="language-nginx">server {
   listen 80;
   server_name 127.0.0.1;
   root /opt;
@@ -391,21 +454,21 @@ $ ps -ef | grep php-fpm //这样已经可以看到对应的php-fpm进程了
 }
 </code></pre>
 
-<pre class="line-numbers"><code class="language-shell">$ systemctl stop nginx
+<pre><code class="language-shell">$ systemctl stop nginx
 
 $ nginx -c /etc/nginx/nginx.conf
 
 $ nginx -s reload //reload会重新加载配置文件
 </code></pre>
 
-<pre class="line-numbers"><code class="language-shell">$ curl 127.0.0.1 //在容器中执行本命令可以看到成功结果,容器外访问http://127.0.0.1:6767/可以查看对应详情
+<pre><code class="language-shell">$ curl 127.0.0.1 //在容器中执行本命令可以看到成功结果,容器外访问http://127.0.0.1:6767/可以查看对应详情
 </code></pre>
 
 <h2 id="toc_11">PHP FPM配置</h2>
 
 <h3 id="toc_12">慢日志</h3>
 
-<pre class="line-numbers"><code class="language-shell">$ cd /tmp/php-8.0.0beta3/output &amp;&amp; mkdir log &amp;&amp; chown -R www-data:www-data log
+<pre><code class="language-shell">$ cd /tmp/php-8.0.0beta3/output &amp;&amp; mkdir log &amp;&amp; chown -R www-data:www-data log
 
 # 慢日志目录在 /tmp/php-8.0.0beta3/output/log
 
@@ -427,13 +490,13 @@ request_slowlog_timeout = 1s
 
 <h3 id="toc_13">配置php-fpm</h3>
 
-<pre class="line-numbers"><code class="language-shell">$ ps -ef | grep php-fpm //可以看到目前有1个Fastcgi进程管理器和2个Fastcgi子进程
+<pre><code class="language-shell">$ ps -ef | grep php-fpm //可以看到目前有1个Fastcgi进程管理器和2个Fastcgi子进程
 </code></pre>
 
-<pre class="line-numbers"><code class="language-shell">$ vim /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf //修改配置文件
+<pre><code class="language-shell">$ vim /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf //修改配置文件
 </code></pre>
 
-<pre class="line-numbers"><code class="language-text">; The number of child processes created on startup.
+<pre><code class="language-text">; The number of child processes created on startup.
 ; Note: Used only when pm is set to &#39;dynamic&#39;
 ; Default Value: (min_spare_servers + max_spare_servers) / 2
 pm.start_servers = 4
@@ -444,14 +507,14 @@ pm.start_servers = 4
 pm.max_spare_servers = 4
 </code></pre>
 
-<pre class="line-numbers"><code class="language-shell">$ kill -USR2 `cat /tmp/php-8.0.0beta3/output/var/run/php-fpm.pid` //重启php-fpm
+<pre><code class="language-shell">$ kill -USR2 `cat /tmp/php-8.0.0beta3/output/var/run/php-fpm.pid` //重启php-fpm
 
 $ ps -ef | grep php-fpm //可以看到目前有1个Fastcgi进程管理器和4个Fastcgi子进程
 </code></pre>
 
 <h3 id="toc_14">php-fpm参数说明</h3>
 
-<pre class="line-numbers"><code class="language-text">#php-fpm的运行权限。
+<pre><code class="language-text">#php-fpm的运行权限。
 #以什么用户什么组的权限来运行池fpm。
 user = www
 group = www
@@ -534,7 +597,7 @@ systemd_interval = 10s
 <p>1个子进程基本上占用内存在30MB-40MB左右,需要根据自己的主机配置以及业务情况给出合适的方案</p>
 </blockquote>
 
-<pre class="line-numbers"><code class="language-text">#php-fpm的队列长度。
+<pre><code class="language-text">#php-fpm的队列长度。
 listen.backlog = 65535 
 
 #php进程池权限，同样要master进程是root用户才有效，
@@ -618,7 +681,11 @@ rlimit_core = 0
 
 <h3 id="toc_1">合并所有元素(使用数组解包)</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     $a = 1;
     $b = [2, 3];
@@ -629,7 +696,11 @@ rlimit_core = 0
 
 <h3 id="toc_2">null 合并运算符</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     $default = &#39;a&#39;;
     $username = $default ?? &#39;username&#39;;
@@ -637,14 +708,22 @@ rlimit_core = 0
     var_dump($username);//php7.0
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     var_dump(isset($username) ? &#39;hi&#39; : &#39;username&#39;);//php7.0前
 </code></pre>
 
 <h3 id="toc_3">空合并运算符赋值</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     $q = isset($q) ? 1 : 2;//php7.4前
 
@@ -656,11 +735,19 @@ rlimit_core = 0
 
 <h3 id="toc_4">可为空(Nullable)类型</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
 当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
 </code></pre>
 
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
+当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
+</code></pre>
+
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     function test(?string $name)
     {
@@ -674,7 +761,11 @@ rlimit_core = 0
 
 <h3 id="toc_5">多异常捕获处理</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     try {
         // some code
@@ -684,14 +775,22 @@ rlimit_core = 0
 
 <h3 id="toc_6">list 函数</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
+=======
+<pre><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 list($fruit, $color) = $arr;
 
 var_dump($fruit, $color);
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php"># 列出他们的其中一个
+=======
+<pre><code class="language-php"># 列出他们的其中一个
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 $arr = [&#39;apple&#39;, &#39;red&#39;];
 
 list(, $color) = $arr;
@@ -699,7 +798,11 @@ list(, $color) = $arr;
 var_dump($color);
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php"># php7.1后可以指定键名
+=======
+<pre><code class="language-php"># php7.1后可以指定键名
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 $arr = [
     [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
     [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
@@ -709,7 +812,11 @@ list(&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val) = reset($arr);
 var_dump($id, $val);
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">$arr = [
+=======
+<pre><code class="language-php">$arr = [
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
     [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
 ];
@@ -721,7 +828,11 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h3 id="toc_7">箭头函数</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     //php7.4前
     $demo1 = array_map(function ($val){
         return $val * $val;
@@ -733,7 +844,11 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h3 id="toc_8">取出数组中的元素</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     $arr = [
         [&#39;id&#39; =&gt; &#39;zx&#39;, &#39;name&#39; =&gt; &#39;ZX&#39;],
@@ -747,7 +862,11 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h3 id="toc_9">match</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     //php8前
     switch ($input) {
         case &quot;true&quot;:
@@ -793,7 +912,11 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h3 id="toc_1">创建管道</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">PUT _ingest/pipeline/geoip_pipeline
+=======
+<pre><code class="language-text">PUT _ingest/pipeline/geoip_pipeline
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 {
   &quot;description&quot; : &quot;geo_pipeline&quot;,
   &quot;processors&quot; : [
@@ -810,14 +933,22 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h3 id="toc_3">字段有增加</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">增加了continent_name, country_iso_code, country_name, region_iso_code, region_name, city_name, location
+=======
+<pre><code class="language-text">增加了continent_name, country_iso_code, country_name, region_iso_code, region_name, city_name, location
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 </code></pre>
 
 <h2 id="toc_4">kibana中开始绘图</h2>
 
 <h3 id="toc_5">配置</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">选择矢量形状 =&gt; 中国省份
+=======
+<pre><code class="language-text">选择矢量形状 =&gt; 中国省份
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 设置词连接 =&gt; 左源 (ISO 3166-2代码)
 右源 (选择索引) =&gt; geoip.region_iso_code.keyword
 </code></pre>
@@ -840,7 +971,7 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h2 id="toc_0">备份Gitlab</h2>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:create
+<pre><code class="language-shell">gitlab-rake gitlab:backup:create
 </code></pre>
 
 <h3 id="toc_1">执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包</h3>
@@ -853,30 +984,237 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h5 id="toc_4">下载deb包(*为版本号)</h5>
 
-<pre class="line-numbers"><code class="language-shell">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_*-ce.0_amd64.deb
+<pre><code class="language-shell">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_*-ce.0_amd64.deb
 </code></pre>
 
 <h5 id="toc_5">安装deb包</h5>
 
-<pre class="line-numbers"><code class="language-shell">dpkg -i *.deb
+<pre><code class="language-shell">dpkg -i *.deb
 </code></pre>
 
 <h5 id="toc_6">查看版本</h5>
 
-<pre class="line-numbers"><code class="language-shell">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
+<pre><code class="language-shell">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
 </code></pre>
 
 <h2 id="toc_7">Gitlab恢复</h2>
 
 <p>首先关闭服务</p>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:restore BACKUP 1597233443_2020_03_12_9.3.1
+<pre><code class="language-shell">gitlab-rake gitlab:backup:restore BACKUP 1597233443_2020_03_12_9.3.1
 </code></pre>
 
 <h2 id="toc_8">Gitlab 502解决(查看pid)</h2>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-ctl status
+<pre><code class="language-shell">gitlab-ctl status
 </code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[本地调试组件]]></title>
+    <link href="https://mitirrli.github.io/blogs/16172870405989.html"/>
+    <updated>2021-04-01T22:24:00+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16172870405989.html</id>
+    <content type="html"><![CDATA[
+<h3 id="toc_0">目录结构</h3>
+
+<h4 id="toc_1">在项目根目录创建一个packagist包，用来放置组件包，加入到.gitignore文件中。通过path的方式，让composer将test组件作为依赖加载到project中</h4>
+
+<pre><code class="language-text">.
+├── packagist
+│   └── test
+│       └── src
+└── project
+    ├── app
+    ├── config
+    ├── runtime
+    └── vendor
+</code></pre>
+
+<h4 id="toc_2">创建新的组件</h4>
+
+<pre><code class="language-shell">$ cd packagist
+
+$ mkdir -p test/src &amp;&amp; cd test
+
+$ composer init  //初始化git仓库,填写对应的信息后会生成对应的composer.json文件
+
+$ composer i
+
+$ vim composer.json
+</code></pre>
+
+<h4 id="toc_3">修改composer内容</h4>
+
+<pre><code class="language-text">{
+    &quot;name&quot;: &quot;qjdata/test&quot;,
+    &quot;authors&quot;: [
+        {
+            &quot;name&quot;: &quot;Huanglei&quot;,
+            &quot;email&quot;: &quot;huanglei@quanjingshuju.com&quot;
+        }
+    ],
+    &quot;require&quot;: {},
+    &quot;autoload&quot;: {
+        &quot;psr-4&quot;: {
+            &quot;Qwertyuiop\\&quot;: &quot;./src&quot;
+        }
+    }
+}
+</code></pre>
+
+<h4 id="toc_4">增加测试类</h4>
+
+<pre><code class="language-shell">$ cd src
+
+$ vim Test.php
+</code></pre>
+
+<pre><code class="language-php">&lt;?php
+
+namespace Qwertyuiop;
+
+class Test
+{
+    public function test()
+    {
+        echo &#39;qwerty&#39;;
+    }
+}
+</code></pre>
+
+<h4 id="toc_5">在项目中使用未发布的组件包</h4>
+
+<pre><code class="language-text">&quot;repositories&quot;: {
+    &quot;qjdata/test&quot;: {
+        &quot;type&quot;: &quot;path&quot;,
+        &quot;url&quot;: &quot;./packagist/test&quot;
+    }
+}
+</code></pre>
+
+<pre><code class="language-shell">$ composer require qjdata/test dev-master   //现在就实现了在子项目更改代码,主项目代码也动态改变的目的
+
+$ cd /var/www/html/yaoxiebang-php-skeleton/vendor/ &amp;&amp; ls -l qjdata    //test -&gt; ../../packagist/test
+</code></pre>
+
+<pre><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
+</code></pre>
+
+<h2 id="toc_6">上传组件至私有gitlab</h2>
+
+<h3 id="toc_7">在gitlab中创建一个项目，命名为test</h3>
+
+<h3 id="toc_8">接下来我们把上篇packagist下的test目录传到gitlab中</h3>
+
+<pre><code class="language-shell">$ cd /var/www/html/yaoxiebang-php-skeleton/packagist/test
+
+$ git init
+
+$ git remote add origin &lt;远程地址&gt;
+
+$ git add . &amp;&amp; git commit -m &quot;Initial commit&quot; &amp;&amp; git push -u origin master
+</code></pre>
+
+<h3 id="toc_9">使用私有gitlab作为源(修改composer.json)</h3>
+
+<h4 id="toc_10">使用ssh地址，需要将克隆仓库用户的id_rsa.pub文件添加到Gitlab</h4>
+
+<pre><code class="language-text">&quot;repositories&quot;: {
+    &quot;qjdata/test&quot;: {
+        &quot;type&quot;: &quot;vcs&quot;,
+        &quot;url&quot;: &quot;&lt;url&gt;&quot;
+    }
+}
+</code></pre>
+
+<pre><code class="language-shell">$ composer require qjdata/test dev-master
+</code></pre>
+
+<pre><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[子模块]]></title>
+    <link href="https://mitirrli.github.io/blogs/16173755899187.html"/>
+    <updated>2021-04-02T22:59:49+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16173755899187.html</id>
+    <content type="html"><![CDATA[
+<blockquote>
+<p>子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立</p>
+</blockquote>
+
+<h3 id="toc_0">添加子模块</h3>
+
+<pre><code class="language-shell">你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对URL来添加新的子模块
+
+$ git submodule add ... //默认情况下,子模块会将子项目放到一个与仓库同名的目录中,如果你想要放到其他地方,那么可以在命令结尾添加一个不同的路径
+</code></pre>
+
+<pre><code class="language-text">此时.gitmodules文件保存了项目 URL 与已经拉取的本地目录之间的映射。
+
+修改子模块url: git config submodule.&lt;模块名&gt;.url &lt;私有URL&gt; 来覆盖这个选项的值
+</code></pre>
+
+<h3 id="toc_1">克隆含有子模块的项目</h3>
+
+<pre><code class="language-shell">$ git clone &lt;url&gt;
+
+$ git submodule init //初始化本地配置文件
+
+$ git submodule update //从该项目中抓取所有数据并检出父项目中列出的合适的提交
+</code></pre>
+
+<pre><code class="language-shell">$ git clone --recurse-submodules &lt;url&gt; //传递--recurse-submodules选项,它就会自动初始化并更新仓库中的每一个子模块,包括可能存在的嵌套子模块
+
+如果你已经克隆了项目但忘记了--recurse-submodule,那么可以运行git submodule update --init将git submodule init和git submodule update合并成一步
+如果还要初始化、抓取并检出任何嵌套的子模块,请使用简明的git submodule update --init --recursive
+</code></pre>
+
+<h3 id="toc_2">在主项目更新子模块</h3>
+
+<pre><code class="language-shell">$ git submodule update --remote &lt;模块名&gt;
+
+$ git config -f .gitmodules submodule.&lt;模块名&gt;.branch &lt;分支名&gt; //设置模块默认的分支
+
+如果不用 -f .gitmodules 选项,那么它只会为你做修改
+</code></pre>
+
+<h3 id="toc_3">更新包含子模块的项目</h3>
+
+<pre><code class="language-shell">$ git submodule update --init --recursive //如果MainProject提交了你刚拉取的新子模块,应该在 git submodule update 后面添加--init选项,如果子模块有嵌套的子模块,则应使用--recursive选项
+
+如果你想自动化此过程,那么可以为 git pull 命令添加--recurse-submodules选项
+如果你想让Git总是以--recurse-submodules拉取,可以将配置选项submodule.recurse设置为true.此选项会让Git为所有支持--recurse-submodules的命令使用该选项(除clone以外)
+</code></pre>
+
+<h3 id="toc_4">子模块遍历</h3>
+
+<pre><code class="language-shell">有一个foreach子模块命令,它能在每一个子模块中运行任意命令
+
+$ git submodule foreach &#39;git stash&#39;
+</code></pre>
+
+<h3 id="toc_5">增加子模块别名</h3>
+
+<pre><code class="language-shell">$ git config alias.sdiff &#39;!&#39;&quot;git diff &amp;&amp; git submodule foreach &#39;git diff&#39;&quot;
+$ git config alias.spush &#39;push --recurse-submodules=on-demand&#39;
+$ git config alias.supdate &#39;submodule update --remote --merge&#39;
+</code></pre>
+
+<h3 id="toc_6">删除子模块</h3>
+
+<pre><code class="language-shell">$ git submodule deinit &lt;子模块&gt; //逆初始化模块
+$ git rm --cached &lt;子模块&gt; //删除.gitmodules中记录的模块信息(--cached选项清除.git/modules中的缓存)
+$ git commit -m &#39;comment&#39;
+</code></pre>
+
+<p><a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97#_cloning_submodules">git官方文档</a></p>
 
 ]]></content>
   </entry>
