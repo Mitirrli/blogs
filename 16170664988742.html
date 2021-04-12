@@ -110,7 +110,7 @@
 
 <h3 id="toc_1">CGI 和 FastCGI</h3>
 
-<pre><code class="language-text">1. CGI(common gateway interface 公共网关接口)
+<pre class="line-numbers"><code class="language-text">1. CGI(common gateway interface 公共网关接口)
 对于动态的请求，需要用到cgi协议，将请求数据转换成php能理解的信息，然后php根据这些信息返回的信息也要通过cgi协议转换成nginx可以理解的信息，最后nginx接到这些信息再返回给浏览器
 
 2. FastCGI
@@ -123,7 +123,7 @@
 <p>php-cgi 是 php 提供给 web serve 的 cgi 协议接口程序</p>
 </blockquote>
 
-<pre><code class="language-text">当每次接到http前端服务器的请求都会开启一个php-cgi进程进行处理
+<pre class="line-numbers"><code class="language-text">当每次接到http前端服务器的请求都会开启一个php-cgi进程进行处理
 
 而且开启的php-cgi的过程中会先要重载配置，数据结构以及初始化运行环境，如果更新了php配置，那么就需要重启php-cgi才能生效
 
@@ -136,7 +136,7 @@
 <p>php-fpm 是 php 提供给 web serve 的 fastcgi 协议接口程序</p>
 </blockquote>
 
-<pre><code class="language-text">PHP-FPM 允许一个进程对多个连接进行处理，而不会立即关闭这个进程，而是会接着处理下一个连接,它可以说是php-cgi的一个管理程序，是对php-cgi的改进
+<pre class="line-numbers"><code class="language-text">PHP-FPM 允许一个进程对多个连接进行处理，而不会立即关闭这个进程，而是会接着处理下一个连接,它可以说是php-cgi的一个管理程序，是对php-cgi的改进
 
 php-fpm会开启多个php-cgi程序，并且php-fpm常驻内存
 
@@ -149,7 +149,7 @@ php-fpm将新的连接发送给新的子程序php-cgi，这个时候加载的是
 
 <h3 id="toc_4">FastCGI 的工作流程</h3>
 
-<pre><code class="language-text">Web Server启动时载入FastCGI进程管理器
+<pre class="line-numbers"><code class="language-text">Web Server启动时载入FastCGI进程管理器
 FastCGI进程管理器自身初始化，启动多个CGI解释器进程(可见多个php-cgi)并等待来自Web Server的连接
 当客户端请求到达Web Server时，FastCGI进程管理器选择并连接到一个CGI解释器。 Web server将CGI环境变量和标准输入发送到FastCGI子进程php-cgi
 FastCGI 子进程完成处理后将标准输出和错误信息从同一连接返回Web Server。当FastCGI子进程关闭连接时，请求便告处理完成。FastCGI子进程接着等待并处理来自FastCGI进程管理器(运行在Web Server中)的下一个连接。在CGI模式中，php-cgi在此便退出了
@@ -159,7 +159,7 @@ FastCGI 子进程完成处理后将标准输出和错误信息从同一连接返
 
 <h3 id="toc_5">编译安装 php 搭建一个 ubuntu 的 docker 环境</h3>
 
-<pre><code class="language-shell">$ docker pull ubuntu:latest
+<pre class="line-numbers"><code class="language-shell">$ docker pull ubuntu:latest
 
 $ docker run --name ubuntu --cap-add=SYS_PTRACE -p 6767:80 -d ubuntu /bin/bash -c &quot;while true; do echo 1; sleep 1; done&quot;
 
@@ -186,17 +186,17 @@ $ make install //安装(make install后可以执行$prefix/bin/php,此时在/tmp
 
 <h3 id="toc_6">重命名配置文件</h3>
 
-<pre><code class="language-shell">$ mv /tmp/php-8.0.0beta3/output/etc/php-fpm.conf.default /tmp/php-8.0.0beta3/output/etc/php-fpm.conf &amp;&amp; mv /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf.default /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf
+<pre class="line-numbers"><code class="language-shell">$ mv /tmp/php-8.0.0beta3/output/etc/php-fpm.conf.default /tmp/php-8.0.0beta3/output/etc/php-fpm.conf &amp;&amp; mv /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf.default /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf
 </code></pre>
 
 <h3 id="toc_7">安装 nginx</h3>
 
-<pre><code class="language-shell">$ apt install -y nginx
+<pre class="line-numbers"><code class="language-shell">$ apt install -y nginx
 </code></pre>
 
 <h3 id="toc_8">使用 unix 套接字通讯</h3>
 
-<pre><code class="language-shell">$ mkdir -p /var/run/php-fpm
+<pre class="line-numbers"><code class="language-shell">$ mkdir -p /var/run/php-fpm
 
 $ vim /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf
 // 修改 listen = /var/run/php-fpm/php8-fpm.sock
@@ -215,20 +215,20 @@ $ ps -ef | grep php-fpm //这样已经可以看到对应的php-fpm进程了
 
 <h3 id="toc_9">创建一个 php 文件</h3>
 
-<pre><code class="language-shell">$ vim /opt/index.php
+<pre class="line-numbers"><code class="language-shell">$ vim /opt/index.php
 </code></pre>
 
-<pre><code class="language-php">&lt;?php
+<pre class="line-numbers"><code class="language-php">&lt;?php
 
     echo phpinfo();
 </code></pre>
 
 <h3 id="toc_10">nginx 创建一个配置文件</h3>
 
-<pre><code class="language-shell">$ vim /etc/nginx/conf.d/demo.conf //创建一个配置文件
+<pre class="line-numbers"><code class="language-shell">$ vim /etc/nginx/conf.d/demo.conf //创建一个配置文件
 </code></pre>
 
-<pre><code class="language-nginx">server {
+<pre class="line-numbers"><code class="language-nginx">server {
   listen 80;
   server_name 127.0.0.1;
   root /opt;
@@ -252,21 +252,21 @@ $ ps -ef | grep php-fpm //这样已经可以看到对应的php-fpm进程了
 }
 </code></pre>
 
-<pre><code class="language-shell">$ systemctl stop nginx
+<pre class="line-numbers"><code class="language-shell">$ systemctl stop nginx
 
 $ nginx -c /etc/nginx/nginx.conf
 
 $ nginx -s reload //reload会重新加载配置文件
 </code></pre>
 
-<pre><code class="language-shell">$ curl 127.0.0.1 //在容器中执行本命令可以看到成功结果,容器外访问http://127.0.0.1:6767/可以查看对应详情
+<pre class="line-numbers"><code class="language-shell">$ curl 127.0.0.1 //在容器中执行本命令可以看到成功结果,容器外访问http://127.0.0.1:6767/可以查看对应详情
 </code></pre>
 
 <h2 id="toc_11">PHP FPM配置</h2>
 
 <h3 id="toc_12">慢日志</h3>
 
-<pre><code class="language-shell">$ cd /tmp/php-8.0.0beta3/output &amp;&amp; mkdir log &amp;&amp; chown -R www-data:www-data log
+<pre class="line-numbers"><code class="language-shell">$ cd /tmp/php-8.0.0beta3/output &amp;&amp; mkdir log &amp;&amp; chown -R www-data:www-data log
 
 # 慢日志目录在 /tmp/php-8.0.0beta3/output/log
 
@@ -288,13 +288,13 @@ request_slowlog_timeout = 1s
 
 <h3 id="toc_13">配置php-fpm</h3>
 
-<pre><code class="language-shell">$ ps -ef | grep php-fpm //可以看到目前有1个Fastcgi进程管理器和2个Fastcgi子进程
+<pre class="line-numbers"><code class="language-shell">$ ps -ef | grep php-fpm //可以看到目前有1个Fastcgi进程管理器和2个Fastcgi子进程
 </code></pre>
 
-<pre><code class="language-shell">$ vim /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf //修改配置文件
+<pre class="line-numbers"><code class="language-shell">$ vim /tmp/php-8.0.0beta3/output/etc/php-fpm.d/www.conf //修改配置文件
 </code></pre>
 
-<pre><code class="language-text">; The number of child processes created on startup.
+<pre class="line-numbers"><code class="language-text">; The number of child processes created on startup.
 ; Note: Used only when pm is set to &#39;dynamic&#39;
 ; Default Value: (min_spare_servers + max_spare_servers) / 2
 pm.start_servers = 4
@@ -305,14 +305,14 @@ pm.start_servers = 4
 pm.max_spare_servers = 4
 </code></pre>
 
-<pre><code class="language-shell">$ kill -USR2 `cat /tmp/php-8.0.0beta3/output/var/run/php-fpm.pid` //重启php-fpm
+<pre class="line-numbers"><code class="language-shell">$ kill -USR2 `cat /tmp/php-8.0.0beta3/output/var/run/php-fpm.pid` //重启php-fpm
 
 $ ps -ef | grep php-fpm //可以看到目前有1个Fastcgi进程管理器和4个Fastcgi子进程
 </code></pre>
 
 <h3 id="toc_14">php-fpm参数说明</h3>
 
-<pre><code class="language-text">#php-fpm的运行权限。
+<pre class="line-numbers"><code class="language-text">#php-fpm的运行权限。
 #以什么用户什么组的权限来运行池fpm。
 user = www
 group = www
@@ -395,7 +395,7 @@ systemd_interval = 10s
 <p>1个子进程基本上占用内存在30MB-40MB左右,需要根据自己的主机配置以及业务情况给出合适的方案</p>
 </blockquote>
 
-<pre><code class="language-text">#php-fpm的队列长度。
+<pre class="line-numbers"><code class="language-text">#php-fpm的队列长度。
 listen.backlog = 65535 
 
 #php进程池权限，同样要master进程是root用户才有效，
@@ -652,7 +652,6 @@ rlimit_core = 0
             
             <li>
             <a href="Php.html">Php&nbsp;(3)</a>
-<<<<<<< HEAD
             <p>
             
             </p>
@@ -671,8 +670,6 @@ rlimit_core = 0
             
             <li>
             <a href="Mysql.html">Mysql&nbsp;(2)</a>
-=======
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
             <p>
             
             </p>
@@ -680,27 +677,6 @@ rlimit_core = 0
             
              
             
-<<<<<<< HEAD
-=======
-            <li>
-            <a href="Git.html">Git&nbsp;(1)</a>
-            <p>
-            
-            </p>
-            </li>
-            
-             
-            
-            <li>
-            <a href="Mysql.html">Mysql&nbsp;(1)</a>
-            <p>
-            
-            </p>
-            </li>
-            
-             
-            
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
             </p>
             </li>
             
@@ -713,15 +689,12 @@ rlimit_core = 0
           
           
          <li>
-<<<<<<< HEAD
-           <a href="16182714235900.html">[Mycli](https://www.mycli.net/)</a><br>
+           <a href="16182714235900.html">Mycli</a><br>
          </li>
           
           
           
          <li>
-=======
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
            <a href="16173762986851.html">Mysql的几种锁</a><br>
          </li>
           
@@ -735,8 +708,6 @@ rlimit_core = 0
           
          <li>
            <a href="16171065720634.html">Clean code</a><br>
-<<<<<<< HEAD
-=======
          </li>
           
           
@@ -747,24 +718,8 @@ rlimit_core = 0
           
           
           
-         <li>
-           <a href="16169964390881.html">Gitlab版本升级</a><br>
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
-         </li>
           
           
-          
-<<<<<<< HEAD
-         <li>
-           <a href="16180194244918.html">Kibana制作用户访问热力地图</a><br>
-         </li>
-          
-          
-          
-          
-          
-=======
->>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
           
           
            
