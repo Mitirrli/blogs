@@ -10,7 +10,7 @@
 
     <title>
       
-    Gitlab版本升级 - Mitirrli
+    Mysql的几种锁 - Mitirrli
     
     </title>
 
@@ -88,62 +88,147 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Gitlab版本升级</h1>	
+				<h1 class="post-title itemprop="name headline">Mysql的几种锁</h1>	
 				<div class="post-data">
-					<time datetime="2020-03-29T13:40:39+08:00" pubdate data-updated="true">2020/03/29</time>
+					<time datetime="2021-04-02T23:11:38+08:00" pubdate data-updated="true">2021/04/02</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Gitlab.html'>Gitlab</a>&nbsp;
+		<a href='Mysql.html'>Mysql</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
-		<blockquote>
-<p>公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程</p>
+		<h2 id="toc_0">使用docker搞一个mysql实例</h2>
+
+<pre class="line-numbers"><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
+
+$ docker exec -it mysql-test bash
+</code></pre>
+
+<h2 id="toc_1">准备工作</h2>
+
+<h3 id="toc_2">进入数据库</h3>
+
+<pre class="line-numbers"><code class="language-shell">$ mysql -u root -p
+</code></pre>
+
+<h3 id="toc_3">创建一个数据库</h3>
+
+<pre class="line-numbers"><code class="language-sql">CREATE DATABASE lock_demo;
+</code></pre>
+
+<h3 id="toc_4">展示数据库</h3>
+
+<pre class="line-numbers"><code class="language-sql">show databases;
+</code></pre>
+
+<h3 id="toc_5">选择数据库</h3>
+
+<pre class="line-numbers"><code class="language-sql">use lock_demo;
+</code></pre>
+
+<h2 id="toc_6">行锁</h2>
+
+<h3 id="toc_7">创建一个demo表</h3>
+
+<pre class="line-numbers"><code class="language-sql">DROP TABLE lock_demo;
+CREATE TABLE lock_demo (
+    id INT(10) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(10) NOT NULL DEFAULT &#39;&#39;,
+    age TINYINT(3) NOT NULL DEFAULT 0,
+    address VARCHAR(25) NOT NULL DEFAULT &#39;&#39;,
+    primary key(id)
+) engine=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+</code></pre>
+
+<h3 id="toc_8">查看表结构</h3>
+
+<pre class="line-numbers"><code class="language-sql">show create table lock_demo;
+</code></pre>
+
+<h3 id="toc_9">插入一些数据</h3>
+
+<pre class="line-numbers"><code class="language-sql">INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 10, &#39;a address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 12, &#39;b address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 13, &#39;c address&#39;);
+</code></pre>
+
+<h3 id="toc_10">查看数据</h3>
+
+<pre class="line-numbers"><code class="language-sql">SELECT * FROM lock_demo;
+</code></pre>
+
+<h3 id="toc_11">开启两个shell进行测试</h3>
+
+<pre class="line-numbers"><code class="language-sql">shell 1:
+STEP 1. set autocommit=0; //关闭自动提交
+STEP 2. UPDATE lock_demo SET address = &#39;q address&#39; WHERE id = 1;
+STEP 3. SELECT * FROM lock_demo; //这里值已经改变了
+STEP 5. COMMIT;
+
+
+shell 2:
+STEP 4. SELECT * FROM lock_demo; //这里值并没有修改
+STEP 6. SELECT * FROM lock_demo; //这里值已经修改
+</code></pre>
+
+<h2 id="toc_12">表锁</h2>
+
+<blockquote>
+<p>索引失效导致表锁</p>
 </blockquote>
 
-<h2 id="toc_0">备份Gitlab</h2>
+<h3 id="toc_13">开启两个shell进行测试</h3>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:create
+<pre class="line-numbers"><code class="language-sql">shell1:
+STEP 1. UPDATE lock_demo SET age = 1 WHERE id = 1 OR id = 2;
+STEP 2. SELECT * FROM lock_demo; //这里值已经改变了
+STEP 5. SELECT * FROM lock_demo; //这里值并没有改变
+STEP 6. COMMIT; //提交后两者均变化了
+
+shell2:
+STEP 3. SELECT * FROM lock_demo; //这里值没有修改
+STEP 4. UPDATE lock_demo SET age = 0 WHERE id = 3;
 </code></pre>
 
-<h3 id="toc_1">执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包</h3>
+<h2 id="toc_14">间隙锁</h2>
 
-<h2 id="toc_2">Gitlab升级</h2>
+<blockquote>
+<p>间隙锁将整个范围都锁住了</p>
+</blockquote>
 
-<h5 id="toc_3">升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&gt; 13.0.12 -&gt; 13.2.3</h5>
+<h3 id="toc_15">插入一些数据</h3>
 
-<p><a href="https://docs.gitlab.com/ee/policy/maintenance.html#upgrade-recommendations">按照官网升级顺序依次升级</a></p>
+<pre class="line-numbers"><code class="language-sql">DELETE FROM lock_demo WHERE id &gt;= 1;
 
-<h5 id="toc_4">下载deb包(*为版本号)</h5>
-
-<pre class="line-numbers"><code class="language-shell">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_*-ce.0_amd64.deb
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 1, &#39;a address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 3, &#39;b address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 5, &#39;c address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;que&#39;, 7, &#39;d address&#39;);
 </code></pre>
 
-<h5 id="toc_5">安装deb包</h5>
+<h3 id="toc_16">开启两个shell进行测试</h3>
 
-<pre class="line-numbers"><code class="language-shell">dpkg -i *.deb
+<pre class="line-numbers"><code class="language-sql">shell1:
+STEP 1. UPDATE lock_demo SET name = &#39;c&#39; WHERE age &gt;= 1 and age &lt;= 7;
+
+shell2:
+STEP 2. INSERT INTO lock_demo (name, age, address) VALUES (&#39;d&#39;, 2, &#39;q address&#39;);
 </code></pre>
 
-<h5 id="toc_6">查看版本</h5>
+<h2 id="toc_17">查看当前innodb锁的状态</h2>
 
-<pre class="line-numbers"><code class="language-shell">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
-</code></pre>
+<pre class="line-numbers"><code class="language-sql">show status like &#39;innodb_row_lock%&#39;;
 
-<h2 id="toc_7">Gitlab恢复</h2>
-
-<p>首先关闭服务</p>
-
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:restore BACKUP 1597233443_2020_03_12_9.3.1
-</code></pre>
-
-<h2 id="toc_8">Gitlab 502解决(查看pid)</h2>
-
-<pre class="line-numbers"><code class="language-shell">gitlab-ctl status
+Innodb_row_lock_current_waits 当前锁等待数
+Innodb_row_lock_time 总共锁的时间
+Innodb_row_lock_time_avg 平均锁的时间
+Innodb_row_lock_time_max 最大锁的时间
+Innodb_row_lock_waits 锁的次数
 </code></pre>
 
 		</p>
@@ -245,7 +330,7 @@
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-29T13:40:39+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-02T23:11:38+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
@@ -253,14 +338,14 @@
 				    <div class="meta">
 					    
 					    <P style="float: left;">
-					    	<a href="16180194244918.html" 
-					        title="Previous Post: Kibana制作用户访问热力地图">&laquo; Kibana制作用户访问热力地图</a>
+					    	<a href="16182714235900.html" 
+					        title="Previous Post: [Mycli](https://www.mycli.net/)">&laquo; [Mycli](https://www.mycli.net/)</a>
 					    </p>
 					    <p style="float:right; ">
 					    	
 					    	
-					        <a href="16172870405989.html" 
-					        title="Next Post: 本地调试组件">本地调试组件 &raquo;</a>
+					        <a href="16170664988742.html" 
+					        title="Next Post: PHP-FPM 是啥">PHP-FPM 是啥 &raquo;</a>
 					    </p> 
 					    
 				    </div>

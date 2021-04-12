@@ -2,12 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>https://mitirrli.github.io/blogs/</loc>
-  <lastmod>2021-03-31T07:50:40+08:00</lastmod>
+  <lastmod>2021-04-13T07:51:13+08:00</lastmod>
 </url>
 
 <url>
-  <loc>https://mitirrli.github.io/blogs/16171065720634.html</loc>
-  <lastmod>2021-03-30T20:16:12+08:00</lastmod>
+  <loc>https://mitirrli.github.io/blogs/16182714235900.html</loc>
+  <lastmod>2021-04-13T07:50:23+08:00</lastmod>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/16173762986851.html</loc>
+  <lastmod>2021-04-02T23:11:38+08:00</lastmod>
 </url>
 
 <url>
@@ -16,8 +21,28 @@
 </url>
 
 <url>
+  <loc>https://mitirrli.github.io/blogs/16171065720634.html</loc>
+  <lastmod>2020-10-01T20:16:12+08:00</lastmod>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/16180194244918.html</loc>
+  <lastmod>2020-04-10T09:50:24+08:00</lastmod>
+</url>
+
+<url>
   <loc>https://mitirrli.github.io/blogs/16169964390881.html</loc>
   <lastmod>2020-03-29T13:40:39+08:00</lastmod>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/16172870405989.html</loc>
+  <lastmod>2019-10-03T22:24:00+08:00</lastmod>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/16173755899187.html</loc>
+  <lastmod>2019-09-21T22:59:49+08:00</lastmod>
 </url>
 
 
@@ -28,6 +53,18 @@
 
 <url>
   <loc>https://mitirrli.github.io/blogs/Php.html</loc>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/Git.html</loc>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/Mysql.html</loc>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/Kibana.html</loc>
 </url>
 
 

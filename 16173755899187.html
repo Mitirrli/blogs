@@ -10,7 +10,7 @@
 
     <title>
       
-    Gitlab版本升级 - Mitirrli
+    子模块 - Mitirrli
     
     </title>
 
@@ -88,63 +88,90 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Gitlab版本升级</h1>	
+				<h1 class="post-title itemprop="name headline">子模块</h1>	
 				<div class="post-data">
-					<time datetime="2020-03-29T13:40:39+08:00" pubdate data-updated="true">2020/03/29</time>
+					<time datetime="2019-09-21T22:59:49+08:00" pubdate data-updated="true">2019/09/21</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Gitlab.html'>Gitlab</a>&nbsp;
+		<a href='Git.html'>Git</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
 		<blockquote>
-<p>公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程</p>
+<p>子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立</p>
 </blockquote>
 
-<h2 id="toc_0">备份Gitlab</h2>
+<h3 id="toc_0">添加子模块</h3>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:create
+<pre class="line-numbers"><code class="language-shell">你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对URL来添加新的子模块
+
+$ git submodule add ... //默认情况下,子模块会将子项目放到一个与仓库同名的目录中,如果你想要放到其他地方,那么可以在命令结尾添加一个不同的路径
 </code></pre>
 
-<h3 id="toc_1">执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包</h3>
+<pre class="line-numbers"><code class="language-text">此时.gitmodules文件保存了项目 URL 与已经拉取的本地目录之间的映射。
 
-<h2 id="toc_2">Gitlab升级</h2>
-
-<h5 id="toc_3">升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&gt; 13.0.12 -&gt; 13.2.3</h5>
-
-<p><a href="https://docs.gitlab.com/ee/policy/maintenance.html#upgrade-recommendations">按照官网升级顺序依次升级</a></p>
-
-<h5 id="toc_4">下载deb包(*为版本号)</h5>
-
-<pre class="line-numbers"><code class="language-shell">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_*-ce.0_amd64.deb
+修改子模块url: git config submodule.&lt;模块名&gt;.url &lt;私有URL&gt; 来覆盖这个选项的值
 </code></pre>
 
-<h5 id="toc_5">安装deb包</h5>
+<h3 id="toc_1">克隆含有子模块的项目</h3>
 
-<pre class="line-numbers"><code class="language-shell">dpkg -i *.deb
+<pre class="line-numbers"><code class="language-shell">$ git clone &lt;url&gt;
+
+$ git submodule init //初始化本地配置文件
+
+$ git submodule update //从该项目中抓取所有数据并检出父项目中列出的合适的提交
 </code></pre>
 
-<h5 id="toc_6">查看版本</h5>
+<pre class="line-numbers"><code class="language-shell">$ git clone --recurse-submodules &lt;url&gt; //传递--recurse-submodules选项,它就会自动初始化并更新仓库中的每一个子模块,包括可能存在的嵌套子模块
 
-<pre class="line-numbers"><code class="language-shell">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
+如果你已经克隆了项目但忘记了--recurse-submodule,那么可以运行git submodule update --init将git submodule init和git submodule update合并成一步
+如果还要初始化、抓取并检出任何嵌套的子模块,请使用简明的git submodule update --init --recursive
 </code></pre>
 
-<h2 id="toc_7">Gitlab恢复</h2>
+<h3 id="toc_2">在主项目更新子模块</h3>
 
-<p>首先关闭服务</p>
+<pre class="line-numbers"><code class="language-shell">$ git submodule update --remote &lt;模块名&gt;
 
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:restore BACKUP 1597233443_2020_03_12_9.3.1
+$ git config -f .gitmodules submodule.&lt;模块名&gt;.branch &lt;分支名&gt; //设置模块默认的分支
+
+如果不用 -f .gitmodules 选项,那么它只会为你做修改
 </code></pre>
 
-<h2 id="toc_8">Gitlab 502解决(查看pid)</h2>
+<h3 id="toc_3">更新包含子模块的项目</h3>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-ctl status
+<pre class="line-numbers"><code class="language-shell">$ git submodule update --init --recursive //如果MainProject提交了你刚拉取的新子模块,应该在 git submodule update 后面添加--init选项,如果子模块有嵌套的子模块,则应使用--recursive选项
+
+如果你想自动化此过程,那么可以为 git pull 命令添加--recurse-submodules选项
+如果你想让Git总是以--recurse-submodules拉取,可以将配置选项submodule.recurse设置为true.此选项会让Git为所有支持--recurse-submodules的命令使用该选项(除clone以外)
 </code></pre>
+
+<h3 id="toc_4">子模块遍历</h3>
+
+<pre class="line-numbers"><code class="language-shell">有一个foreach子模块命令,它能在每一个子模块中运行任意命令
+
+$ git submodule foreach &#39;git stash&#39;
+</code></pre>
+
+<h3 id="toc_5">增加子模块别名</h3>
+
+<pre class="line-numbers"><code class="language-shell">$ git config alias.sdiff &#39;!&#39;&quot;git diff &amp;&amp; git submodule foreach &#39;git diff&#39;&quot;
+$ git config alias.spush &#39;push --recurse-submodules=on-demand&#39;
+$ git config alias.supdate &#39;submodule update --remote --merge&#39;
+</code></pre>
+
+<h3 id="toc_6">删除子模块</h3>
+
+<pre class="line-numbers"><code class="language-shell">$ git submodule deinit &lt;子模块&gt; //逆初始化模块
+$ git rm --cached &lt;子模块&gt; //删除.gitmodules中记录的模块信息(--cached选项清除.git/modules中的缓存)
+$ git commit -m &#39;comment&#39;
+</code></pre>
+
+<p><a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97#_cloning_submodules">git官方文档</a></p>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -245,7 +272,7 @@
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-29T13:40:39+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-02T22:59:49+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
@@ -253,16 +280,12 @@
 				    <div class="meta">
 					    
 					    <P style="float: left;">
-					    	<a href="16180194244918.html" 
-					        title="Previous Post: Kibana制作用户访问热力地图">&laquo; Kibana制作用户访问热力地图</a>
+					    	<a href="16172870405989.html" 
+					        title="Previous Post: 本地调试组件">&laquo; 本地调试组件</a>
 					    </p>
 					    <p style="float:right; ">
 					    	
 					    	
-					        <a href="16172870405989.html" 
-					        title="Next Post: 本地调试组件">本地调试组件 &raquo;</a>
-					    </p> 
-					    
 				    </div>
 			  	</footer>
 	<!-- footer end -->

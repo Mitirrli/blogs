@@ -10,7 +10,7 @@
 
     <title>
       
-    Gitlab版本升级 - Mitirrli
+    Kibana制作用户访问热力地图 - Mitirrli
     
     </title>
 
@@ -88,63 +88,55 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Gitlab版本升级</h1>	
+				<h1 class="post-title itemprop="name headline">Kibana制作用户访问热力地图</h1>	
 				<div class="post-data">
-					<time datetime="2020-03-29T13:40:39+08:00" pubdate data-updated="true">2020/03/29</time>
+					<time datetime="2020-04-10T09:50:24+08:00" pubdate data-updated="true">2020/04/10</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Gitlab.html'>Gitlab</a>&nbsp;
+		<a href='Kibana.html'>Kibana</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
-		<blockquote>
-<p>公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程</p>
-</blockquote>
+		<h2 id="toc_0">ES 管道</h2>
 
-<h2 id="toc_0">备份Gitlab</h2>
+<h3 id="toc_1">创建管道</h3>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:create
+<pre class="line-numbers"><code class="language-text">PUT _ingest/pipeline/geoip_pipeline
+{
+  &quot;description&quot; : &quot;geo_pipeline&quot;,
+  &quot;processors&quot; : [
+    {
+      &quot;geoip&quot; : {
+        &quot;field&quot; : &quot;ip&quot;
+      }
+    }
+  ]
+}
 </code></pre>
 
-<h3 id="toc_1">执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包</h3>
+<h2 id="toc_2">查看数据</h2>
 
-<h2 id="toc_2">Gitlab升级</h2>
+<h3 id="toc_3">字段有增加</h3>
 
-<h5 id="toc_3">升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&gt; 13.0.12 -&gt; 13.2.3</h5>
-
-<p><a href="https://docs.gitlab.com/ee/policy/maintenance.html#upgrade-recommendations">按照官网升级顺序依次升级</a></p>
-
-<h5 id="toc_4">下载deb包(*为版本号)</h5>
-
-<pre class="line-numbers"><code class="language-shell">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_*-ce.0_amd64.deb
+<pre class="line-numbers"><code class="language-text">增加了continent_name, country_iso_code, country_name, region_iso_code, region_name, city_name, location
 </code></pre>
 
-<h5 id="toc_5">安装deb包</h5>
+<h2 id="toc_4">kibana中开始绘图</h2>
 
-<pre class="line-numbers"><code class="language-shell">dpkg -i *.deb
+<h3 id="toc_5">配置</h3>
+
+<pre class="line-numbers"><code class="language-text">选择矢量形状 =&gt; 中国省份
+设置词连接 =&gt; 左源 (ISO 3166-2代码)
+右源 (选择索引) =&gt; geoip.region_iso_code.keyword
 </code></pre>
 
-<h5 id="toc_6">查看版本</h5>
-
-<pre class="line-numbers"><code class="language-shell">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
-</code></pre>
-
-<h2 id="toc_7">Gitlab恢复</h2>
-
-<p>首先关闭服务</p>
-
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:restore BACKUP 1597233443_2020_03_12_9.3.1
-</code></pre>
-
-<h2 id="toc_8">Gitlab 502解决(查看pid)</h2>
-
-<pre class="line-numbers"><code class="language-shell">gitlab-ctl status
-</code></pre>
+<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/geoip-processor.html">ES手册1</a><br/>
+<a href="https://www.elastic.co/guide/en/ecs/current/ecs-geo.html">ES手册2</a></p>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -245,7 +237,7 @@
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-29T13:40:39+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-10T09:50:24+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
@@ -253,14 +245,14 @@
 				    <div class="meta">
 					    
 					    <P style="float: left;">
-					    	<a href="16180194244918.html" 
-					        title="Previous Post: Kibana制作用户访问热力地图">&laquo; Kibana制作用户访问热力地图</a>
+					    	<a href="16171065720634.html" 
+					        title="Previous Post: Clean code">&laquo; Clean code</a>
 					    </p>
 					    <p style="float:right; ">
 					    	
 					    	
-					        <a href="16172870405989.html" 
-					        title="Next Post: 本地调试组件">本地调试组件 &raquo;</a>
+					        <a href="16169964390881.html" 
+					        title="Next Post: Gitlab版本升级">Gitlab版本升级 &raquo;</a>
 					    </p> 
 					    
 				    </div>
