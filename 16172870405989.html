@@ -10,7 +10,7 @@
 
     <title>
       
-    Gitlab版本升级 - Mitirrli
+    本地调试组件 - Mitirrli
     
     </title>
 
@@ -88,62 +88,136 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Gitlab版本升级</h1>	
+				<h1 class="post-title itemprop="name headline">本地调试组件</h1>	
 				<div class="post-data">
-					<time datetime="2020-03-29T13:40:39+08:00" pubdate data-updated="true">2020/03/29</time>
+					<time datetime="2019-10-03T22:24:00+08:00" pubdate data-updated="true">2019/10/03</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Gitlab.html'>Gitlab</a>&nbsp;
+		<a href='Php.html'>Php</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
-		<blockquote>
-<p>公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程</p>
-</blockquote>
+		<h3 id="toc_0">目录结构</h3>
 
-<h2 id="toc_0">备份Gitlab</h2>
+<h4 id="toc_1">在项目根目录创建一个packagist包，用来放置组件包，加入到.gitignore文件中。通过path的方式，让composer将test组件作为依赖加载到project中</h4>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:create
+<pre class="line-numbers"><code class="language-text">.
+├── packagist
+│   └── test
+│       └── src
+└── project
+    ├── app
+    ├── config
+    ├── runtime
+    └── vendor
 </code></pre>
 
-<h3 id="toc_1">执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包</h3>
+<h4 id="toc_2">创建新的组件</h4>
 
-<h2 id="toc_2">Gitlab升级</h2>
+<pre class="line-numbers"><code class="language-shell">$ cd packagist
 
-<h5 id="toc_3">升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&gt; 13.0.12 -&gt; 13.2.3</h5>
+$ mkdir -p test/src &amp;&amp; cd test
 
-<p><a href="https://docs.gitlab.com/ee/policy/maintenance.html#upgrade-recommendations">按照官网升级顺序依次升级</a></p>
+$ composer init  //初始化git仓库,填写对应的信息后会生成对应的composer.json文件
 
-<h5 id="toc_4">下载deb包(*为版本号)</h5>
+$ composer i
 
-<pre class="line-numbers"><code class="language-shell">wget https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/ubuntu/pool/xenial/main/g/gitlab-ce/gitlab-ce_*-ce.0_amd64.deb
+$ vim composer.json
 </code></pre>
 
-<h5 id="toc_5">安装deb包</h5>
+<h4 id="toc_3">修改composer内容</h4>
 
-<pre class="line-numbers"><code class="language-shell">dpkg -i *.deb
+<pre class="line-numbers"><code class="language-text">{
+    &quot;name&quot;: &quot;qjdata/test&quot;,
+    &quot;authors&quot;: [
+        {
+            &quot;name&quot;: &quot;Huanglei&quot;,
+            &quot;email&quot;: &quot;huanglei@quanjingshuju.com&quot;
+        }
+    ],
+    &quot;require&quot;: {},
+    &quot;autoload&quot;: {
+        &quot;psr-4&quot;: {
+            &quot;Qwertyuiop\\&quot;: &quot;./src&quot;
+        }
+    }
+}
 </code></pre>
 
-<h5 id="toc_6">查看版本</h5>
+<h4 id="toc_4">增加测试类</h4>
 
-<pre class="line-numbers"><code class="language-shell">cat /opt/gitlab/embedded/service/gitlab-rails/VERSION
+<pre class="line-numbers"><code class="language-shell">$ cd src
+
+$ vim Test.php
 </code></pre>
 
-<h2 id="toc_7">Gitlab恢复</h2>
+<pre class="line-numbers"><code class="language-php">&lt;?php
 
-<p>首先关闭服务</p>
+namespace Qwertyuiop;
 
-<pre class="line-numbers"><code class="language-shell">gitlab-rake gitlab:backup:restore BACKUP 1597233443_2020_03_12_9.3.1
+class Test
+{
+    public function test()
+    {
+        echo &#39;qwerty&#39;;
+    }
+}
 </code></pre>
 
-<h2 id="toc_8">Gitlab 502解决(查看pid)</h2>
+<h4 id="toc_5">在项目中使用未发布的组件包</h4>
 
-<pre class="line-numbers"><code class="language-shell">gitlab-ctl status
+<pre class="line-numbers"><code class="language-text">&quot;repositories&quot;: {
+    &quot;qjdata/test&quot;: {
+        &quot;type&quot;: &quot;path&quot;,
+        &quot;url&quot;: &quot;./packagist/test&quot;
+    }
+}
+</code></pre>
+
+<pre class="line-numbers"><code class="language-shell">$ composer require qjdata/test dev-master   //现在就实现了在子项目更改代码,主项目代码也动态改变的目的
+
+$ cd /var/www/html/yaoxiebang-php-skeleton/vendor/ &amp;&amp; ls -l qjdata    //test -&gt; ../../packagist/test
+</code></pre>
+
+<pre class="line-numbers"><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
+</code></pre>
+
+<h2 id="toc_6">上传组件至私有gitlab</h2>
+
+<h3 id="toc_7">在gitlab中创建一个项目，命名为test</h3>
+
+<h3 id="toc_8">接下来我们把上篇packagist下的test目录传到gitlab中</h3>
+
+<pre class="line-numbers"><code class="language-shell">$ cd /var/www/html/yaoxiebang-php-skeleton/packagist/test
+
+$ git init
+
+$ git remote add origin &lt;远程地址&gt;
+
+$ git add . &amp;&amp; git commit -m &quot;Initial commit&quot; &amp;&amp; git push -u origin master
+</code></pre>
+
+<h3 id="toc_9">使用私有gitlab作为源(修改composer.json)</h3>
+
+<h4 id="toc_10">使用ssh地址，需要将克隆仓库用户的id_rsa.pub文件添加到Gitlab</h4>
+
+<pre class="line-numbers"><code class="language-text">&quot;repositories&quot;: {
+    &quot;qjdata/test&quot;: {
+        &quot;type&quot;: &quot;vcs&quot;,
+        &quot;url&quot;: &quot;&lt;url&gt;&quot;
+    }
+}
+</code></pre>
+
+<pre class="line-numbers"><code class="language-shell">$ composer require qjdata/test dev-master
+</code></pre>
+
+<pre class="line-numbers"><code class="language-text">var_dump((new Test())-&gt;test());     //可以看到输出了&quot;qwerty&quot;
 </code></pre>
 
 		</p>
@@ -245,7 +319,7 @@
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-29T13:40:39+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-01T22:24:00+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
@@ -253,14 +327,14 @@
 				    <div class="meta">
 					    
 					    <P style="float: left;">
-					    	<a href="16180194244918.html" 
-					        title="Previous Post: Kibana制作用户访问热力地图">&laquo; Kibana制作用户访问热力地图</a>
+					    	<a href="16169964390881.html" 
+					        title="Previous Post: Gitlab版本升级">&laquo; Gitlab版本升级</a>
 					    </p>
 					    <p style="float:right; ">
 					    	
 					    	
-					        <a href="16172870405989.html" 
-					        title="Next Post: 本地调试组件">本地调试组件 &raquo;</a>
+					        <a href="16173755899187.html" 
+					        title="Next Post: 子模块">子模块 &raquo;</a>
 					    </p> 
 					    
 				    </div>
