@@ -106,7 +106,11 @@
 
 <h3 id="toc_1">合并所有元素(使用数组解包)</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     $a = 1;
     $b = [2, 3];
@@ -117,7 +121,11 @@
 
 <h3 id="toc_2">null 合并运算符</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     $default = &#39;a&#39;;
     $username = $default ?? &#39;username&#39;;
@@ -125,14 +133,22 @@
     var_dump($username);//php7.0
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     var_dump(isset($username) ? &#39;hi&#39; : &#39;username&#39;);//php7.0前
 </code></pre>
 
 <h3 id="toc_3">空合并运算符赋值</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     $q = isset($q) ? 1 : 2;//php7.4前
 
@@ -144,11 +160,19 @@
 
 <h3 id="toc_4">可为空(Nullable)类型</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
 当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
 </code></pre>
 
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
+当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
+</code></pre>
+
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     function test(?string $name)
     {
@@ -162,7 +186,11 @@
 
 <h3 id="toc_5">多异常捕获处理</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     try {
         // some code
@@ -172,14 +200,22 @@
 
 <h3 id="toc_6">list 函数</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
+=======
+<pre><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
 list($fruit, $color) = $arr;
 
 var_dump($fruit, $color);
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php"># 列出他们的其中一个
+=======
+<pre><code class="language-php"># 列出他们的其中一个
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 $arr = [&#39;apple&#39;, &#39;red&#39;];
 
 list(, $color) = $arr;
@@ -187,7 +223,11 @@ list(, $color) = $arr;
 var_dump($color);
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php"># php7.1后可以指定键名
+=======
+<pre><code class="language-php"># php7.1后可以指定键名
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 $arr = [
     [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
     [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
@@ -197,7 +237,11 @@ list(&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val) = reset($arr);
 var_dump($id, $val);
 </code></pre>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">$arr = [
+=======
+<pre><code class="language-php">$arr = [
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
     [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
 ];
@@ -209,7 +253,11 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h3 id="toc_7">箭头函数</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     //php7.4前
     $demo1 = array_map(function ($val){
         return $val * $val;
@@ -221,7 +269,11 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h3 id="toc_8">取出数组中的元素</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
 
     $arr = [
         [&#39;id&#39; =&gt; &#39;zx&#39;, &#39;name&#39; =&gt; &#39;ZX&#39;],
@@ -235,7 +287,11 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 
 <h3 id="toc_9">match</h3>
 
+<<<<<<< HEAD
 <pre class="line-numbers"><code class="language-php">&lt;?php
+=======
+<pre><code class="language-php">&lt;?php
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
     //php8前
     switch ($input) {
         case &quot;true&quot;:
@@ -471,7 +527,11 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
              
             
             <li>
+<<<<<<< HEAD
             <a href="Mysql.html">Mysql&nbsp;(2)</a>
+=======
+            <a href="Mysql.html">Mysql&nbsp;(1)</a>
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
             <p>
             
             </p>
@@ -491,12 +551,15 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
           
           
          <li>
+<<<<<<< HEAD
            <a href="16182714235900.html">[Mycli](https://www.mycli.net/)</a><br>
          </li>
           
           
           
          <li>
+=======
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
            <a href="16173762986851.html">Mysql的几种锁</a><br>
          </li>
           
@@ -520,6 +583,13 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
           
           
           
+<<<<<<< HEAD
+=======
+         <li>
+           <a href="16169964390881.html">Gitlab版本升级</a><br>
+         </li>
+          
+>>>>>>> 851e4d3aeebd050bdc44eff6044b60611ef11bc0
           
           
           
