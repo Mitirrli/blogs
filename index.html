@@ -94,34 +94,29 @@
                          	<div class="item-thumb bg-deepgrey" style="background-image:url();">
 						
 						</div> 
-						<a href="16182714235900.html"> 
+						<a href="16185330911384.html"> 
 							<div class="item-desc"> 
-								<p>
-Mycli是一个MySQL命令行客户端工具，具有自动完成和语法突出显示功能。
+								<p>查找表
+
+show tables like &quot;%what%&quot;;
 
 
-Quick Start
+索引
 
-macOS
+普通索引
 
-$ brew update &amp;&amp; brew install mycli
-
-
-others
-
-$ pip install mycli
+ALTER TABLE `table` ADD KEY `idx_created_at`(`created_at`) USING BTREE;
 
 
-Usage
+主键索引
 
-$ mycli --help
-Usage: mycli [OPTIONS] [DATABASE]
+ALTER TABLE `table` DROP PRIMARY KEY;
+ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
 
-A MySQL terminal client with auto-completion and syntax highlighting.
 
-Examples:
-   - mycli my_database
- </p> 
+修改字段
+
+ALTER TABLE `table` MODIFY COLUMN `shop_id` bigint(20) unsigned NOT NUL</p> 
 							</div> 
 						</a> 
 <!-- 自定义Post颜色 -->
@@ -132,7 +127,7 @@ Examples:
 						<div class="item-slant"></div>
 		 				<div class="item-label">
 	  						<div class="item-title">
-	  							<a href="16182714235900.html">Mycli</a>
+	  							<a href="16185330911384.html">mysql 常用sql</a>
 	  						</div>
 		   					<div class="item-meta clearfix"> 
 <!-- 自定义Icon -->
@@ -524,7 +519,7 @@ Gitlab升级
              
             
             <li>
-            <a href="Mysql.html">Mysql&nbsp;(2)</a>
+            <a href="Mysql.html">Mysql&nbsp;(3)</a>
             <p>
             
             </p>
@@ -544,7 +539,7 @@ Gitlab升级
           
           
          <li>
-           <a href="16182714235900.html">Mycli</a><br>
+           <a href="16185330911384.html">mysql 常用sql</a><br>
          </li>
           
           
@@ -570,6 +565,8 @@ Gitlab升级
          <li>
            <a href="16180194244918.html">Kibana制作用户访问热力地图</a><br>
          </li>
+          
+          
           
           
           

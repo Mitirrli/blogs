@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-13T07:53:00+08:00</updated>
+  <updated>2021-04-16T08:45:16+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -14,84 +14,64 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Mycli]]></title>
-    <link href="https://mitirrli.github.io/blogs/16182714235900.html"/>
-    <updated>2021-04-13T07:50:23+08:00</updated>
-    <id>https://mitirrli.github.io/blogs/16182714235900.html</id>
+    <title type="html"><![CDATA[mysql 常用sql]]></title>
+    <link href="https://mitirrli.github.io/blogs/16185330911384.html"/>
+    <updated>2021-04-16T08:31:31+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16185330911384.html</id>
     <content type="html"><![CDATA[
-<blockquote>
-<p>Mycli是一个MySQL命令行客户端工具，具有自动完成和语法突出显示功能。</p>
-</blockquote>
+<h2 id="toc_0">查找表</h2>
 
-<h2 id="toc_0">Quick Start</h2>
-
-<h3 id="toc_1">macOS</h3>
-
-<pre class="line-numbers"><code class="language-text">$ brew update &amp;&amp; brew install mycli
+<pre class="line-numbers"><code class="language-text">show tables like &quot;%what%&quot;;
 </code></pre>
 
-<h3 id="toc_2">others</h3>
+<h2 id="toc_1">索引</h2>
 
-<pre class="line-numbers"><code class="language-text">$ pip install mycli
+<h3 id="toc_2">普通索引</h3>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD KEY `idx_created_at`(`created_at`) USING BTREE;
 </code></pre>
 
-<h2 id="toc_3">Usage</h2>
+<h3 id="toc_3">主键索引</h3>
 
-<pre class="line-numbers"><code class="language-text">$ mycli --help
-Usage: mycli [OPTIONS] [DATABASE]
+<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` DROP PRIMARY KEY;
+ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
+</code></pre>
 
-A MySQL terminal client with auto-completion and syntax highlighting.
+<h2 id="toc_4">修改字段</h2>
 
-Examples:
-   - mycli my_database
-   - mycli -u my_user -h my_host.com my_database
-   - mycli mysql://my_user@my_host.com:3306/my_database
+<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` MODIFY COLUMN `shop_id` bigint(20) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;门店ID&#39;;
+</code></pre>
 
-Options:
-   -h, --host TEXT               Host address of the database.
-   -P, --port INTEGER            Port number to use for connection. Honors
-                                 $MYSQL_TCP_PORT.
-   -u, --user TEXT               User name to connect to the database.
-   -S, --socket TEXT             The socket file to use for connection.
-   -p, --password TEXT           Password to connect to the database.
-   --pass TEXT                   Password to connect to the database.
-   --ssh-user TEXT               User name to connect to ssh server.
-   --ssh-host TEXT               Host name to connect to ssh server.
-   --ssh-port INTEGER            Port to connect to ssh server.
-   --ssh-password TEXT           Password to connect to ssh server.
-   --ssh-key-filename TEXT        Private key filename (identify file) for the
-                                 ssh connection.
-   --ssl-ca PATH                 CA file in PEM format.
-   --ssl-capath TEXT             CA directory.
-   --ssl-cert PATH               X509 cert in PEM format.
-   --ssl-key PATH                X509 key in PEM format.
-   --ssl-cipher TEXT             SSL cipher to use.
-   --ssl-verify-server-cert      Verify server&#39;s &quot;Common Name&quot; in its cert
-                                  against hostname used when connecting. This
-                                  option is disabled by default.
-   -V, --version                 Output mycli&#39;s version.
-   -v, --verbose                 Verbose output.
-   -D, --database TEXT           Database to use.
-   -d, --dsn TEXT                Use DSN configured into the [alias_dsn]
-                                  section of myclirc file.
-   --list-dsn                    list of DSN configured into the [alias_dsn]
-                                  section of myclirc file.
-   -R, --prompt TEXT             Prompt format (Default: &quot;\t \u@\h:\d&gt; &quot;).
-   -l, --logfile FILENAME         Log every query and its results to a file.
-   --defaults-group-suffix TEXT   Read MySQL config groups with the specified
-                                 suffix.
-   --defaults-file PATH           Only read MySQL options from the given file.
-   --myclirc PATH                Location of myclirc file.
-   --auto-vertical-output        Automatically switch to vertical output mode
-                                 if the result is wider than the terminal
-                                 width.
-   -t, --table                   Display batch output in table format.
-   --csv                         Display batch output in CSV format.
-   --warn / --no-warn            Warn before running a destructive query.
-   --local-infile BOOLEAN         Enable/disable LOAD DATA LOCAL INFILE.
-   --login-path TEXT             Read this path from the login file.
-   -e, --execute TEXT            Execute command and quit.
-   --help                        Show this message and exit.
+<h2 id="toc_5">删除字段</h2>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE DROP COLUMN 列名;
+</code></pre>
+
+<h2 id="toc_6">增加字段</h2>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD COLUMN `status` smallint(2) unsigned NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;状态&#39;;
+ALTER TABLE `table` ADD COLUMN `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;备注&#39; AFTER `mobile`,
+ADD COLUMN `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;反馈类型&#39; after `remark`;
+</code></pre>
+
+<h2 id="toc_7">插入失败则更新 这种方式更新，会使自增主键出现间隔</h2>
+
+<pre class="line-numbers"><code class="language-text">INSERT INTO `user` (username,role_id) VALUES (&#39;limx2&#39;,1) ON DUPLICATE KEY UPDATE role_id=role_id+1;
+</code></pre>
+
+<h2 id="toc_8">在指定字段后增加字段</h2>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE 表名 ADD COLUMN 列名 列的类型 [列的属性] AFTER 指定列名；
+</code></pre>
+
+<h2 id="toc_9">修改列的信息</h2>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE first_table MODIFY second_column VARCHAR(2);
+</code></pre>
+
+<h2 id="toc_10">从另一张表插入现有数据</h2>
+
+<pre class="line-numbers"><code class="language-text">INSERT INTO province (`adcode`,`name`) SELECT `adcode`,`name` FROM Sheet1 WHERE citycode IS NULL
 </code></pre>
 
 ]]></content>
@@ -1084,6 +1064,90 @@ $ git commit -m &#39;comment&#39;
 </code></pre>
 
 <p><a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97#_cloning_submodules">git官方文档</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mycli]]></title>
+    <link href="https://mitirrli.github.io/blogs/16182714235900.html"/>
+    <updated>2021-04-13T07:50:23+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16182714235900.html</id>
+    <content type="html"><![CDATA[
+<blockquote>
+<p>Mycli是一个MySQL命令行客户端工具，具有自动完成和语法突出显示功能。</p>
+</blockquote>
+
+<h2 id="toc_0">Quick Start</h2>
+
+<h3 id="toc_1">macOS</h3>
+
+<pre class="line-numbers"><code class="language-text">$ brew update &amp;&amp; brew install mycli
+</code></pre>
+
+<h3 id="toc_2">others</h3>
+
+<pre class="line-numbers"><code class="language-text">$ pip install mycli
+</code></pre>
+
+<h2 id="toc_3">Usage</h2>
+
+<pre class="line-numbers"><code class="language-text">$ mycli --help
+Usage: mycli [OPTIONS] [DATABASE]
+
+A MySQL terminal client with auto-completion and syntax highlighting.
+
+Examples:
+   - mycli my_database
+   - mycli -u my_user -h my_host.com my_database
+   - mycli mysql://my_user@my_host.com:3306/my_database
+
+Options:
+   -h, --host TEXT               Host address of the database.
+   -P, --port INTEGER            Port number to use for connection. Honors
+                                 $MYSQL_TCP_PORT.
+   -u, --user TEXT               User name to connect to the database.
+   -S, --socket TEXT             The socket file to use for connection.
+   -p, --password TEXT           Password to connect to the database.
+   --pass TEXT                   Password to connect to the database.
+   --ssh-user TEXT               User name to connect to ssh server.
+   --ssh-host TEXT               Host name to connect to ssh server.
+   --ssh-port INTEGER            Port to connect to ssh server.
+   --ssh-password TEXT           Password to connect to ssh server.
+   --ssh-key-filename TEXT        Private key filename (identify file) for the
+                                 ssh connection.
+   --ssl-ca PATH                 CA file in PEM format.
+   --ssl-capath TEXT             CA directory.
+   --ssl-cert PATH               X509 cert in PEM format.
+   --ssl-key PATH                X509 key in PEM format.
+   --ssl-cipher TEXT             SSL cipher to use.
+   --ssl-verify-server-cert      Verify server&#39;s &quot;Common Name&quot; in its cert
+                                  against hostname used when connecting. This
+                                  option is disabled by default.
+   -V, --version                 Output mycli&#39;s version.
+   -v, --verbose                 Verbose output.
+   -D, --database TEXT           Database to use.
+   -d, --dsn TEXT                Use DSN configured into the [alias_dsn]
+                                  section of myclirc file.
+   --list-dsn                    list of DSN configured into the [alias_dsn]
+                                  section of myclirc file.
+   -R, --prompt TEXT             Prompt format (Default: &quot;\t \u@\h:\d&gt; &quot;).
+   -l, --logfile FILENAME         Log every query and its results to a file.
+   --defaults-group-suffix TEXT   Read MySQL config groups with the specified
+                                 suffix.
+   --defaults-file PATH           Only read MySQL options from the given file.
+   --myclirc PATH                Location of myclirc file.
+   --auto-vertical-output        Automatically switch to vertical output mode
+                                 if the result is wider than the terminal
+                                 width.
+   -t, --table                   Display batch output in table format.
+   --csv                         Display batch output in CSV format.
+   --warn / --no-warn            Warn before running a destructive query.
+   --local-infile BOOLEAN         Enable/disable LOAD DATA LOCAL INFILE.
+   --login-path TEXT             Read this path from the login file.
+   -e, --execute TEXT            Execute command and quit.
+   --help                        Show this message and exit.
+</code></pre>
 
 ]]></content>
   </entry>
