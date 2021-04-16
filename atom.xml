@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-16T12:53:23+08:00</updated>
+  <updated>2021-04-16T13:07:27+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -700,7 +700,7 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[MYSQL常用sql]]></title>
+    <title type="html"><![CDATA[MYSQL常用SQL]]></title>
     <link href="https://mitirrli.github.io/blogs/16185330911384.html"/>
     <updated>2021-04-16T08:31:31+08:00</updated>
     <id>https://mitirrli.github.io/blogs/16185330911384.html</id>
@@ -728,8 +728,7 @@ ALTER TABLE `table`  MODIFY second_column VARCHAR(2);
 <h3 id="toc_5">增加字段</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD COLUMN `status` smallint(2) unsigned NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;状态&#39;;
-ALTER TABLE `table` ADD COLUMN `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;备注&#39; AFTER `mobile`,
-ADD COLUMN `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;反馈类型&#39; after `remark`;
+ALTER TABLE `table` ADD COLUMN `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;备注&#39; AFTER `mobile`;
 </code></pre>
 
 <h3 id="toc_6">在指定字段后增加字段</h3>
@@ -1090,7 +1089,7 @@ $ git commit -m &#39;comment&#39;
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Mycli]]></title>
+    <title type="html"><![CDATA[MYCLI]]></title>
     <link href="https://mitirrli.github.io/blogs/16182714235900.html"/>
     <updated>2021-04-13T07:50:23+08:00</updated>
     <id>https://mitirrli.github.io/blogs/16182714235900.html</id>
