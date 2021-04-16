@@ -102,57 +102,59 @@
 		</p>
 	<!-- 正文 -->
 		<p>
-		<h2 id="toc_0">模糊查找表</h2>
+		<h2 id="toc_0">表</h2>
+
+<h3 id="toc_1">模糊查找表</h3>
 
 <pre class="line-numbers"><code class="language-text">show tables like &quot;%what%&quot;;
 </code></pre>
 
-<h2 id="toc_1">字段</h2>
+<h2 id="toc_2">字段</h2>
 
-<h3 id="toc_2">修改字段</h3>
+<h3 id="toc_3">修改字段</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE `table` MODIFY COLUMN `shop_id` bigint(20) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;门店ID&#39;;
 ALTER TABLE `table`  MODIFY second_column VARCHAR(2);
 </code></pre>
 
-<h3 id="toc_3">删除字段</h3>
+<h3 id="toc_4">删除字段</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE DROP COLUMN 列名;
 </code></pre>
 
-<h3 id="toc_4">增加字段</h3>
+<h3 id="toc_5">增加字段</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD COLUMN `status` smallint(2) unsigned NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;状态&#39;;
 ALTER TABLE `table` ADD COLUMN `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;备注&#39; AFTER `mobile`,
 ADD COLUMN `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;反馈类型&#39; after `remark`;
 </code></pre>
 
-<h3 id="toc_5">在指定字段后增加字段</h3>
+<h3 id="toc_6">在指定字段后增加字段</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE 表名 ADD COLUMN 列名 列的类型 [列的属性] AFTER 指定列名；
 </code></pre>
 
-<h2 id="toc_6">索引</h2>
+<h2 id="toc_7">索引</h2>
 
-<h3 id="toc_7">普通索引</h3>
+<h3 id="toc_8">普通索引</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD KEY `idx_created_at`(`created_at`) USING BTREE;
 </code></pre>
 
-<h3 id="toc_8">主键索引</h3>
+<h3 id="toc_9">主键索引</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE `table` DROP PRIMARY KEY;
 ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
 </code></pre>
 
-<h2 id="toc_9">插入数据</h2>
+<h2 id="toc_10">插入数据</h2>
 
-<h3 id="toc_10">插入失败则更新 这种方式更新，会使自增主键出现间隔</h3>
+<h3 id="toc_11">插入失败则更新 这种方式更新，会使自增主键出现间隔</h3>
 
 <pre class="line-numbers"><code class="language-text">INSERT INTO `user` (username,role_id) VALUES (&#39;limx2&#39;,1) ON DUPLICATE KEY UPDATE role_id=role_id+1;
 </code></pre>
 
-<h3 id="toc_11">从另一张表插入现有数据</h3>
+<h3 id="toc_12">从另一张表插入现有数据</h3>
 
 <pre class="line-numbers"><code class="language-text">INSERT INTO province (`adcode`,`name`) SELECT `adcode`,`name` FROM Sheet1 WHERE citycode IS NULL
 </code></pre>
@@ -380,13 +382,13 @@ ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
           
           
          <li>
-           <a href="16173762986851.html">MYSQL的几种锁</a><br>
+           <a href="16170664988742.html">PHP-FPM 是啥</a><br>
          </li>
           
           
           
          <li>
-           <a href="16170664988742.html">PHP-FPM 是啥</a><br>
+           <a href="16173762986851.html">MYSQL的几种锁</a><br>
          </li>
           
           
