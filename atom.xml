@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-16T08:45:16+08:00</updated>
+  <updated>2021-04-16T08:46:29+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -14,71 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[mysql 常用sql]]></title>
-    <link href="https://mitirrli.github.io/blogs/16185330911384.html"/>
-    <updated>2021-04-16T08:31:31+08:00</updated>
-    <id>https://mitirrli.github.io/blogs/16185330911384.html</id>
-    <content type="html"><![CDATA[
-<h2 id="toc_0">查找表</h2>
-
-<pre class="line-numbers"><code class="language-text">show tables like &quot;%what%&quot;;
-</code></pre>
-
-<h2 id="toc_1">索引</h2>
-
-<h3 id="toc_2">普通索引</h3>
-
-<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD KEY `idx_created_at`(`created_at`) USING BTREE;
-</code></pre>
-
-<h3 id="toc_3">主键索引</h3>
-
-<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` DROP PRIMARY KEY;
-ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
-</code></pre>
-
-<h2 id="toc_4">修改字段</h2>
-
-<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` MODIFY COLUMN `shop_id` bigint(20) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;门店ID&#39;;
-</code></pre>
-
-<h2 id="toc_5">删除字段</h2>
-
-<pre class="line-numbers"><code class="language-text">ALTER TABLE DROP COLUMN 列名;
-</code></pre>
-
-<h2 id="toc_6">增加字段</h2>
-
-<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD COLUMN `status` smallint(2) unsigned NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;状态&#39;;
-ALTER TABLE `table` ADD COLUMN `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;备注&#39; AFTER `mobile`,
-ADD COLUMN `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;反馈类型&#39; after `remark`;
-</code></pre>
-
-<h2 id="toc_7">插入失败则更新 这种方式更新，会使自增主键出现间隔</h2>
-
-<pre class="line-numbers"><code class="language-text">INSERT INTO `user` (username,role_id) VALUES (&#39;limx2&#39;,1) ON DUPLICATE KEY UPDATE role_id=role_id+1;
-</code></pre>
-
-<h2 id="toc_8">在指定字段后增加字段</h2>
-
-<pre class="line-numbers"><code class="language-text">ALTER TABLE 表名 ADD COLUMN 列名 列的类型 [列的属性] AFTER 指定列名；
-</code></pre>
-
-<h2 id="toc_9">修改列的信息</h2>
-
-<pre class="line-numbers"><code class="language-text">ALTER TABLE first_table MODIFY second_column VARCHAR(2);
-</code></pre>
-
-<h2 id="toc_10">从另一张表插入现有数据</h2>
-
-<pre class="line-numbers"><code class="language-text">INSERT INTO province (`adcode`,`name`) SELECT `adcode`,`name` FROM Sheet1 WHERE citycode IS NULL
-</code></pre>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Mysql的几种锁]]></title>
+    <title type="html"><![CDATA[MYSQL的几种锁]]></title>
     <link href="https://mitirrli.github.io/blogs/16173762986851.html"/>
     <updated>2021-04-02T23:11:38+08:00</updated>
     <id>https://mitirrli.github.io/blogs/16173762986851.html</id>
@@ -759,6 +695,70 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 </code></pre>
 
 <p><a href="https://www.laruence.com/">参考文章</a></p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[mysql 常用sql]]></title>
+    <link href="https://mitirrli.github.io/blogs/16185330911384.html"/>
+    <updated>2021-04-16T08:31:31+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16185330911384.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0">模糊查找表</h2>
+
+<pre class="line-numbers"><code class="language-text">show tables like &quot;%what%&quot;;
+</code></pre>
+
+<h2 id="toc_1">字段</h2>
+
+<h3 id="toc_2">修改字段</h3>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` MODIFY COLUMN `shop_id` bigint(20) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;门店ID&#39;;
+ALTER TABLE `table`  MODIFY second_column VARCHAR(2);
+</code></pre>
+
+<h3 id="toc_3">删除字段</h3>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE DROP COLUMN 列名;
+</code></pre>
+
+<h3 id="toc_4">增加字段</h3>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD COLUMN `status` smallint(2) unsigned NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;状态&#39;;
+ALTER TABLE `table` ADD COLUMN `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;备注&#39; AFTER `mobile`,
+ADD COLUMN `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;反馈类型&#39; after `remark`;
+</code></pre>
+
+<h3 id="toc_5">在指定字段后增加字段</h3>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE 表名 ADD COLUMN 列名 列的类型 [列的属性] AFTER 指定列名；
+</code></pre>
+
+<h2 id="toc_6">索引</h2>
+
+<h3 id="toc_7">普通索引</h3>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD KEY `idx_created_at`(`created_at`) USING BTREE;
+</code></pre>
+
+<h3 id="toc_8">主键索引</h3>
+
+<pre class="line-numbers"><code class="language-text">ALTER TABLE `table` DROP PRIMARY KEY;
+ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
+</code></pre>
+
+<h2 id="toc_9">插入数据</h2>
+
+<h3 id="toc_10">插入失败则更新 这种方式更新，会使自增主键出现间隔</h3>
+
+<pre class="line-numbers"><code class="language-text">INSERT INTO `user` (username,role_id) VALUES (&#39;limx2&#39;,1) ON DUPLICATE KEY UPDATE role_id=role_id+1;
+</code></pre>
+
+<h3 id="toc_11">从另一张表插入现有数据</h3>
+
+<pre class="line-numbers"><code class="language-text">INSERT INTO province (`adcode`,`name`) SELECT `adcode`,`name` FROM Sheet1 WHERE citycode IS NULL
+</code></pre>
 
 ]]></content>
   </entry>
