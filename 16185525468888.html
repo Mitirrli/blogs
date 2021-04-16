@@ -10,7 +10,7 @@
 
     <title>
       
-    子模块 - Mitirrli
+    GIT常用命令 - Mitirrli
     
     </title>
 
@@ -88,9 +88,9 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">子模块</h1>	
+				<h1 class="post-title itemprop="name headline">GIT常用命令</h1>	
 				<div class="post-data">
-					<time datetime="2019-09-21T22:59:49+08:00" pubdate data-updated="true">2019/09/21</time>
+					<time datetime="2021-04-16T13:55:46+08:00" pubdate data-updated="true">2021/04/16</time>
 				</div>
 			</div>
 		</div>
@@ -102,76 +102,46 @@
 		</p>
 	<!-- 正文 -->
 		<p>
-		<blockquote>
-<p>子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立</p>
-</blockquote>
+		<h2 id="toc_0">列出所有远程仓库</h2>
 
-<h3 id="toc_0">添加子模块</h3>
-
-<pre class="line-numbers"><code class="language-shell">你可以通过在 git submodule add 命令后面加上想要跟踪的项目的相对或绝对URL来添加新的子模块
-
-$ git submodule add ... //默认情况下,子模块会将子项目放到一个与仓库同名的目录中,如果你想要放到其他地方,那么可以在命令结尾添加一个不同的路径
+<pre class="line-numbers"><code class="language-bash">git remote
 </code></pre>
 
-<pre class="line-numbers"><code class="language-text">此时.gitmodules文件保存了项目 URL 与已经拉取的本地目录之间的映射。
+<h2 id="toc_1">增加远程仓库</h2>
 
-修改子模块url: git config submodule.&lt;模块名&gt;.url &lt;私有URL&gt; 来覆盖这个选项的值
+<pre class="line-numbers"><code class="language-bash">git remote add origin &lt;remote-url&gt;
 </code></pre>
 
-<h3 id="toc_1">克隆含有子模块的项目</h3>
+<h2 id="toc_2">修改远程仓库的 url</h2>
 
-<pre class="line-numbers"><code class="language-shell">$ git clone &lt;url&gt;
-
-$ git submodule init //初始化本地配置文件
-
-$ git submodule update //从该项目中抓取所有数据并检出父项目中列出的合适的提交
+<pre class="line-numbers"><code class="language-bash">git remote set-url origin &lt;URL&gt;
 </code></pre>
 
-<pre class="line-numbers"><code class="language-shell">$ git clone --recurse-submodules &lt;url&gt; //传递--recurse-submodules选项,它就会自动初始化并更新仓库中的每一个子模块,包括可能存在的嵌套子模块
+<h2 id="toc_3">回到远程仓库的状态</h2>
 
-如果你已经克隆了项目但忘记了--recurse-submodule,那么可以运行git submodule update --init将git submodule init和git submodule update合并成一步
-如果还要初始化、抓取并检出任何嵌套的子模块,请使用简明的git submodule update --init --recursive
+<p>抛弃本地所有的修改，回到远程仓库的状态。</p>
+
+<pre class="line-numbers"><code class="language-bash">git fetch --all &amp;&amp; git reset --hard origin/master
 </code></pre>
 
-<h3 id="toc_2">在主项目更新子模块</h3>
+<h2 id="toc_4">快速切换到上一个分支</h2>
 
-<pre class="line-numbers"><code class="language-shell">$ git submodule update --remote &lt;模块名&gt;
-
-$ git config -f .gitmodules submodule.&lt;模块名&gt;.branch &lt;分支名&gt; //设置模块默认的分支
-
-如果不用 -f .gitmodules 选项,那么它只会为你做修改
+<pre class="line-numbers"><code class="language-bash">git checkout -
 </code></pre>
 
-<h3 id="toc_3">更新包含子模块的项目</h3>
+<h2 id="toc_5">查看两个星期内的改动</h2>
 
-<pre class="line-numbers"><code class="language-shell">$ git submodule update --init --recursive //如果MainProject提交了你刚拉取的新子模块,应该在 git submodule update 后面添加--init选项,如果子模块有嵌套的子模块,则应使用--recursive选项
-
-如果你想自动化此过程,那么可以为 git pull 命令添加--recurse-submodules选项
-如果你想让Git总是以--recurse-submodules拉取,可以将配置选项submodule.recurse设置为true.此选项会让Git为所有支持--recurse-submodules的命令使用该选项(除clone以外)
+<pre class="line-numbers"><code class="language-bash">git whatchanged --since=&#39;2 weeks ago&#39;
 </code></pre>
 
-<h3 id="toc_4">子模块遍历</h3>
+<h2 id="toc_6">clone 最新一次提交</h2>
 
-<pre class="line-numbers"><code class="language-shell">有一个foreach子模块命令,它能在每一个子模块中运行任意命令
+<p>只 clone 最近一次提交，将减少 clone 时间</p>
 
-$ git submodule foreach &#39;git stash&#39;
+<pre class="line-numbers"><code class="language-bash">git clone --depth=1 https://github.com/user/repo.git
 </code></pre>
 
-<h3 id="toc_5">增加子模块别名</h3>
-
-<pre class="line-numbers"><code class="language-shell">$ git config alias.sdiff &#39;!&#39;&quot;git diff &amp;&amp; git submodule foreach &#39;git diff&#39;&quot;
-$ git config alias.spush &#39;push --recurse-submodules=on-demand&#39;
-$ git config alias.supdate &#39;submodule update --remote --merge&#39;
-</code></pre>
-
-<h3 id="toc_6">删除子模块</h3>
-
-<pre class="line-numbers"><code class="language-shell">$ git submodule deinit &lt;子模块&gt; //逆初始化模块
-$ git rm --cached &lt;子模块&gt; //删除.gitmodules中记录的模块信息(--cached选项清除.git/modules中的缓存)
-$ git commit -m &#39;comment&#39;
-</code></pre>
-
-<p><a href="https://git-scm.com/book/zh/v2/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97#_cloning_submodules">git官方文档</a></p>
+<p><a href="https://github.com/521xueweihan/git-tips">参考资料</a></p>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -272,22 +242,16 @@ $ git commit -m &#39;comment&#39;
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-02T22:59:49+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-16T13:55:46+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
 				<footer class="post-footer clearfix">	    			
 				    <div class="meta">
 					    
-					    <P style="float: left;">
-					    	<a href="16172870405989.html" 
-					        title="Previous Post: 本地调试组件">&laquo; 本地调试组件</a>
-					    </p>
-					    <p style="float:right; ">
 					    	
-					    	
-					        <a href="16185542723715.html" 
-					        title="Next Post: GIT提交规范">GIT提交规范 &raquo;</a>
+					        <a href="16170664988742.html" 
+					        title="Next Post: PHP-FPM 是啥">PHP-FPM 是啥 &raquo;</a>
 					    </p> 
 					    
 				    </div>
