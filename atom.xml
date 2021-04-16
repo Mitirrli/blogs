@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-16T08:46:29+08:00</updated>
+  <updated>2021-04-16T08:47:12+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -700,7 +700,7 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[mysql 常用sql]]></title>
+    <title type="html"><![CDATA[MYSQL常用sql]]></title>
     <link href="https://mitirrli.github.io/blogs/16185330911384.html"/>
     <updated>2021-04-16T08:31:31+08:00</updated>
     <id>https://mitirrli.github.io/blogs/16185330911384.html</id>
