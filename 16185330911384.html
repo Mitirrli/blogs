@@ -104,7 +104,7 @@
 		<p>
 		<h2 id="toc_0">表</h2>
 
-<h3 id="toc_1">模糊查找表</h3>
+<h3 id="toc_1">模糊查找</h3>
 
 <pre class="line-numbers"><code class="language-text">show tables like &quot;%what%&quot;;
 </code></pre>
@@ -149,24 +149,31 @@ ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
 
 <h2 id="toc_10">数据</h2>
 
-<h3 id="toc_11">更新数据</h3>
+<h3 id="toc_11">查找数据</h3>
+
+<h4 id="toc_12">输出按列显示</h4>
+
+<pre class="line-numbers"><code class="language-text">SELECT * FROM `table`\G
+</code></pre>
+
+<h3 id="toc_13">更新数据</h3>
 
 <pre class="line-numbers"><code class="language-text">UPDATE `table` SET a=1, b=2 WHERE id = 1;
 </code></pre>
 
-<h3 id="toc_12">删除数据</h3>
+<h3 id="toc_14">删除数据</h3>
 
 <pre class="line-numbers"><code class="language-text">DELETE FROM `table` WHERE id = 1;
 </code></pre>
 
-<h3 id="toc_13">插入数据</h3>
+<h3 id="toc_15">插入数据</h3>
 
-<h4 id="toc_14">从另一张表插入现有数据</h4>
+<h4 id="toc_16">从另一张表插入现有数据</h4>
 
 <pre class="line-numbers"><code class="language-text">INSERT INTO province (`adcode`,`name`) SELECT `adcode`,`name` FROM Sheet1 WHERE citycode IS NULL
 </code></pre>
 
-<h4 id="toc_15">插入失败则更新 这种方式更新，会使自增主键出现间隔</h4>
+<h4 id="toc_17">插入失败则更新 这种方式更新，会使自增主键出现间隔</h4>
 
 <pre class="line-numbers"><code class="language-text">INSERT INTO `user` (username,role_id) VALUES (&#39;limx2&#39;,1) ON DUPLICATE KEY UPDATE role_id=role_id+1;
 </code></pre>
