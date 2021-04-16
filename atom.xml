@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-16T08:47:12+08:00</updated>
+  <updated>2021-04-16T08:48:00+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,144 +12,6 @@
   </author>
   <generator uri="http://www.coderforart.com/">CoderForArt</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[MYSQL的几种锁]]></title>
-    <link href="https://mitirrli.github.io/blogs/16173762986851.html"/>
-    <updated>2021-04-02T23:11:38+08:00</updated>
-    <id>https://mitirrli.github.io/blogs/16173762986851.html</id>
-    <content type="html"><![CDATA[
-<h2 id="toc_0">使用docker搞一个mysql实例</h2>
-
-<pre class="line-numbers"><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
-
-$ docker exec -it mysql-test bash
-</code></pre>
-
-<h2 id="toc_1">准备工作</h2>
-
-<h3 id="toc_2">进入数据库</h3>
-
-<pre class="line-numbers"><code class="language-shell">$ mysql -u root -p
-</code></pre>
-
-<h3 id="toc_3">创建一个数据库</h3>
-
-<pre class="line-numbers"><code class="language-sql">CREATE DATABASE lock_demo;
-</code></pre>
-
-<h3 id="toc_4">展示数据库</h3>
-
-<pre class="line-numbers"><code class="language-sql">show databases;
-</code></pre>
-
-<h3 id="toc_5">选择数据库</h3>
-
-<pre class="line-numbers"><code class="language-sql">use lock_demo;
-</code></pre>
-
-<h2 id="toc_6">行锁</h2>
-
-<h3 id="toc_7">创建一个demo表</h3>
-
-<pre class="line-numbers"><code class="language-sql">DROP TABLE lock_demo;
-CREATE TABLE lock_demo (
-    id INT(10) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(10) NOT NULL DEFAULT &#39;&#39;,
-    age TINYINT(3) NOT NULL DEFAULT 0,
-    address VARCHAR(25) NOT NULL DEFAULT &#39;&#39;,
-    primary key(id)
-) engine=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-</code></pre>
-
-<h3 id="toc_8">查看表结构</h3>
-
-<pre class="line-numbers"><code class="language-sql">show create table lock_demo;
-</code></pre>
-
-<h3 id="toc_9">插入一些数据</h3>
-
-<pre class="line-numbers"><code class="language-sql">INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 10, &#39;a address&#39;);
-INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 12, &#39;b address&#39;);
-INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 13, &#39;c address&#39;);
-</code></pre>
-
-<h3 id="toc_10">查看数据</h3>
-
-<pre class="line-numbers"><code class="language-sql">SELECT * FROM lock_demo;
-</code></pre>
-
-<h3 id="toc_11">开启两个shell进行测试</h3>
-
-<pre class="line-numbers"><code class="language-sql">shell 1:
-STEP 1. set autocommit=0; //关闭自动提交
-STEP 2. UPDATE lock_demo SET address = &#39;q address&#39; WHERE id = 1;
-STEP 3. SELECT * FROM lock_demo; //这里值已经改变了
-STEP 5. COMMIT;
-
-
-shell 2:
-STEP 4. SELECT * FROM lock_demo; //这里值并没有修改
-STEP 6. SELECT * FROM lock_demo; //这里值已经修改
-</code></pre>
-
-<h2 id="toc_12">表锁</h2>
-
-<blockquote>
-<p>索引失效导致表锁</p>
-</blockquote>
-
-<h3 id="toc_13">开启两个shell进行测试</h3>
-
-<pre class="line-numbers"><code class="language-sql">shell1:
-STEP 1. UPDATE lock_demo SET age = 1 WHERE id = 1 OR id = 2;
-STEP 2. SELECT * FROM lock_demo; //这里值已经改变了
-STEP 5. SELECT * FROM lock_demo; //这里值并没有改变
-STEP 6. COMMIT; //提交后两者均变化了
-
-shell2:
-STEP 3. SELECT * FROM lock_demo; //这里值没有修改
-STEP 4. UPDATE lock_demo SET age = 0 WHERE id = 3;
-</code></pre>
-
-<h2 id="toc_14">间隙锁</h2>
-
-<blockquote>
-<p>间隙锁将整个范围都锁住了</p>
-</blockquote>
-
-<h3 id="toc_15">插入一些数据</h3>
-
-<pre class="line-numbers"><code class="language-sql">DELETE FROM lock_demo WHERE id &gt;= 1;
-
-INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 1, &#39;a address&#39;);
-INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 3, &#39;b address&#39;);
-INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 5, &#39;c address&#39;);
-INSERT INTO lock_demo (name, age, address) VALUES (&#39;que&#39;, 7, &#39;d address&#39;);
-</code></pre>
-
-<h3 id="toc_16">开启两个shell进行测试</h3>
-
-<pre class="line-numbers"><code class="language-sql">shell1:
-STEP 1. UPDATE lock_demo SET name = &#39;c&#39; WHERE age &gt;= 1 and age &lt;= 7;
-
-shell2:
-STEP 2. INSERT INTO lock_demo (name, age, address) VALUES (&#39;d&#39;, 2, &#39;q address&#39;);
-</code></pre>
-
-<h2 id="toc_17">查看当前innodb锁的状态</h2>
-
-<pre class="line-numbers"><code class="language-sql">show status like &#39;innodb_row_lock%&#39;;
-
-Innodb_row_lock_current_waits 当前锁等待数
-Innodb_row_lock_time 总共锁的时间
-Innodb_row_lock_time_avg 平均锁的时间
-Innodb_row_lock_time_max 最大锁的时间
-Innodb_row_lock_waits 锁的次数
-</code></pre>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[PHP-FPM 是啥]]></title>
@@ -525,6 +387,144 @@ rlimit_core = 0
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[MYSQL的几种锁]]></title>
+    <link href="https://mitirrli.github.io/blogs/16173762986851.html"/>
+    <updated>2021-04-02T23:11:38+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16173762986851.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0">使用docker搞一个mysql实例</h2>
+
+<pre class="line-numbers"><code class="language-shell">$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
+
+$ docker exec -it mysql-test bash
+</code></pre>
+
+<h2 id="toc_1">准备工作</h2>
+
+<h3 id="toc_2">进入数据库</h3>
+
+<pre class="line-numbers"><code class="language-shell">$ mysql -u root -p
+</code></pre>
+
+<h3 id="toc_3">创建一个数据库</h3>
+
+<pre class="line-numbers"><code class="language-sql">CREATE DATABASE lock_demo;
+</code></pre>
+
+<h3 id="toc_4">展示数据库</h3>
+
+<pre class="line-numbers"><code class="language-sql">show databases;
+</code></pre>
+
+<h3 id="toc_5">选择数据库</h3>
+
+<pre class="line-numbers"><code class="language-sql">use lock_demo;
+</code></pre>
+
+<h2 id="toc_6">行锁</h2>
+
+<h3 id="toc_7">创建一个demo表</h3>
+
+<pre class="line-numbers"><code class="language-sql">DROP TABLE lock_demo;
+CREATE TABLE lock_demo (
+    id INT(10) NOT NULL AUTO_INCREMENT,
+    name VARCHAR(10) NOT NULL DEFAULT &#39;&#39;,
+    age TINYINT(3) NOT NULL DEFAULT 0,
+    address VARCHAR(25) NOT NULL DEFAULT &#39;&#39;,
+    primary key(id)
+) engine=innoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+</code></pre>
+
+<h3 id="toc_8">查看表结构</h3>
+
+<pre class="line-numbers"><code class="language-sql">show create table lock_demo;
+</code></pre>
+
+<h3 id="toc_9">插入一些数据</h3>
+
+<pre class="line-numbers"><code class="language-sql">INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 10, &#39;a address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 12, &#39;b address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 13, &#39;c address&#39;);
+</code></pre>
+
+<h3 id="toc_10">查看数据</h3>
+
+<pre class="line-numbers"><code class="language-sql">SELECT * FROM lock_demo;
+</code></pre>
+
+<h3 id="toc_11">开启两个shell进行测试</h3>
+
+<pre class="line-numbers"><code class="language-sql">shell 1:
+STEP 1. set autocommit=0; //关闭自动提交
+STEP 2. UPDATE lock_demo SET address = &#39;q address&#39; WHERE id = 1;
+STEP 3. SELECT * FROM lock_demo; //这里值已经改变了
+STEP 5. COMMIT;
+
+
+shell 2:
+STEP 4. SELECT * FROM lock_demo; //这里值并没有修改
+STEP 6. SELECT * FROM lock_demo; //这里值已经修改
+</code></pre>
+
+<h2 id="toc_12">表锁</h2>
+
+<blockquote>
+<p>索引失效导致表锁</p>
+</blockquote>
+
+<h3 id="toc_13">开启两个shell进行测试</h3>
+
+<pre class="line-numbers"><code class="language-sql">shell1:
+STEP 1. UPDATE lock_demo SET age = 1 WHERE id = 1 OR id = 2;
+STEP 2. SELECT * FROM lock_demo; //这里值已经改变了
+STEP 5. SELECT * FROM lock_demo; //这里值并没有改变
+STEP 6. COMMIT; //提交后两者均变化了
+
+shell2:
+STEP 3. SELECT * FROM lock_demo; //这里值没有修改
+STEP 4. UPDATE lock_demo SET age = 0 WHERE id = 3;
+</code></pre>
+
+<h2 id="toc_14">间隙锁</h2>
+
+<blockquote>
+<p>间隙锁将整个范围都锁住了</p>
+</blockquote>
+
+<h3 id="toc_15">插入一些数据</h3>
+
+<pre class="line-numbers"><code class="language-sql">DELETE FROM lock_demo WHERE id &gt;= 1;
+
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;leo&#39;, 1, &#39;a address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;geo&#39;, 3, &#39;b address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;ace&#39;, 5, &#39;c address&#39;);
+INSERT INTO lock_demo (name, age, address) VALUES (&#39;que&#39;, 7, &#39;d address&#39;);
+</code></pre>
+
+<h3 id="toc_16">开启两个shell进行测试</h3>
+
+<pre class="line-numbers"><code class="language-sql">shell1:
+STEP 1. UPDATE lock_demo SET name = &#39;c&#39; WHERE age &gt;= 1 and age &lt;= 7;
+
+shell2:
+STEP 2. INSERT INTO lock_demo (name, age, address) VALUES (&#39;d&#39;, 2, &#39;q address&#39;);
+</code></pre>
+
+<h2 id="toc_17">查看当前innodb锁的状态</h2>
+
+<pre class="line-numbers"><code class="language-sql">show status like &#39;innodb_row_lock%&#39;;
+
+Innodb_row_lock_current_waits 当前锁等待数
+Innodb_row_lock_time 总共锁的时间
+Innodb_row_lock_time_avg 平均锁的时间
+Innodb_row_lock_time_max 最大锁的时间
+Innodb_row_lock_waits 锁的次数
+</code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Clean code]]></title>
     <link href="https://mitirrli.github.io/blogs/16171065720634.html"/>
     <updated>2021-03-30T20:16:12+08:00</updated>
@@ -705,57 +705,59 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
     <updated>2021-04-16T08:31:31+08:00</updated>
     <id>https://mitirrli.github.io/blogs/16185330911384.html</id>
     <content type="html"><![CDATA[
-<h2 id="toc_0">模糊查找表</h2>
+<h2 id="toc_0">表</h2>
+
+<h3 id="toc_1">模糊查找表</h3>
 
 <pre class="line-numbers"><code class="language-text">show tables like &quot;%what%&quot;;
 </code></pre>
 
-<h2 id="toc_1">字段</h2>
+<h2 id="toc_2">字段</h2>
 
-<h3 id="toc_2">修改字段</h3>
+<h3 id="toc_3">修改字段</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE `table` MODIFY COLUMN `shop_id` bigint(20) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;门店ID&#39;;
 ALTER TABLE `table`  MODIFY second_column VARCHAR(2);
 </code></pre>
 
-<h3 id="toc_3">删除字段</h3>
+<h3 id="toc_4">删除字段</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE DROP COLUMN 列名;
 </code></pre>
 
-<h3 id="toc_4">增加字段</h3>
+<h3 id="toc_5">增加字段</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD COLUMN `status` smallint(2) unsigned NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;状态&#39;;
 ALTER TABLE `table` ADD COLUMN `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;备注&#39; AFTER `mobile`,
 ADD COLUMN `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;反馈类型&#39; after `remark`;
 </code></pre>
 
-<h3 id="toc_5">在指定字段后增加字段</h3>
+<h3 id="toc_6">在指定字段后增加字段</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE 表名 ADD COLUMN 列名 列的类型 [列的属性] AFTER 指定列名；
 </code></pre>
 
-<h2 id="toc_6">索引</h2>
+<h2 id="toc_7">索引</h2>
 
-<h3 id="toc_7">普通索引</h3>
+<h3 id="toc_8">普通索引</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE `table` ADD KEY `idx_created_at`(`created_at`) USING BTREE;
 </code></pre>
 
-<h3 id="toc_8">主键索引</h3>
+<h3 id="toc_9">主键索引</h3>
 
 <pre class="line-numbers"><code class="language-text">ALTER TABLE `table` DROP PRIMARY KEY;
 ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
 </code></pre>
 
-<h2 id="toc_9">插入数据</h2>
+<h2 id="toc_10">插入数据</h2>
 
-<h3 id="toc_10">插入失败则更新 这种方式更新，会使自增主键出现间隔</h3>
+<h3 id="toc_11">插入失败则更新 这种方式更新，会使自增主键出现间隔</h3>
 
 <pre class="line-numbers"><code class="language-text">INSERT INTO `user` (username,role_id) VALUES (&#39;limx2&#39;,1) ON DUPLICATE KEY UPDATE role_id=role_id+1;
 </code></pre>
 
-<h3 id="toc_11">从另一张表插入现有数据</h3>
+<h3 id="toc_12">从另一张表插入现有数据</h3>
 
 <pre class="line-numbers"><code class="language-text">INSERT INTO province (`adcode`,`name`) SELECT `adcode`,`name` FROM Sheet1 WHERE citycode IS NULL
 </code></pre>
