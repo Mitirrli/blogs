@@ -10,7 +10,7 @@
 
     <title>
       
-    Gitlab - Mitirrli
+    Nosql - Mitirrli
     
     </title>
 
@@ -94,22 +94,24 @@
                          	<div class="item-thumb bg-deepgrey" style="background-image:url();">
 						
 						</div> 
-						<a href="16169964390881.html"> 
+						<a href="16187106737241.html"> 
 							<div class="item-desc"> 
-								<p>
-公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程
+								<p>特性
 
+速度快
 
-备份Gitlab
+Redis之所以这么快有这么几点原因，数据是存在内存中，源代码使用C语言编写，代码短小精悍，使用的是线程模型是单线程。
+这里使用单线程主要是因为内存读写速度非常快，使用单线程能达到很高的性能，很多实际开发当中，多线程往往会成为我们并发的瓶颈。
 
-gitlab-rake gitlab:backup:create
+持久化
 
+我们知道Redis是将数据保存在内存中，而内存的数据不具有持久化的特性，也就是说当机器发生断电时，是无法对内存的数据进行恢复的，为此Redis就提供了持久化的功能。
+Redis所有数据保存在内存中，对数据的更新将异步的保存到磁盘上。
+Redis提供了RDB和AOF两种方式对数据进行持久化。
 
-执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包
+多种数据结构
 
-Gitlab升级
-
-升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&</p> 
+Redis提供了</p> 
 							</div> 
 						</a> 
 <!-- 自定义Post颜色 -->
@@ -120,7 +122,7 @@ Gitlab升级
 						<div class="item-slant"></div>
 		 				<div class="item-label">
 	  						<div class="item-title">
-	  							<a href="16169964390881.html">Gitlab版本升级</a>
+	  							<a href="16187106737241.html">Redis</a>
 	  						</div>
 		   					<div class="item-meta clearfix"> 
 <!-- 自定义Icon -->
@@ -131,7 +133,7 @@ Gitlab升级
 
 		   						<div class="item-meta-cat">
 	  							
-			    			<a class='category' href='Gitlab.html'>Gitlab</a>
+			    			<a class='category' href='Nosql.html'>Nosql</a>
 								
 		   						</div> 
 		   					</div> 

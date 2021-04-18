@@ -10,7 +10,7 @@
 
     <title>
       
-    Clean code - Mitirrli
+    zsh配置 - Mitirrli
     
     </title>
 
@@ -88,185 +88,152 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Clean code</h1>	
+				<h1 class="post-title itemprop="name headline">zsh配置</h1>	
 				<div class="post-data">
-					<time datetime="2020-10-01T20:16:12+08:00" pubdate data-updated="true">2020/10/01</time>
+					<time datetime="2018-04-18T21:38:29+08:00" pubdate data-updated="true">2018/04/18</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Php.html'>Php</a>&nbsp;
+		<a href='Linux.html'>Linux</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
-		<h2 id="toc_0">php特性</h2>
+		<h2 id="toc_0">下载 ohmyzsh</h2>
 
-<h3 id="toc_1">合并所有元素(使用数组解包)</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    $a = 1;
-    $b = [2, 3];
-
-    var_dump(array_merge([$a], $b));//php7.4前
-    var_dump([$a, ...$b]);//php7.4
+<pre><code class="language-shell">$ sh -c &quot;$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)&quot;
 </code></pre>
 
-<h3 id="toc_2">null 合并运算符</h3>
+<h2 id="toc_1">下载 zsh-autosuggestions</h2>
 
-<pre><code class="language-php">&lt;?php
+<blockquote>
+<p>命令自动建议和补全</p>
+</blockquote>
 
-    $default = &#39;a&#39;;
-    $username = $default ?? &#39;username&#39;;
-
-    var_dump($username);//php7.0
+<pre><code class="language-shell">$ git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 </code></pre>
 
-<pre><code class="language-php">&lt;?php
+<h2 id="toc_2">下载 zsh-syntax-highlighting</h2>
 
-    var_dump(isset($username) ? &#39;hi&#39; : &#39;username&#39;);//php7.0前
+<blockquote>
+<p>使用 zsh 插件 zsh-syntax-highlighting 高亮你的可用命令</p>
+</blockquote>
+
+<pre><code class="language-shell">$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 </code></pre>
 
-<h3 id="toc_3">空合并运算符赋值</h3>
+<h2 id="toc_3">增加几个好用的别名</h2>
 
-<pre><code class="language-php">&lt;?php
+<pre><code class="language-shell">$ vim ~/.alias_profile
 
-    $q = isset($q) ? 1 : 2;//php7.4前
-
-    $a ??= 1;//php7.4
-
-    var_dump($q);
-    var_dump($a);
+alias cl=clear
+alias history=&#39;fc -il 1&#39;
+alias k=kubernetes
+# 其他别名可继续增加
 </code></pre>
 
-<h3 id="toc_4">可为空(Nullable)类型</h3>
+<h2 id="toc_4">修改 ys THEMES 样式</h2>
 
-<pre><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
-当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
+<pre><code class="language-text">$ vim ~/.oh-my-zsh/themes/ys.zsh-theme
 </code></pre>
 
-<pre><code class="language-php">&lt;?php
-
-    function test(?string $name)
-    {
-        var_dump($name);
-    }
-
-    test(&#39;test&#39;);   //&quot;test&quot;
-    test(null);     //null
-    test();         //Uncaught Error: Too few arguments ...
+<pre><code class="language-text">PROMPT=&quot;
+%{$terminfo[bold]$fg[yellow]%}%~%{$reset_color%}\
+${hg_info}\
+\
+${git_info}\
+ \
+%{$fg[white]%}[%*] $exit_code
+%{$terminfo[bold]$fg[white]%}$ %{$reset_color%}&quot; 
 </code></pre>
 
-<h3 id="toc_5">多异常捕获处理</h3>
+<h2 id="toc_5">修改.zshrc</h2>
 
-<pre><code class="language-php">&lt;?php
+<pre><code class="language-text"># If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-    try {
-        // some code
-    } catch (Exception1 | Exception2 $e) {
-    }
+# Path to your oh-my-zsh installation.
+export ZSH=&quot;$HOME/.oh-my-zsh&quot;
+
+# Set name of the theme to load --- if set to &quot;random&quot;, it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME=&quot;ys&quot;
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( &quot;robbyrussell&quot; &quot;agnoster&quot; )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE=&quot;true&quot;
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE=&quot;true&quot;
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE=&quot;true&quot;
+
+# Uncomment the following line to automatically update without prompting.
+# DISABLE_UPDATE_PROMPT=&quot;true&quot;
+
+# Uncomment the following line to change how often to auto-update (in days).
+export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS=&quot;true&quot;
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS=&quot;true&quot;
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE=&quot;true&quot;
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION=&quot;true&quot;
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS=&quot;true&quot;
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY=&quot;true&quot;
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# &quot;mm/dd/yyyy&quot;|&quot;dd.mm.yyyy&quot;|&quot;yyyy-mm-dd&quot;
+# or set a custom format using the strftime function format specifications,
+# see &#39;man strftime&#39; for details.
+HIST_STAMPS=&quot;mm/dd/yyyy&quot;
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+   git z zsh-autosuggestions extract web-search zsh-syntax-highlighting
+)
+
+source $ZSH/oh-my-zsh.sh
+source $HOME/.alias_profile
 </code></pre>
 
-<h3 id="toc_6">list 函数</h3>
+<h5 id="toc_6">在当前环境下读取并执行 FileName 中的命令</h5>
 
-<pre><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
-
-list($fruit, $color) = $arr;
-
-var_dump($fruit, $color);
+<pre><code class="language-text">$ source ~/.zshrc
 </code></pre>
-
-<pre><code class="language-php"># 列出他们的其中一个
-$arr = [&#39;apple&#39;, &#39;red&#39;];
-
-list(, $color) = $arr;
-
-var_dump($color);
-</code></pre>
-
-<pre><code class="language-php"># php7.1后可以指定键名
-$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
-
-list(&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val) = reset($arr);
-var_dump($id, $val);
-</code></pre>
-
-<pre><code class="language-php">$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
-
-foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
-    var_dump($id, $val);
-}
-</code></pre>
-
-<h3 id="toc_7">箭头函数</h3>
-
-<pre><code class="language-php">&lt;?php
-    //php7.4前
-    $demo1 = array_map(function ($val){
-        return $val * $val;
-    }, [1,2]);
-
-    //php7.4后
-    $demo2 = array_map(fn($val) =&gt; $val * $val, [1,2]);
-</code></pre>
-
-<h3 id="toc_8">取出数组中的元素</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    $arr = [
-        [&#39;id&#39; =&gt; &#39;zx&#39;, &#39;name&#39; =&gt; &#39;ZX&#39;],
-        [&#39;id&#39; =&gt; &#39;as&#39;, &#39;name&#39; =&gt; &#39;AS&#39;],
-        [&#39;id&#39; =&gt; &#39;qw&#39;, &#39;name&#39; =&gt; &#39;QW&#39;],
-    ];
-
-    # 如何快速取出二维数组对于id的值
-    var_dump(array_column($arr, &#39;id&#39;));
-</code></pre>
-
-<h3 id="toc_9">match</h3>
-
-<pre><code class="language-php">&lt;?php
-    //php8前
-    switch ($input) {
-        case &quot;true&quot;:
-            $result = 1;
-            break;
-        case &quot;false&quot;:
-            $result = 0;
-            break;
-        case &quot;null&quot;:
-            $result = NULL;
-        break;
-    }
-
-    //php8后
-    $result = match($input) {
-        &quot;true&quot; =&gt; 1,
-        &quot;false&quot; =&gt; 0,
-        &quot;null&quot; =&gt; NULL,
-    };
-
-    $result = match($input) {
-        &quot;true&quot;, &quot;on&quot; =&gt; 1,
-        &quot;false&quot;, &quot;off&quot; =&gt; 0,
-        &quot;null&quot;, &quot;empty&quot;, &quot;NaN&quot; =&gt; NULL,
-    };
-
-    # match使用的是严格比较(===)，值和类型都要完全相等
-    # 当input并不能被match中的所有条件满足的时候，match会抛出一个UnhandledMatchError exception
-</code></pre>
-
-<p><a href="https://www.laruence.com/">参考文章</a></p>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -367,7 +334,7 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-30T20:16:12+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-18T21:38:29+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
@@ -375,16 +342,12 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 				    <div class="meta">
 					    
 					    <P style="float: left;">
-					    	<a href="16173762986851.html" 
-					        title="Previous Post: MYSQL的几种锁">&laquo; MYSQL的几种锁</a>
+					    	<a href="16182714235900.html" 
+					        title="Previous Post: MYCLI">&laquo; MYCLI</a>
 					    </p>
 					    <p style="float:right; ">
 					    	
 					    	
-					        <a href="16185330911384.html" 
-					        title="Next Post: MYSQL常用SQL">MYSQL常用SQL &raquo;</a>
-					    </p> 
-					    
 				    </div>
 			  	</footer>
 	<!-- footer end -->

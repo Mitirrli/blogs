@@ -10,7 +10,7 @@
 
     <title>
       
-    Clean code - Mitirrli
+    GIT提交规范 - Mitirrli
     
     </title>
 
@@ -88,185 +88,176 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Clean code</h1>	
+				<h1 class="post-title itemprop="name headline">GIT提交规范</h1>	
 				<div class="post-data">
-					<time datetime="2020-10-01T20:16:12+08:00" pubdate data-updated="true">2020/10/01</time>
+					<time datetime="2019-07-16T14:24:32+08:00" pubdate data-updated="true">2019/07/16</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Php.html'>Php</a>&nbsp;
+		<a href='Git.html'>Git</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
-		<h2 id="toc_0">php特性</h2>
+		<blockquote>
+<p>在多人协作的项目中，如果Git的提交说明精准，在后期协作以及Bug处理时会变得有据可查，项目的开发可以根据规范的提交说明快速生成开发日志，从而方便开发者或用户追踪项目的开发信息和功能特性。</p>
+</blockquote>
 
-<h3 id="toc_1">合并所有元素(使用数组解包)</h3>
+<h2 id="toc_0">规范的Git提交说明</h2>
 
-<pre><code class="language-php">&lt;?php
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
 
-    $a = 1;
-    $b = [2, 3];
+<tbody>
+<tr>
+<td>feat</td>
+<td>新增一个功能</td>
+</tr>
+<tr>
+<td>fix</td>
+<td>修复一个Bug</td>
+</tr>
+<tr>
+<td>docs</td>
+<td>文档变更</td>
+</tr>
+<tr>
+<td>perf</td>
+<td>改善性能</td>
+</tr>
+<tr>
+<td>style</td>
+<td>代码格式（不影响功能，例如空格、分号等格式修正）</td>
+</tr>
+<tr>
+<td>refactor</td>
+<td>代码重构</td>
+</tr>
+<tr>
+<td>build</td>
+<td>变更项目构建或外部依赖（例如scopes: webpack、gulp、npm等）</td>
+</tr>
+<tr>
+<td>test</td>
+<td>测试</td>
+</tr>
+<tr>
+<td>ci</td>
+<td>更改持续集成软件的配置文件和package中的scripts命令，例如scopes: Travis, Circle等</td>
+</tr>
+<tr>
+<td>chore</td>
+<td>变更构建流程或辅助工具</td>
+</tr>
+<tr>
+<td>revert</td>
+<td>代码回退</td>
+</tr>
+</tbody>
+</table>
 
-    var_dump(array_merge([$a], $b));//php7.4前
-    var_dump([$a, ...$b]);//php7.4
+<h2 id="toc_1">初始化package.json</h2>
+
+<pre><code class="language-bash">npm init
+npm init --yes 跳过回答问题，生成默认的
 </code></pre>
 
-<h3 id="toc_2">null 合并运算符</h3>
+<h2 id="toc_2">安装cz工具</h2>
 
-<pre><code class="language-php">&lt;?php
-
-    $default = &#39;a&#39;;
-    $username = $default ?? &#39;username&#39;;
-
-    var_dump($username);//php7.0
+<pre><code class="language-bash">npm install -g commitizen
 </code></pre>
 
-<pre><code class="language-php">&lt;?php
+<h2 id="toc_3">Commitizen适配器</h2>
 
-    var_dump(isset($username) ? &#39;hi&#39; : &#39;username&#39;);//php7.0前
+<h3 id="toc_4">如果需要在项目中使用commitizen生成符合AngularJS规范的提交说明，初始化cz-conventional-changelog适配器：</h3>
+
+<pre><code class="language-bash">commitizen init cz-conventional-changelog --save --save-exact
 </code></pre>
 
-<h3 id="toc_3">空合并运算符赋值</h3>
+<h2 id="toc_5">定制提交说明</h2>
 
-<pre><code class="language-php">&lt;?php
+<h3 id="toc_6">安装适配器</h3>
 
-    $q = isset($q) ? 1 : 2;//php7.4前
-
-    $a ??= 1;//php7.4
-
-    var_dump($q);
-    var_dump($a);
+<pre><code class="language-bash">npm install cz-customizable --save-dev
 </code></pre>
 
-<h3 id="toc_4">可为空(Nullable)类型</h3>
+<h3 id="toc_7">修改package.json</h3>
 
-<pre><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
-当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
-</code></pre>
-
-<pre><code class="language-php">&lt;?php
-
-    function test(?string $name)
-    {
-        var_dump($name);
-    }
-
-    test(&#39;test&#39;);   //&quot;test&quot;
-    test(null);     //null
-    test();         //Uncaught Error: Too few arguments ...
-</code></pre>
-
-<h3 id="toc_5">多异常捕获处理</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    try {
-        // some code
-    } catch (Exception1 | Exception2 $e) {
-    }
-</code></pre>
-
-<h3 id="toc_6">list 函数</h3>
-
-<pre><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
-
-list($fruit, $color) = $arr;
-
-var_dump($fruit, $color);
-</code></pre>
-
-<pre><code class="language-php"># 列出他们的其中一个
-$arr = [&#39;apple&#39;, &#39;red&#39;];
-
-list(, $color) = $arr;
-
-var_dump($color);
-</code></pre>
-
-<pre><code class="language-php"># php7.1后可以指定键名
-$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
-
-list(&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val) = reset($arr);
-var_dump($id, $val);
-</code></pre>
-
-<pre><code class="language-php">$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
-
-foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
-    var_dump($id, $val);
+<pre><code class="language-javascript">&quot;config&quot;: {
+  &quot;commitizen&quot;: {
+    &quot;path&quot;: &quot;node_modules/cz-customizable&quot;
+  }
 }
 </code></pre>
 
-<h3 id="toc_7">箭头函数</h3>
+<h3 id="toc_8">初始的配置文件 .cz-config.js</h3>
 
-<pre><code class="language-php">&lt;?php
-    //php7.4前
-    $demo1 = array_map(function ($val){
-        return $val * $val;
-    }, [1,2]);
+<pre><code class="language-javascript">&#39;use strict&#39;;
 
-    //php7.4后
-    $demo2 = array_map(fn($val) =&gt; $val * $val, [1,2]);
+module.exports = {
+
+  types: [
+    {value: &#39;feat&#39;,     name: &#39;feat:     A new feature&#39;},
+    {value: &#39;fix&#39;,      name: &#39;fix:      A bug fix&#39;},
+    {value: &#39;docs&#39;,     name: &#39;docs:     Documentation only changes&#39;},
+    {value: &#39;style&#39;,    name: &#39;style:    Changes that do not affect the meaning of the code\n            (white-space, formatting, missing semi-colons, etc)&#39;},
+    {value: &#39;refactor&#39;, name: &#39;refactor: A code change that neither fixes a bug nor adds a feature&#39;},
+    {value: &#39;perf&#39;,     name: &#39;perf:     A code change that improves performance&#39;},
+    {value: &#39;test&#39;,     name: &#39;test:     Adding missing tests&#39;},
+    {value: &#39;chore&#39;,    name: &#39;chore:    Changes to the build process or auxiliary tools\n            and libraries such as documentation generation&#39;},
+    {value: &#39;revert&#39;,   name: &#39;revert:   Revert to a commit&#39;},
+    {value: &#39;WIP&#39;,      name: &#39;WIP:      Work in progress&#39;}
+  ],
+
+  scopes: [
+    {name: &#39;accounts&#39;},
+    {name: &#39;admin&#39;},
+    {name: &#39;exampleScope&#39;},
+    {name: &#39;changeMe&#39;}
+  ],
+
+  // it needs to match the value for field type. Eg.: &#39;fix&#39;
+  /*
+  scopeOverrides: {
+    fix: [
+      {name: &#39;merge&#39;},
+      {name: &#39;style&#39;},
+      {name: &#39;e2eTest&#39;},
+      {name: &#39;unitTest&#39;}
+    ]
+  },
+  */
+  // override the messages, defaults are as follows
+  messages: {
+    type: &#39;Select the type of change that you\&#39;re committing:&#39;,
+    scope: &#39;\nDenote the SCOPE of this change (optional):&#39;,
+    // used if allowCustomScopes is true
+    customScope: &#39;Denote the SCOPE of this change:&#39;,
+    subject: &#39;Write a SHORT, IMPERATIVE tense description of the change:\n&#39;,
+    body: &#39;Provide a LONGER description of the change (optional). Use &quot;|&quot; to break new line:\n&#39;,
+    breaking: &#39;List any BREAKING CHANGES (optional):\n&#39;,
+    footer: &#39;List any ISSUES CLOSED by this change (optional). E.g.: #31, #34:\n&#39;,
+    confirmCommit: &#39;Are you sure you want to proceed with the commit above?&#39;
+  },
+
+  allowCustomScopes: true,
+  allowBreakingChanges: [&#39;feat&#39;, &#39;fix&#39;],
+
+  // limit subject length
+  subjectLimit: 100
+  
+};
 </code></pre>
 
-<h3 id="toc_8">取出数组中的元素</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    $arr = [
-        [&#39;id&#39; =&gt; &#39;zx&#39;, &#39;name&#39; =&gt; &#39;ZX&#39;],
-        [&#39;id&#39; =&gt; &#39;as&#39;, &#39;name&#39; =&gt; &#39;AS&#39;],
-        [&#39;id&#39; =&gt; &#39;qw&#39;, &#39;name&#39; =&gt; &#39;QW&#39;],
-    ];
-
-    # 如何快速取出二维数组对于id的值
-    var_dump(array_column($arr, &#39;id&#39;));
-</code></pre>
-
-<h3 id="toc_9">match</h3>
-
-<pre><code class="language-php">&lt;?php
-    //php8前
-    switch ($input) {
-        case &quot;true&quot;:
-            $result = 1;
-            break;
-        case &quot;false&quot;:
-            $result = 0;
-            break;
-        case &quot;null&quot;:
-            $result = NULL;
-        break;
-    }
-
-    //php8后
-    $result = match($input) {
-        &quot;true&quot; =&gt; 1,
-        &quot;false&quot; =&gt; 0,
-        &quot;null&quot; =&gt; NULL,
-    };
-
-    $result = match($input) {
-        &quot;true&quot;, &quot;on&quot; =&gt; 1,
-        &quot;false&quot;, &quot;off&quot; =&gt; 0,
-        &quot;null&quot;, &quot;empty&quot;, &quot;NaN&quot; =&gt; NULL,
-    };
-
-    # match使用的是严格比较(===)，值和类型都要完全相等
-    # 当input并不能被match中的所有条件满足的时候，match会抛出一个UnhandledMatchError exception
-</code></pre>
-
-<p><a href="https://www.laruence.com/">参考文章</a></p>
+<p><a href="https://juejin.cn/post/6844903831893966856">参考文章</a></p>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -367,7 +358,7 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-30T20:16:12+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-16T14:24:32+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
@@ -375,14 +366,14 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 				    <div class="meta">
 					    
 					    <P style="float: left;">
-					    	<a href="16173762986851.html" 
-					        title="Previous Post: MYSQL的几种锁">&laquo; MYSQL的几种锁</a>
+					    	<a href="16173755899187.html" 
+					        title="Previous Post: 子模块">&laquo; 子模块</a>
 					    </p>
 					    <p style="float:right; ">
 					    	
 					    	
-					        <a href="16185330911384.html" 
-					        title="Next Post: MYSQL常用SQL">MYSQL常用SQL &raquo;</a>
+					        <a href="16182714235900.html" 
+					        title="Next Post: MYCLI">MYCLI &raquo;</a>
 					    </p> 
 					    
 				    </div>

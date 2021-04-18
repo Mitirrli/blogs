@@ -10,7 +10,7 @@
 
     <title>
       
-    Clean code - Mitirrli
+    Redis - Mitirrli
     
     </title>
 
@@ -88,185 +88,73 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Clean code</h1>	
+				<h1 class="post-title itemprop="name headline">Redis</h1>	
 				<div class="post-data">
-					<time datetime="2020-10-01T20:16:12+08:00" pubdate data-updated="true">2020/10/01</time>
+					<time datetime="2021-04-18T09:51:13+08:00" pubdate data-updated="true">2021/04/18</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Php.html'>Php</a>&nbsp;
+		<a href='Nosql.html'>Nosql</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
-		<h2 id="toc_0">php特性</h2>
+		<h2 id="toc_0">特性</h2>
 
-<h3 id="toc_1">合并所有元素(使用数组解包)</h3>
+<h3 id="toc_1">速度快</h3>
 
-<pre><code class="language-php">&lt;?php
+<p>Redis之所以这么快有这么几点原因，数据是存在内存中，源代码使用C语言编写，代码短小精悍，使用的是线程模型是单线程。<br/>
+这里使用单线程主要是因为内存读写速度非常快，使用单线程能达到很高的性能，很多实际开发当中，多线程往往会成为我们并发的瓶颈。</p>
 
-    $a = 1;
-    $b = [2, 3];
+<h3 id="toc_2">持久化</h3>
 
-    var_dump(array_merge([$a], $b));//php7.4前
-    var_dump([$a, ...$b]);//php7.4
-</code></pre>
+<p>我们知道Redis是将数据保存在内存中，而内存的数据不具有持久化的特性，也就是说当机器发生断电时，是无法对内存的数据进行恢复的，为此Redis就提供了持久化的功能。<br/>
+Redis所有数据保存在内存中，对数据的更新将异步的保存到磁盘上。<br/>
+Redis提供了RDB和AOF两种方式对数据进行持久化。</p>
 
-<h3 id="toc_2">null 合并运算符</h3>
+<h3 id="toc_3">多种数据结构</h3>
 
-<pre><code class="language-php">&lt;?php
+<p>Redis提供了5种主要的数据结构：String、Hash、List、Set、Sorted Set<br/>
+除此之外，在Redis的后续版本以及迭代当中，也提供了一些其他的(衍生的)数据结构：<br/>
+BitMaps: 位图(本质是字符串)<br/>
+HyperLogLog: 超小内存唯一值计数(本质是字符串)<br/>
+GEO: 地理信息定位(Redis3.2提供，本质是有序集合)</p>
 
-    $default = &#39;a&#39;;
-    $username = $default ?? &#39;username&#39;;
+<h3 id="toc_4">功能丰富</h3>
 
-    var_dump($username);//php7.0
-</code></pre>
+<p>Redis除了提供5种主要数据结构以外，还提供了很多其他的功能，像发布订阅可以实现很多消息的功能，同时还支持Lua脚本，这样可以实现一些自定义命令，同时还支持简单的事务功能、最后Redis也支持pipeline来提高客户端的并发效率。<br/>
+总之如果将Redis使用好的话，它会像一把瑞士军刀一样无所不能。</p>
 
-<pre><code class="language-php">&lt;?php
+<h3 id="toc_5">主从复制</h3>
 
-    var_dump(isset($username) ? &#39;hi&#39; : &#39;username&#39;);//php7.0前
-</code></pre>
+<p>Redis提供了主从复制的功能，也就是说在Redis中有两种角色，主服务器和从服务器，主服务器的数据可以同步到从服务器中，这样可以为高可用以及分布式提供一个很好的基础。</p>
 
-<h3 id="toc_3">空合并运算符赋值</h3>
+<h3 id="toc_6">高可用、分布式</h3>
 
-<pre><code class="language-php">&lt;?php
+<p>本身Redis的单点或者说Redis的主从复制模型对于实现一个高可用的数据库来说是比较困难的甚至是几乎不可能的。<br/>
+因此Redis在2.8版本当中提供了Redis-Sentinel这样的功能来支持高可用。<br/>
+其次对于一个数据库来说，分布式功能对于当下的企业也是非常重要的，所以Redis从3.0版本开始正式支持分布式，也就是Redis-Cluster</p>
 
-    $q = isset($q) ? 1 : 2;//php7.4前
+<h2 id="toc_7">为什么cpu不是redis的性能瓶颈</h2>
 
-    $a ??= 1;//php7.4
+<p>关于&quot;CPU不是redis性能瓶颈&quot;这句话，我一开始不太理解，网上一搜也都是大家都这么说，但是没有具体为什么。然后找了些相关的关于redis为什么这么快的资料看了看，自己总结了一些答案。<br/>
+我不理解这句话的点在于，我觉得cpu对他影响还是挺大的，所有请求到了服务器上处理这步都是cpu啊。<br/>
+然后我总结了以下几点：<br/>
+1.redis在内存里，省下来cpu从硬盘里取数据拿到内存的时间。<br/>
+2.redis是单线程，省下来cpu切换线程恢复线程的时间。<br/>
+3.redis是单线程的，所以服务器是单核还是多核cpu对他没什么影响，因为他的多次读写都是在一个cpu上的。<br/>
+4.cpu不可能对他一点影响没有，但是相比别的数据库，redis受cpu的限制太少了</p>
 
-    var_dump($q);
-    var_dump($a);
-</code></pre>
+<h2 id="toc_8">I/O多路复用技术（multiplexing）是什么</h2>
 
-<h3 id="toc_4">可为空(Nullable)类型</h3>
+<p>下面举一个例子，模拟一个tcp服务器处理30个客户socket。假设你是一个老师，让30个学生解答一道题目，然后检查学生做的是否正确，你有下面几个选择：1. 第一种选择：按顺序逐个检查，先检查A，然后是B，之后是C、D。。。这中间如果有一个学生卡主，全班都会被耽误。这种模式就好比，你用循环挨个处理socket，根本不具有并发能力。2. 第二种选择：你创建30个分身，每个分身检查一个学生的答案是否正确。 这种类似于为每一个用户创建一个进程或者线程处理连接。3. 第三种选择，你站在讲台上等，谁解答完谁举手。这时C、D举手，表示他们解答问题完毕，你下去依次检查C、D的答案，然后继续回到讲台上等。此时E、A又举手，然后去处理E和A。。。 这种就是IO复用模型，Linux下的select、poll和epoll就是干这个的。将用户socket对应的fd注册进epoll，然后epoll帮你监听哪些socket上有消息到达，这样就避免了大量的无用操作。此时的socket应该采用非阻塞模式。这样，整个过程只在调用select、poll、epoll这些调用的时候才会阻塞，收发客户消息是不会阻塞的，整个进程或者线程就被充分利用起来，这就是事件驱动，所谓的reactor模式。</p>
 
-<pre><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
-当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
-</code></pre>
-
-<pre><code class="language-php">&lt;?php
-
-    function test(?string $name)
-    {
-        var_dump($name);
-    }
-
-    test(&#39;test&#39;);   //&quot;test&quot;
-    test(null);     //null
-    test();         //Uncaught Error: Too few arguments ...
-</code></pre>
-
-<h3 id="toc_5">多异常捕获处理</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    try {
-        // some code
-    } catch (Exception1 | Exception2 $e) {
-    }
-</code></pre>
-
-<h3 id="toc_6">list 函数</h3>
-
-<pre><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
-
-list($fruit, $color) = $arr;
-
-var_dump($fruit, $color);
-</code></pre>
-
-<pre><code class="language-php"># 列出他们的其中一个
-$arr = [&#39;apple&#39;, &#39;red&#39;];
-
-list(, $color) = $arr;
-
-var_dump($color);
-</code></pre>
-
-<pre><code class="language-php"># php7.1后可以指定键名
-$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
-
-list(&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val) = reset($arr);
-var_dump($id, $val);
-</code></pre>
-
-<pre><code class="language-php">$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
-
-foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
-    var_dump($id, $val);
-}
-</code></pre>
-
-<h3 id="toc_7">箭头函数</h3>
-
-<pre><code class="language-php">&lt;?php
-    //php7.4前
-    $demo1 = array_map(function ($val){
-        return $val * $val;
-    }, [1,2]);
-
-    //php7.4后
-    $demo2 = array_map(fn($val) =&gt; $val * $val, [1,2]);
-</code></pre>
-
-<h3 id="toc_8">取出数组中的元素</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    $arr = [
-        [&#39;id&#39; =&gt; &#39;zx&#39;, &#39;name&#39; =&gt; &#39;ZX&#39;],
-        [&#39;id&#39; =&gt; &#39;as&#39;, &#39;name&#39; =&gt; &#39;AS&#39;],
-        [&#39;id&#39; =&gt; &#39;qw&#39;, &#39;name&#39; =&gt; &#39;QW&#39;],
-    ];
-
-    # 如何快速取出二维数组对于id的值
-    var_dump(array_column($arr, &#39;id&#39;));
-</code></pre>
-
-<h3 id="toc_9">match</h3>
-
-<pre><code class="language-php">&lt;?php
-    //php8前
-    switch ($input) {
-        case &quot;true&quot;:
-            $result = 1;
-            break;
-        case &quot;false&quot;:
-            $result = 0;
-            break;
-        case &quot;null&quot;:
-            $result = NULL;
-        break;
-    }
-
-    //php8后
-    $result = match($input) {
-        &quot;true&quot; =&gt; 1,
-        &quot;false&quot; =&gt; 0,
-        &quot;null&quot; =&gt; NULL,
-    };
-
-    $result = match($input) {
-        &quot;true&quot;, &quot;on&quot; =&gt; 1,
-        &quot;false&quot;, &quot;off&quot; =&gt; 0,
-        &quot;null&quot;, &quot;empty&quot;, &quot;NaN&quot; =&gt; NULL,
-    };
-
-    # match使用的是严格比较(===)，值和类型都要完全相等
-    # 当input并不能被match中的所有条件满足的时候，match会抛出一个UnhandledMatchError exception
-</code></pre>
-
-<p><a href="https://www.laruence.com/">参考文章</a></p>
+<p><a href="https://www.jianshu.com/p/dc7296d73ef7">参考文章</a><br/>
+<a href="https://blog.csdn.net/PERCENTILE__/article/details/108392930">参考文章</a><br/>
+<a href="https://www.zhihu.com/question/28594409">参考文章</a></p>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -367,22 +255,16 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-30T20:16:12+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-18T09:51:13+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
 				<footer class="post-footer clearfix">	    			
 				    <div class="meta">
 					    
-					    <P style="float: left;">
-					    	<a href="16173762986851.html" 
-					        title="Previous Post: MYSQL的几种锁">&laquo; MYSQL的几种锁</a>
-					    </p>
-					    <p style="float:right; ">
 					    	
-					    	
-					        <a href="16185330911384.html" 
-					        title="Next Post: MYSQL常用SQL">MYSQL常用SQL &raquo;</a>
+					        <a href="16186525518388.html" 
+					        title="Next Post: Laravel">Laravel &raquo;</a>
 					    </p> 
 					    
 				    </div>

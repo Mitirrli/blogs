@@ -10,7 +10,7 @@
 
     <title>
       
-    Clean code - Mitirrli
+    MYSQL常用SQL - Mitirrli
     
     </title>
 
@@ -88,185 +88,94 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Clean code</h1>	
+				<h1 class="post-title itemprop="name headline">MYSQL常用SQL</h1>	
 				<div class="post-data">
-					<time datetime="2020-10-01T20:16:12+08:00" pubdate data-updated="true">2020/10/01</time>
+					<time datetime="2020-04-16T08:31:31+08:00" pubdate data-updated="true">2020/04/16</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Php.html'>Php</a>&nbsp;
+		<a href='Mysql.html'>Mysql</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
-		<h2 id="toc_0">php特性</h2>
+		<h2 id="toc_0">表</h2>
 
-<h3 id="toc_1">合并所有元素(使用数组解包)</h3>
+<h3 id="toc_1">模糊查找</h3>
 
-<pre><code class="language-php">&lt;?php
-
-    $a = 1;
-    $b = [2, 3];
-
-    var_dump(array_merge([$a], $b));//php7.4前
-    var_dump([$a, ...$b]);//php7.4
+<pre><code class="language-text">show tables like &quot;%what%&quot;;
 </code></pre>
 
-<h3 id="toc_2">null 合并运算符</h3>
+<h2 id="toc_2">字段</h2>
 
-<pre><code class="language-php">&lt;?php
+<h3 id="toc_3">修改字段</h3>
 
-    $default = &#39;a&#39;;
-    $username = $default ?? &#39;username&#39;;
-
-    var_dump($username);//php7.0
+<pre><code class="language-text">ALTER TABLE `table` MODIFY COLUMN `shop_id` bigint(20) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;门店ID&#39;;
+ALTER TABLE `table`  MODIFY second_column VARCHAR(2);
 </code></pre>
 
-<pre><code class="language-php">&lt;?php
+<h3 id="toc_4">删除字段</h3>
 
-    var_dump(isset($username) ? &#39;hi&#39; : &#39;username&#39;);//php7.0前
+<pre><code class="language-text">ALTER TABLE DROP COLUMN 列名;
 </code></pre>
 
-<h3 id="toc_3">空合并运算符赋值</h3>
+<h3 id="toc_5">增加字段</h3>
 
-<pre><code class="language-php">&lt;?php
-
-    $q = isset($q) ? 1 : 2;//php7.4前
-
-    $a ??= 1;//php7.4
-
-    var_dump($q);
-    var_dump($a);
+<pre><code class="language-text">ALTER TABLE `table` ADD COLUMN `status` smallint(2) unsigned NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;状态&#39;;
+ALTER TABLE `table` ADD COLUMN `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT &#39;&#39; COMMENT &#39;备注&#39; AFTER `mobile`;
 </code></pre>
 
-<h3 id="toc_4">可为空(Nullable)类型</h3>
+<h3 id="toc_6">在指定字段后增加字段</h3>
 
-<pre><code class="language-text">php7.1后，参数以及返回值的类型现在可以通过在类型前加上一个问号使之允许为空
-当启用这个特性时，传入的参数或者函数返回的结果要么是给定的类型，要么是 null
+<pre><code class="language-text">ALTER TABLE 表名 ADD COLUMN 列名 列的类型 [列的属性] AFTER 指定列名；
 </code></pre>
 
-<pre><code class="language-php">&lt;?php
+<h2 id="toc_7">索引</h2>
 
-    function test(?string $name)
-    {
-        var_dump($name);
-    }
+<h3 id="toc_8">普通索引</h3>
 
-    test(&#39;test&#39;);   //&quot;test&quot;
-    test(null);     //null
-    test();         //Uncaught Error: Too few arguments ...
+<pre><code class="language-text">ALTER TABLE `table` ADD KEY `idx_created_at`(`created_at`) USING BTREE;
 </code></pre>
 
-<h3 id="toc_5">多异常捕获处理</h3>
+<h3 id="toc_9">主键索引</h3>
 
-<pre><code class="language-php">&lt;?php
-
-    try {
-        // some code
-    } catch (Exception1 | Exception2 $e) {
-    }
+<pre><code class="language-text">ALTER TABLE `table` DROP PRIMARY KEY;
+ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
 </code></pre>
 
-<h3 id="toc_6">list 函数</h3>
+<h2 id="toc_10">数据</h2>
 
-<pre><code class="language-php">$arr = [&#39;apple&#39;, &#39;red&#39;];
+<h3 id="toc_11">查找数据</h3>
 
-list($fruit, $color) = $arr;
+<h4 id="toc_12">输出按列显示</h4>
 
-var_dump($fruit, $color);
+<pre><code class="language-text">SELECT * FROM `table`\G
 </code></pre>
 
-<pre><code class="language-php"># 列出他们的其中一个
-$arr = [&#39;apple&#39;, &#39;red&#39;];
+<h3 id="toc_13">更新数据</h3>
 
-list(, $color) = $arr;
-
-var_dump($color);
+<pre><code class="language-text">UPDATE `table` SET a=1, b=2 WHERE id = 1;
 </code></pre>
 
-<pre><code class="language-php"># php7.1后可以指定键名
-$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
+<h3 id="toc_14">删除数据</h3>
 
-list(&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val) = reset($arr);
-var_dump($id, $val);
+<pre><code class="language-text">DELETE FROM `table` WHERE id = 1;
 </code></pre>
 
-<pre><code class="language-php">$arr = [
-    [&#39;id&#39; =&gt; 1, &#39;val&#39; =&gt; &#39;val1&#39;],
-    [&#39;id&#39; =&gt; 2, &#39;val&#39; =&gt; &#39;val2&#39;],
-];
+<h3 id="toc_15">插入数据</h3>
 
-foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
-    var_dump($id, $val);
-}
+<h4 id="toc_16">从另一张表插入现有数据</h4>
+
+<pre><code class="language-text">INSERT INTO province (`adcode`,`name`) SELECT `adcode`,`name` FROM Sheet1 WHERE citycode IS NULL
 </code></pre>
 
-<h3 id="toc_7">箭头函数</h3>
+<h4 id="toc_17">插入失败则更新 这种方式更新，会使自增主键出现间隔</h4>
 
-<pre><code class="language-php">&lt;?php
-    //php7.4前
-    $demo1 = array_map(function ($val){
-        return $val * $val;
-    }, [1,2]);
-
-    //php7.4后
-    $demo2 = array_map(fn($val) =&gt; $val * $val, [1,2]);
+<pre><code class="language-text">INSERT INTO `user` (username,role_id) VALUES (&#39;limx2&#39;,1) ON DUPLICATE KEY UPDATE role_id=role_id+1;
 </code></pre>
-
-<h3 id="toc_8">取出数组中的元素</h3>
-
-<pre><code class="language-php">&lt;?php
-
-    $arr = [
-        [&#39;id&#39; =&gt; &#39;zx&#39;, &#39;name&#39; =&gt; &#39;ZX&#39;],
-        [&#39;id&#39; =&gt; &#39;as&#39;, &#39;name&#39; =&gt; &#39;AS&#39;],
-        [&#39;id&#39; =&gt; &#39;qw&#39;, &#39;name&#39; =&gt; &#39;QW&#39;],
-    ];
-
-    # 如何快速取出二维数组对于id的值
-    var_dump(array_column($arr, &#39;id&#39;));
-</code></pre>
-
-<h3 id="toc_9">match</h3>
-
-<pre><code class="language-php">&lt;?php
-    //php8前
-    switch ($input) {
-        case &quot;true&quot;:
-            $result = 1;
-            break;
-        case &quot;false&quot;:
-            $result = 0;
-            break;
-        case &quot;null&quot;:
-            $result = NULL;
-        break;
-    }
-
-    //php8后
-    $result = match($input) {
-        &quot;true&quot; =&gt; 1,
-        &quot;false&quot; =&gt; 0,
-        &quot;null&quot; =&gt; NULL,
-    };
-
-    $result = match($input) {
-        &quot;true&quot;, &quot;on&quot; =&gt; 1,
-        &quot;false&quot;, &quot;off&quot; =&gt; 0,
-        &quot;null&quot;, &quot;empty&quot;, &quot;NaN&quot; =&gt; NULL,
-    };
-
-    # match使用的是严格比较(===)，值和类型都要完全相等
-    # 当input并不能被match中的所有条件满足的时候，match会抛出一个UnhandledMatchError exception
-</code></pre>
-
-<p><a href="https://www.laruence.com/">参考文章</a></p>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -367,7 +276,7 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-03-30T20:16:12+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-16T08:31:31+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
@@ -375,14 +284,14 @@ foreach ($arr as [&#39;id&#39; =&gt; $id, &#39;val&#39; =&gt; $val]) {
 				    <div class="meta">
 					    
 					    <P style="float: left;">
-					    	<a href="16173762986851.html" 
-					        title="Previous Post: MYSQL的几种锁">&laquo; MYSQL的几种锁</a>
+					    	<a href="16171065720634.html" 
+					        title="Previous Post: Clean code">&laquo; Clean code</a>
 					    </p>
 					    <p style="float:right; ">
 					    	
 					    	
-					        <a href="16185330911384.html" 
-					        title="Next Post: MYSQL常用SQL">MYSQL常用SQL &raquo;</a>
+					        <a href="16180194244918.html" 
+					        title="Next Post: Kibana制作用户访问热力地图">Kibana制作用户访问热力地图 &raquo;</a>
 					    </p> 
 					    
 				    </div>

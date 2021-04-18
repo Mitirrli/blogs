@@ -94,42 +94,24 @@
                          	<div class="item-thumb bg-deepgrey" style="background-image:url();">
 						
 						</div> 
-						<a href="16173762986851.html"> 
+						<a href="16187106737241.html"> 
 							<div class="item-desc"> 
-								<p>使用docker搞一个mysql实例
+								<p>特性
 
-$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
+速度快
 
-$ docker exec -it mysql-test bash
+Redis之所以这么快有这么几点原因，数据是存在内存中，源代码使用C语言编写，代码短小精悍，使用的是线程模型是单线程。
+这里使用单线程主要是因为内存读写速度非常快，使用单线程能达到很高的性能，很多实际开发当中，多线程往往会成为我们并发的瓶颈。
 
+持久化
 
-准备工作
+我们知道Redis是将数据保存在内存中，而内存的数据不具有持久化的特性，也就是说当机器发生断电时，是无法对内存的数据进行恢复的，为此Redis就提供了持久化的功能。
+Redis所有数据保存在内存中，对数据的更新将异步的保存到磁盘上。
+Redis提供了RDB和AOF两种方式对数据进行持久化。
 
-进入数据库
+多种数据结构
 
-$ mysql -u root -p
-
-
-创建一个数据库
-
-CREATE DATABASE lock_demo;
-
-
-展示数据库
-
-show databases;
-
-
-选择数据库
-
-use lock_demo;
-
-
-行锁
-
-创建一个demo表
-
-DROP TABLE lock_dem</p> 
+Redis提供了</p> 
 							</div> 
 						</a> 
 <!-- 自定义Post颜色 -->
@@ -140,7 +122,7 @@ DROP TABLE lock_dem</p>
 						<div class="item-slant"></div>
 		 				<div class="item-label">
 	  						<div class="item-title">
-	  							<a href="16173762986851.html">Mysql的几种锁</a>
+	  							<a href="16187106737241.html">Redis</a>
 	  						</div>
 		   					<div class="item-meta clearfix"> 
 <!-- 自定义Icon -->
@@ -151,7 +133,116 @@ DROP TABLE lock_dem</p>
 
 		   						<div class="item-meta-cat">
 	  							
-			    			<a class='category' href='Mysql.html'>Mysql</a>
+			    			<a class='category' href='Nosql.html'>Nosql</a>
+								
+		   						</div> 
+		   					</div> 
+		   					
+		   				</div> 
+   					</div>
+ 				</div>
+ 			
+				<div class="post-list-item">
+					<div class="post-list-item-container">
+ <!-- 自定post背景图 -->
+					 
+                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
+						
+						</div> 
+						<a href="16186525518388.html"> 
+							<div class="item-desc"> 
+								<p></p> 
+							</div> 
+						</a> 
+<!-- 自定义Post颜色 -->
+				
+						<div class="item-slant reverse-slant bg-deepgrey"></div>
+						
+
+						<div class="item-slant"></div>
+		 				<div class="item-label">
+	  						<div class="item-title">
+	  							<a href="16186525518388.html">Laravel</a>
+	  						</div>
+		   					<div class="item-meta clearfix"> 
+<!-- 自定义Icon -->
+								
+		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
+		   						</div> 
+								
+
+		   						<div class="item-meta-cat">
+	  							
+			    			<a class='category' href='Php.html'>Php</a>
+								
+		   						</div> 
+		   					</div> 
+		   					
+		   				</div> 
+   					</div>
+ 				</div>
+ 			
+				<div class="post-list-item">
+					<div class="post-list-item-container">
+ <!-- 自定post背景图 -->
+					 
+                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
+						
+						</div> 
+						<a href="16185525468888.html"> 
+							<div class="item-desc"> 
+								<p>列出所有远程仓库
+
+git remote
+
+
+增加远程仓库
+
+git remote add origin &lt;remote-url&gt;
+
+
+修改远程仓库的 url
+
+git remote set-url origin &lt;URL&gt;
+
+
+回到远程仓库的状态
+
+抛弃本地所有的修改，回到远程仓库的状态。
+
+git fetch --all &amp;&amp; git reset --hard origin/master
+
+
+快速切换到上一个分支
+
+git checkout -
+
+
+查看两个星期内的改动
+
+git whatchanged --since=&#39;2 weeks ag</p> 
+							</div> 
+						</a> 
+<!-- 自定义Post颜色 -->
+				
+						<div class="item-slant reverse-slant bg-deepgrey"></div>
+						
+
+						<div class="item-slant"></div>
+		 				<div class="item-label">
+	  						<div class="item-title">
+	  							<a href="16185525468888.html">GIT常用命令</a>
+	  						</div>
+		   					<div class="item-meta clearfix"> 
+<!-- 自定义Icon -->
+								
+		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
+		   						</div> 
+								
+
+		   						<div class="item-meta-cat">
+	  							
+			    			<a class='category' href='Git.html'>Git</a>
 								
 		   						</div> 
 		   					</div> 
@@ -204,6 +295,79 @@ CGI 和 FastCGI
 		   						<div class="item-meta-cat">
 	  							
 			    			<a class='category' href='Php.html'>Php</a>
+								
+		   						</div> 
+		   					</div> 
+		   					
+		   				</div> 
+   					</div>
+ 				</div>
+ 			
+				<div class="post-list-item">
+					<div class="post-list-item-container">
+ <!-- 自定post背景图 -->
+					 
+                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
+						
+						</div> 
+						<a href="16173762986851.html"> 
+							<div class="item-desc"> 
+								<p>使用docker搞一个mysql实例
+
+$ docker run --name mysql-test -e MYSQL_ROOT_PASSWORD=root -p 3307:3306 -d mysql:latest
+
+$ docker exec -it mysql-test bash
+
+
+准备工作
+
+进入数据库
+
+$ mysql -u root -p
+
+
+创建一个数据库
+
+CREATE DATABASE lock_demo;
+
+
+展示数据库
+
+show databases;
+
+
+选择数据库
+
+use lock_demo;
+
+
+行锁
+
+创建一个demo表
+
+DROP TABLE lock_dem</p> 
+							</div> 
+						</a> 
+<!-- 自定义Post颜色 -->
+				
+						<div class="item-slant reverse-slant bg-deepgrey"></div>
+						
+
+						<div class="item-slant"></div>
+		 				<div class="item-label">
+	  						<div class="item-title">
+	  							<a href="16173762986851.html">MYSQL的几种锁</a>
+	  						</div>
+		   					<div class="item-meta clearfix"> 
+<!-- 自定义Icon -->
+								
+		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
+		   						</div> 
+								
+
+		   						<div class="item-meta-cat">
+	  							
+			    			<a class='category' href='Mysql.html'>Mysql</a>
 								
 		   						</div> 
 		   					</div> 
@@ -276,181 +440,6 @@ null 合并运算符
 		   				</div> 
    					</div>
  				</div>
- 			
-				<div class="post-list-item">
-					<div class="post-list-item-container">
- <!-- 自定post背景图 -->
-					 
-                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
-						
-						</div> 
-						<a href="16180194244918.html"> 
-							<div class="item-desc"> 
-								<p>ES 管道
-
-创建管道
-
-PUT _ingest/pipeline/geoip_pipeline
-{
-  &quot;description&quot; : &quot;geo_pipeline&quot;,
-  &quot;processors&quot; : [
-    {
-      &quot;geoip&quot; : {
-        &quot;field&quot; : &quot;ip&quot;
-      }
-    }
-  ]
-}
-
-
-查看数据
-
-字段有增加
-
-增加了continent_name, country_iso_code, country_name, reg</p> 
-							</div> 
-						</a> 
-<!-- 自定义Post颜色 -->
-				
-						<div class="item-slant reverse-slant bg-deepgrey"></div>
-						
-
-						<div class="item-slant"></div>
-		 				<div class="item-label">
-	  						<div class="item-title">
-	  							<a href="16180194244918.html">Kibana制作用户访问热力地图</a>
-	  						</div>
-		   					<div class="item-meta clearfix"> 
-<!-- 自定义Icon -->
-								
-		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
-		   						</div> 
-								
-
-		   						<div class="item-meta-cat">
-	  							
-			    			<a class='category' href='Kibana.html'>Kibana</a>
-								
-		   						</div> 
-		   					</div> 
-		   					
-		   				</div> 
-   					</div>
- 				</div>
- 			
-				<div class="post-list-item">
-					<div class="post-list-item-container">
- <!-- 自定post背景图 -->
-					 
-                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
-						
-						</div> 
-						<a href="16169964390881.html"> 
-							<div class="item-desc"> 
-								<p>
-公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程
-
-
-备份Gitlab
-
-gitlab-rake gitlab:backup:create
-
-
-执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包
-
-Gitlab升级
-
-升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&</p> 
-							</div> 
-						</a> 
-<!-- 自定义Post颜色 -->
-				
-						<div class="item-slant reverse-slant bg-deepgrey"></div>
-						
-
-						<div class="item-slant"></div>
-		 				<div class="item-label">
-	  						<div class="item-title">
-	  							<a href="16169964390881.html">Gitlab版本升级</a>
-	  						</div>
-		   					<div class="item-meta clearfix"> 
-<!-- 自定义Icon -->
-								
-		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
-		   						</div> 
-								
-
-		   						<div class="item-meta-cat">
-	  							
-			    			<a class='category' href='Gitlab.html'>Gitlab</a>
-								
-		   						</div> 
-		   					</div> 
-		   					
-		   				</div> 
-   					</div>
- 				</div>
- 			
-				<div class="post-list-item">
-					<div class="post-list-item-container">
- <!-- 自定post背景图 -->
-					 
-                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
-						
-						</div> 
-						<a href="16172870405989.html"> 
-							<div class="item-desc"> 
-								<p>目录结构
-
-在项目根目录创建一个packagist包，用来放置组件包，加入到.gitignore文件中。通过path的方式，让composer将test组件作为依赖加载到project中
-
-.
-├── packagist
-│   └── test
-│       └── src
-└── project
-    ├── app
-    ├── config
-    ├── runtime
-    └── vendor
-
-
-创建新的组件
-
-$ cd packagist
-
-$ mkdir -p test/src &amp;&amp; cd test
-
-$ composer init  //初始化gi</p> 
-							</div> 
-						</a> 
-<!-- 自定义Post颜色 -->
-				
-						<div class="item-slant reverse-slant bg-deepgrey"></div>
-						
-
-						<div class="item-slant"></div>
-		 				<div class="item-label">
-	  						<div class="item-title">
-	  							<a href="16172870405989.html">本地调试组件</a>
-	  						</div>
-		   					<div class="item-meta clearfix"> 
-<!-- 自定义Icon -->
-								
-		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
-		   						</div> 
-								
-
-		   						<div class="item-meta-cat">
-	  							
-			    			<a class='category' href='Php.html'>Php</a>
-								
-		   						</div> 
-		   					</div> 
-		   					
-		   				</div> 
-   					</div>
- 				</div>
  			 
 		</div>
 	</div>
@@ -502,7 +491,7 @@ $ composer init  //初始化gi</p>
              
             
             <li>
-            <a href="Php.html">Php&nbsp;(3)</a>
+            <a href="Php.html">Php&nbsp;(4)</a>
             <p>
             
             </p>
@@ -511,7 +500,7 @@ $ composer init  //初始化gi</p>
              
             
             <li>
-            <a href="Git.html">Git&nbsp;(1)</a>
+            <a href="Git.html">Git&nbsp;(3)</a>
             <p>
             
             </p>
@@ -520,7 +509,7 @@ $ composer init  //初始化gi</p>
              
             
             <li>
-            <a href="Mysql.html">Mysql&nbsp;(1)</a>
+            <a href="Mysql.html">Mysql&nbsp;(3)</a>
             <p>
             
             </p>
@@ -540,7 +529,19 @@ $ composer init  //初始化gi</p>
           
           
          <li>
-           <a href="16173762986851.html">Mysql的几种锁</a><br>
+           <a href="16187106737241.html">Redis</a><br>
+         </li>
+          
+          
+          
+         <li>
+           <a href="16186525518388.html">Laravel</a><br>
+         </li>
+          
+          
+          
+         <li>
+           <a href="16185525468888.html">GIT常用命令</a><br>
          </li>
           
           
@@ -552,20 +553,22 @@ $ composer init  //初始化gi</p>
           
           
          <li>
-           <a href="16171065720634.html">Clean code</a><br>
+           <a href="16173762986851.html">MYSQL的几种锁</a><br>
          </li>
           
           
           
-         <li>
-           <a href="16180194244918.html">Kibana制作用户访问热力地图</a><br>
-         </li>
           
           
           
-         <li>
-           <a href="16169964390881.html">Gitlab版本升级</a><br>
-         </li>
+          
+          
+          
+          
+          
+          
+          
+          
           
           
           

@@ -2,12 +2,22 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>https://mitirrli.github.io/blogs/</loc>
-  <lastmod>2021-04-11T09:10:23+08:00</lastmod>
+  <lastmod>2021-04-18T21:41:31+08:00</lastmod>
 </url>
 
 <url>
-  <loc>https://mitirrli.github.io/blogs/16173762986851.html</loc>
-  <lastmod>2021-04-02T23:11:38+08:00</lastmod>
+  <loc>https://mitirrli.github.io/blogs/16187106737241.html</loc>
+  <lastmod>2021-04-18T09:51:13+08:00</lastmod>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/16186525518388.html</loc>
+  <lastmod>2021-04-17T17:42:31+08:00</lastmod>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/16185525468888.html</loc>
+  <lastmod>2021-04-16T13:55:46+08:00</lastmod>
 </url>
 
 <url>
@@ -16,8 +26,18 @@
 </url>
 
 <url>
+  <loc>https://mitirrli.github.io/blogs/16173762986851.html</loc>
+  <lastmod>2020-10-02T23:11:38+08:00</lastmod>
+</url>
+
+<url>
   <loc>https://mitirrli.github.io/blogs/16171065720634.html</loc>
   <lastmod>2020-10-01T20:16:12+08:00</lastmod>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/16185330911384.html</loc>
+  <lastmod>2020-04-16T08:31:31+08:00</lastmod>
 </url>
 
 <url>
@@ -40,7 +60,30 @@
   <lastmod>2019-09-21T22:59:49+08:00</lastmod>
 </url>
 
+<url>
+  <loc>https://mitirrli.github.io/blogs/16185542723715.html</loc>
+  <lastmod>2019-07-16T14:24:32+08:00</lastmod>
+</url>
 
+<url>
+  <loc>https://mitirrli.github.io/blogs/16182714235900.html</loc>
+  <lastmod>2019-04-13T07:50:23+08:00</lastmod>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/16187531095541.html</loc>
+  <lastmod>2018-04-18T21:38:29+08:00</lastmod>
+</url>
+
+
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/Nosql.html</loc>
+</url>
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/Linux.html</loc>
+</url>
 
 <url>
   <loc>https://mitirrli.github.io/blogs/Gitlab.html</loc>

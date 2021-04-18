@@ -94,6 +94,243 @@
                          	<div class="item-thumb bg-deepgrey" style="background-image:url();">
 						
 						</div> 
+						<a href="16185330911384.html"> 
+							<div class="item-desc"> 
+								<p>表
+
+模糊查找
+
+show tables like &quot;%what%&quot;;
+
+
+字段
+
+修改字段
+
+ALTER TABLE `table` MODIFY COLUMN `shop_id` bigint(20) unsigned NOT NULL DEFAULT &#39;0&#39; COMMENT &#39;门店ID&#39;;
+ALTER TABLE `table`  MODIFY second_column VARCHAR(2);
+
+
+删除字段
+
+ALTER TABLE DROP COLUMN 列名;
+
+
+增加字段
+
+ALTER TABLE `table` ADD COL</p> 
+							</div> 
+						</a> 
+<!-- 自定义Post颜色 -->
+				
+						<div class="item-slant reverse-slant bg-deepgrey"></div>
+						
+
+						<div class="item-slant"></div>
+		 				<div class="item-label">
+	  						<div class="item-title">
+	  							<a href="16185330911384.html">MYSQL常用SQL</a>
+	  						</div>
+		   					<div class="item-meta clearfix"> 
+<!-- 自定义Icon -->
+								
+		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
+		   						</div> 
+								
+
+		   						<div class="item-meta-cat">
+	  							
+			    			<a class='category' href='Mysql.html'>Mysql</a>
+								
+		   						</div> 
+		   					</div> 
+		   					
+		   				</div> 
+   					</div>
+ 				</div>
+ 			
+				<div class="post-list-item">
+					<div class="post-list-item-container">
+ <!-- 自定post背景图 -->
+					 
+                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
+						
+						</div> 
+						<a href="16180194244918.html"> 
+							<div class="item-desc"> 
+								<p>ES 管道
+
+创建管道
+
+PUT _ingest/pipeline/geoip_pipeline
+{
+  &quot;description&quot; : &quot;geo_pipeline&quot;,
+  &quot;processors&quot; : [
+    {
+      &quot;geoip&quot; : {
+        &quot;field&quot; : &quot;ip&quot;
+      }
+    }
+  ]
+}
+
+
+查看数据
+
+字段有增加
+
+增加了continent_name, country_iso_code, country_name, reg</p> 
+							</div> 
+						</a> 
+<!-- 自定义Post颜色 -->
+				
+						<div class="item-slant reverse-slant bg-deepgrey"></div>
+						
+
+						<div class="item-slant"></div>
+		 				<div class="item-label">
+	  						<div class="item-title">
+	  							<a href="16180194244918.html">Kibana制作用户访问热力地图</a>
+	  						</div>
+		   					<div class="item-meta clearfix"> 
+<!-- 自定义Icon -->
+								
+		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
+		   						</div> 
+								
+
+		   						<div class="item-meta-cat">
+	  							
+			    			<a class='category' href='Kibana.html'>Kibana</a>
+								
+		   						</div> 
+		   					</div> 
+		   					
+		   				</div> 
+   					</div>
+ 				</div>
+ 			
+				<div class="post-list-item">
+					<div class="post-list-item-container">
+ <!-- 自定post背景图 -->
+					 
+                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
+						
+						</div> 
+						<a href="16169964390881.html"> 
+							<div class="item-desc"> 
+								<p>
+公司目前gitlab版本是9.5.5,因升级服务器顺道把gitlab也升到最新,这里记录下历程
+
+
+备份Gitlab
+
+gitlab-rake gitlab:backup:create
+
+
+执行命令进行备份，将会生成一个命名格式为 &lt;timestamp&gt;_&lt;date&gt;_&lt;gitlab-version&gt;_gitlab_backup.tar 的压缩包
+
+Gitlab升级
+
+升级历程: 9.5.5 -&gt; 9.5.9 -&gt; 9.5.10 -&gt; 10.8.7 -&gt; 11.11.8 -&gt; 12.0.12 -&gt; 12.10.14 -&</p> 
+							</div> 
+						</a> 
+<!-- 自定义Post颜色 -->
+				
+						<div class="item-slant reverse-slant bg-deepgrey"></div>
+						
+
+						<div class="item-slant"></div>
+		 				<div class="item-label">
+	  						<div class="item-title">
+	  							<a href="16169964390881.html">Gitlab版本升级</a>
+	  						</div>
+		   					<div class="item-meta clearfix"> 
+<!-- 自定义Icon -->
+								
+		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
+		   						</div> 
+								
+
+		   						<div class="item-meta-cat">
+	  							
+			    			<a class='category' href='Gitlab.html'>Gitlab</a>
+								
+		   						</div> 
+		   					</div> 
+		   					
+		   				</div> 
+   					</div>
+ 				</div>
+ 			
+				<div class="post-list-item">
+					<div class="post-list-item-container">
+ <!-- 自定post背景图 -->
+					 
+                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
+						
+						</div> 
+						<a href="16172870405989.html"> 
+							<div class="item-desc"> 
+								<p>目录结构
+
+在项目根目录创建一个packagist包，用来放置组件包，加入到.gitignore文件中。通过path的方式，让composer将test组件作为依赖加载到project中
+
+.
+├── packagist
+│   └── test
+│       └── src
+└── project
+    ├── app
+    ├── config
+    ├── runtime
+    └── vendor
+
+
+创建新的组件
+
+$ cd packagist
+
+$ mkdir -p test/src &amp;&amp; cd test
+
+$ composer init  //初始化gi</p> 
+							</div> 
+						</a> 
+<!-- 自定义Post颜色 -->
+				
+						<div class="item-slant reverse-slant bg-deepgrey"></div>
+						
+
+						<div class="item-slant"></div>
+		 				<div class="item-label">
+	  						<div class="item-title">
+	  							<a href="16172870405989.html">本地调试组件</a>
+	  						</div>
+		   					<div class="item-meta clearfix"> 
+<!-- 自定义Icon -->
+								
+		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
+		   						</div> 
+								
+
+		   						<div class="item-meta-cat">
+	  							
+			    			<a class='category' href='Php.html'>Php</a>
+								
+		   						</div> 
+		   					</div> 
+		   					
+		   				</div> 
+   					</div>
+ 				</div>
+ 			
+				<div class="post-list-item">
+					<div class="post-list-item-container">
+ <!-- 自定post背景图 -->
+					 
+                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
+						
+						</div> 
 						<a href="16173755899187.html"> 
 							<div class="item-desc"> 
 								<p>
@@ -139,6 +376,95 @@ $ git submodule add ... //默认情况下,子模块会将子项目放到一个�
 		   				</div> 
    					</div>
  				</div>
+ 			
+				<div class="post-list-item">
+					<div class="post-list-item-container">
+ <!-- 自定post背景图 -->
+					 
+                         	<div class="item-thumb bg-deepgrey" style="background-image:url();">
+						
+						</div> 
+						<a href="16185542723715.html"> 
+							<div class="item-desc"> 
+								<p>
+在多人协作的项目中，如果Git的提交说明精准，在后期协作以及Bug处理时会变得有据可查，项目的开发可以根据规范的提交说明快速生成开发日志，从而方便开发者或用户追踪项目的开发信息和功能特性。
+
+
+规范的Git提交说明
+
+
+
+
+值
+描述
+
+
+
+
+
+feat
+新增一个功能
+
+
+fix
+修复一个Bug
+
+
+docs
+文档变更
+
+
+perf
+改善性能
+
+
+style
+代码格式（不影响功能，例如空格、分号等格式修正）
+
+
+refactor
+代码重构
+
+
+build
+变更项目构建或外部依赖（例如scopes: webpack、gulp、npm等）
+
+
+test
+测试
+
+
+ci
+更改持续集成软件的配置文件和</p> 
+							</div> 
+						</a> 
+<!-- 自定义Post颜色 -->
+				
+						<div class="item-slant reverse-slant bg-deepgrey"></div>
+						
+
+						<div class="item-slant"></div>
+		 				<div class="item-label">
+	  						<div class="item-title">
+	  							<a href="16185542723715.html">GIT提交规范</a>
+	  						</div>
+		   					<div class="item-meta clearfix"> 
+<!-- 自定义Icon -->
+								
+		   						<div class="item-meta-ico bg-ico-note" style="background: url(asset/img/bg-ico.png) no-repeat;background-size: 40px auto;">
+		   						</div> 
+								
+
+		   						<div class="item-meta-cat">
+	  							
+			    			<a class='category' href='Git.html'>Git</a>
+								
+		   						</div> 
+		   					</div> 
+		   					
+		   				</div> 
+   					</div>
+ 				</div>
  			 
 		</div>
 	</div>
@@ -152,8 +478,8 @@ $ git submodule add ... //默认情况下,子模块会将子项目放到一个�
 				<li class=""><a href="archives.html">归档</a></li>
 
 			
-            	<li class=" disabled "><a href="#index">下一页 <span aria-hidden="true">&rarr;</span></a></li>
-            
+			<li class=""><a href="all_2.html">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+			
             </ol>
      </nav>
 </div>
@@ -190,7 +516,7 @@ $ git submodule add ... //默认情况下,子模块会将子项目放到一个�
              
             
             <li>
-            <a href="Php.html">Php&nbsp;(3)</a>
+            <a href="Php.html">Php&nbsp;(4)</a>
             <p>
             
             </p>
@@ -199,7 +525,7 @@ $ git submodule add ... //默认情况下,子模块会将子项目放到一个�
              
             
             <li>
-            <a href="Git.html">Git&nbsp;(1)</a>
+            <a href="Git.html">Git&nbsp;(3)</a>
             <p>
             
             </p>
@@ -208,7 +534,7 @@ $ git submodule add ... //默认情况下,子模块会将子项目放到一个�
              
             
             <li>
-            <a href="Mysql.html">Mysql&nbsp;(1)</a>
+            <a href="Mysql.html">Mysql&nbsp;(3)</a>
             <p>
             
             </p>
@@ -228,7 +554,19 @@ $ git submodule add ... //默认情况下,子模块会将子项目放到一个�
           
           
          <li>
-           <a href="16173762986851.html">Mysql的几种锁</a><br>
+           <a href="16187106737241.html">Redis</a><br>
+         </li>
+          
+          
+          
+         <li>
+           <a href="16186525518388.html">Laravel</a><br>
+         </li>
+          
+          
+          
+         <li>
+           <a href="16185525468888.html">GIT常用命令</a><br>
          </li>
           
           
@@ -240,20 +578,22 @@ $ git submodule add ... //默认情况下,子模块会将子项目放到一个�
           
           
          <li>
-           <a href="16171065720634.html">Clean code</a><br>
+           <a href="16173762986851.html">MYSQL的几种锁</a><br>
          </li>
           
           
           
-         <li>
-           <a href="16180194244918.html">Kibana制作用户访问热力地图</a><br>
-         </li>
           
           
           
-         <li>
-           <a href="16169964390881.html">Gitlab版本升级</a><br>
-         </li>
+          
+          
+          
+          
+          
+          
+          
+          
           
           
           
