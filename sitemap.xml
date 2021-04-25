@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>https://mitirrli.github.io/blogs/</loc>
-  <lastmod>2021-04-16T15:27:57+08:00</lastmod>
+  <lastmod>2021-04-25T09:34:47+08:00</lastmod>
 </url>
 
 <url>
@@ -41,6 +41,11 @@
 </url>
 
 <url>
+  <loc>https://mitirrli.github.io/blogs/16189847372750.html</loc>
+  <lastmod>2019-12-21T13:58:57+08:00</lastmod>
+</url>
+
+<url>
   <loc>https://mitirrli.github.io/blogs/16172870405989.html</loc>
   <lastmod>2019-10-03T22:24:00+08:00</lastmod>
 </url>
@@ -61,6 +66,10 @@
 </url>
 
 
+
+<url>
+  <loc>https://mitirrli.github.io/blogs/Vim.html</loc>
+</url>
 
 <url>
   <loc>https://mitirrli.github.io/blogs/Gitlab.html</loc>

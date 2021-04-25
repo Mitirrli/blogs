@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-16T15:27:16+08:00</updated>
+  <updated>2021-04-16T15:27:57+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -58,7 +58,20 @@
 <pre class="line-numbers"><code class="language-bash">git clone --depth=1 https://github.com/user/repo.git
 </code></pre>
 
-<p><a href="https://github.com/521xueweihan/git-tips">参考资料</a></p>
+<h2 id="toc_7">已经push的commit如何修改message</h2>
+
+<p>在修复历史commit message的时候，请确保当前分支是最新代码，<br/>
+且已经提交了所有本地修改。</p>
+
+<pre class="line-numbers"><code class="language-bash">$ git log
+$ git rebase -i HEAD~5
+$ git commit --amend
+$ git rebase --continue
+$ git push -f
+</code></pre>
+
+<p><a href="https://www.jianshu.com/p/ec45ce13289f">push的commit如何修改message</a><br/>
+<a href="https://github.com/521xueweihan/git-tips">参考资料</a></p>
 
 ]]></content>
   </entry>
@@ -927,6 +940,83 @@ ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
 
 <pre class="line-numbers"><code class="language-shell">gitlab-ctl status
 </code></pre>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[vim常用命令]]></title>
+    <link href="https://mitirrli.github.io/blogs/16189847372750.html"/>
+    <updated>2021-04-21T13:58:57+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16189847372750.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0">注释</h2>
+
+<h3 id="toc_1">注释当前行</h3>
+
+<pre class="line-numbers"><code class="language-text">gcc
+</code></pre>
+
+<h3 id="toc_2">注释当前行 和 下面的n行</h3>
+
+<pre class="line-numbers"><code class="language-text">gcnj 
+</code></pre>
+
+<h2 id="toc_3">删除</h2>
+
+<h3 id="toc_4">当前光标删除到下一个单词</h3>
+
+<pre class="line-numbers"><code class="language-text">dw
+</code></pre>
+
+<h3 id="toc_5">当前光标删除到行末尾</h3>
+
+<pre class="line-numbers"><code class="language-text">d$
+</code></pre>
+
+<h3 id="toc_6">当前光标删除到行开头</h3>
+
+<pre class="line-numbers"><code class="language-text">d0
+</code></pre>
+
+<h2 id="toc_7">文本</h2>
+
+<h3 id="toc_8">复制</h3>
+
+<pre class="line-numbers"><code class="language-text">yy
+</code></pre>
+
+<h3 id="toc_9">粘贴</h3>
+
+<pre class="line-numbers"><code class="language-text">p
+</code></pre>
+
+<h3 id="toc_10">重复</h3>
+
+<pre class="line-numbers"><code class="language-text">.
+</code></pre>
+
+<h3 id="toc_11">移到下个单词的词首</h3>
+
+<pre class="line-numbers"><code class="language-text">w
+</code></pre>
+
+<h3 id="toc_12">可以删除当前光标所在位置的单词 change a word</h3>
+
+<pre class="line-numbers"><code class="language-text">caw
+</code></pre>
+
+<h3 id="toc_13">水平分屏</h3>
+
+<pre class="line-numbers"><code class="language-text">:sp
+</code></pre>
+
+<h3 id="toc_14">垂直分屏</h3>
+
+<pre class="line-numbers"><code class="language-text">:vsp
+</code></pre>
+
+<h3 id="toc_15">H、M、L：光标分别跳转到可视区域的最上面、中间、最下面。</h3>
 
 ]]></content>
   </entry>
