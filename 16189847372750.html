@@ -10,7 +10,7 @@
 
     <title>
       
-    Kibana制作用户访问热力地图 - Mitirrli
+    vim常用命令 - Mitirrli
     
     </title>
 
@@ -88,55 +88,87 @@
 		<div class="post-header">
 			<!-- title -->
 			<div class="post-header">
-				<h1 class="post-title itemprop="name headline">Kibana制作用户访问热力地图</h1>	
+				<h1 class="post-title itemprop="name headline">vim常用命令</h1>	
 				<div class="post-data">
-					<time datetime="2020-04-10T09:50:24+08:00" pubdate data-updated="true">2020/04/10</time>
+					<time datetime="2019-12-21T13:58:57+08:00" pubdate data-updated="true">2019/12/21</time>
 				</div>
 			</div>
 		</div>
 	<div id="post-content" class="post-content" itemprop="articleBody"> 
 		<p class="post-tags"> 
 		
-		<a href='Kibana.html'>Kibana</a>&nbsp;
+		<a href='Vim.html'>Vim</a>&nbsp;
 		
 		</p>
 	<!-- 正文 -->
 		<p>
-		<h2 id="toc_0">ES 管道</h2>
+		<h2 id="toc_0">注释</h2>
 
-<h3 id="toc_1">创建管道</h3>
+<h3 id="toc_1">注释当前行</h3>
 
-<pre class="line-numbers"><code class="language-text">PUT _ingest/pipeline/geoip_pipeline
-{
-  &quot;description&quot; : &quot;geo_pipeline&quot;,
-  &quot;processors&quot; : [
-    {
-      &quot;geoip&quot; : {
-        &quot;field&quot; : &quot;ip&quot;
-      }
-    }
-  ]
-}
+<pre class="line-numbers"><code class="language-text">gcc
 </code></pre>
 
-<h2 id="toc_2">查看数据</h2>
+<h3 id="toc_2">注释当前行 和 下面的n行</h3>
 
-<h3 id="toc_3">字段有增加</h3>
-
-<pre class="line-numbers"><code class="language-text">增加了continent_name, country_iso_code, country_name, region_iso_code, region_name, city_name, location
+<pre class="line-numbers"><code class="language-text">gcnj 
 </code></pre>
 
-<h2 id="toc_4">kibana中开始绘图</h2>
+<h2 id="toc_3">删除</h2>
 
-<h3 id="toc_5">配置</h3>
+<h3 id="toc_4">当前光标删除到下一个单词</h3>
 
-<pre class="line-numbers"><code class="language-text">选择矢量形状 =&gt; 中国省份
-设置词连接 =&gt; 左源 (ISO 3166-2代码)
-右源 (选择索引) =&gt; geoip.region_iso_code.keyword
+<pre class="line-numbers"><code class="language-text">dw
 </code></pre>
 
-<p><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/geoip-processor.html">ES手册1</a><br/>
-<a href="https://www.elastic.co/guide/en/ecs/current/ecs-geo.html">ES手册2</a></p>
+<h3 id="toc_5">当前光标删除到行末尾</h3>
+
+<pre class="line-numbers"><code class="language-text">d$
+</code></pre>
+
+<h3 id="toc_6">当前光标删除到行开头</h3>
+
+<pre class="line-numbers"><code class="language-text">d0
+</code></pre>
+
+<h2 id="toc_7">文本</h2>
+
+<h3 id="toc_8">复制</h3>
+
+<pre class="line-numbers"><code class="language-text">yy
+</code></pre>
+
+<h3 id="toc_9">粘贴</h3>
+
+<pre class="line-numbers"><code class="language-text">p
+</code></pre>
+
+<h3 id="toc_10">重复</h3>
+
+<pre class="line-numbers"><code class="language-text">.
+</code></pre>
+
+<h3 id="toc_11">移到下个单词的词首</h3>
+
+<pre class="line-numbers"><code class="language-text">w
+</code></pre>
+
+<h3 id="toc_12">可以删除当前光标所在位置的单词 change a word</h3>
+
+<pre class="line-numbers"><code class="language-text">caw
+</code></pre>
+
+<h3 id="toc_13">水平分屏</h3>
+
+<pre class="line-numbers"><code class="language-text">:sp
+</code></pre>
+
+<h3 id="toc_14">垂直分屏</h3>
+
+<pre class="line-numbers"><code class="language-text">:vsp
+</code></pre>
+
+<h3 id="toc_15">H、M、L：光标分别跳转到可视区域的最上面、中间、最下面。</h3>
 
 		</p>
 		<!-- 侧边导航条 -->
@@ -237,7 +269,7 @@
 	<!-- 版权声明 -->
 		<p class="post-info" style="color: #BCBDB6">
 				本文由 <a style="color: #BCBDB6" href="#">Mitirrli
-				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-10T09:50:24+08:00
+				</a> 创作，采用 <a style="color: #BCBDB6" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="external nofollow">知识共享署名4.0</a> 国际许可协议进行许可<br>本站文章除注明转载/出处外，均为本站原创或翻译，转载前请务必署名<br>最后编辑时间为: 2021-04-21T13:58:57+08:00
 		</p>
 	<!-- 导航 -->
 			<div id="comments" class="clearfix" style="padding: 0px;">
@@ -245,14 +277,14 @@
 				    <div class="meta">
 					    
 					    <P style="float: left;">
-					    	<a href="16185330911384.html" 
-					        title="Previous Post: MYSQL常用SQL">&laquo; MYSQL常用SQL</a>
+					    	<a href="16169964390881.html" 
+					        title="Previous Post: Gitlab版本升级">&laquo; Gitlab版本升级</a>
 					    </p>
 					    <p style="float:right; ">
 					    	
 					    	
-					        <a href="16169964390881.html" 
-					        title="Next Post: Gitlab版本升级">Gitlab版本升级 &raquo;</a>
+					        <a href="16172870405989.html" 
+					        title="Next Post: 本地调试组件">本地调试组件 &raquo;</a>
 					    </p> 
 					    
 				    </div>
