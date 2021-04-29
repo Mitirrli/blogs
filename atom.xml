@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-25T09:37:15+08:00</updated>
+  <updated>2021-04-29T14:22:59+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -950,75 +950,133 @@ ALTER TABLE `table` ADD PRIMARY KEY (`id`,`no`);
     <updated>2021-04-21T13:58:57+08:00</updated>
     <id>https://mitirrli.github.io/blogs/16189847372750.html</id>
     <content type="html"><![CDATA[
-<h2 id="toc_0">注释</h2>
+<h2 id="toc_0">命令行模式</h2>
 
-<h3 id="toc_1">注释当前行</h3>
+<h3 id="toc_1">开启其他文件</h3>
 
-<pre class="line-numbers"><code class="language-text">gcc
+<pre class="line-numbers"><code class="language-text">:e 
 </code></pre>
 
-<h3 id="toc_2">注释当前行 和 下面的n行</h3>
-
-<pre class="line-numbers"><code class="language-text">gcnj 
-</code></pre>
-
-<h2 id="toc_3">删除</h2>
-
-<h3 id="toc_4">当前光标删除到下一个单词</h3>
-
-<pre class="line-numbers"><code class="language-text">dw
-</code></pre>
-
-<h3 id="toc_5">当前光标删除到行末尾</h3>
-
-<pre class="line-numbers"><code class="language-text">d$
-</code></pre>
-
-<h3 id="toc_6">当前光标删除到行开头</h3>
-
-<pre class="line-numbers"><code class="language-text">d0
-</code></pre>
-
-<h2 id="toc_7">文本</h2>
-
-<h3 id="toc_8">复制</h3>
-
-<pre class="line-numbers"><code class="language-text">yy
-</code></pre>
-
-<h3 id="toc_9">粘贴</h3>
-
-<pre class="line-numbers"><code class="language-text">p
-</code></pre>
-
-<h3 id="toc_10">重复</h3>
-
-<pre class="line-numbers"><code class="language-text">.
-</code></pre>
-
-<h3 id="toc_11">移到下个单词的词首</h3>
-
-<pre class="line-numbers"><code class="language-text">w
-</code></pre>
-
-<h3 id="toc_12">可以删除当前光标所在位置的单词 change a word</h3>
-
-<pre class="line-numbers"><code class="language-text">caw
-</code></pre>
-
-<h2 id="toc_13">视图</h2>
-
-<h3 id="toc_14">水平分屏</h3>
+<h3 id="toc_2">水平分屏</h3>
 
 <pre class="line-numbers"><code class="language-text">:sp
 </code></pre>
 
-<h3 id="toc_15">垂直分屏</h3>
+<h3 id="toc_3">垂直分屏</h3>
 
 <pre class="line-numbers"><code class="language-text">:vsp
 </code></pre>
 
-<h3 id="toc_16">H、M、L：光标分别跳转到可视区域的最上面、中间、最下面。</h3>
+<h2 id="toc_4">普通模式</h2>
+
+<h3 id="toc_5">注释当前行</h3>
+
+<pre class="line-numbers"><code class="language-text">gcc
+</code></pre>
+
+<h3 id="toc_6">注释当前行 和 下面的n行</h3>
+
+<pre class="line-numbers"><code class="language-text">gcnj 
+</code></pre>
+
+<h3 id="toc_7">当前光标删除到下一个单词</h3>
+
+<pre class="line-numbers"><code class="language-text">dw
+</code></pre>
+
+<h3 id="toc_8">当前光标删除到行末尾</h3>
+
+<pre class="line-numbers"><code class="language-text">d$
+</code></pre>
+
+<h3 id="toc_9">当前光标删除到行开头</h3>
+
+<pre class="line-numbers"><code class="language-text">d0
+</code></pre>
+
+<h3 id="toc_10">复制</h3>
+
+<pre class="line-numbers"><code class="language-text">yy
+</code></pre>
+
+<h3 id="toc_11">粘贴</h3>
+
+<pre class="line-numbers"><code class="language-text">p
+</code></pre>
+
+<h3 id="toc_12">重复</h3>
+
+<pre class="line-numbers"><code class="language-text">.
+</code></pre>
+
+<h3 id="toc_13">移到下个单词的词首</h3>
+
+<pre class="line-numbers"><code class="language-text">w
+</code></pre>
+
+<h3 id="toc_14">可以删除当前光标所在位置的单词 change a word</h3>
+
+<pre class="line-numbers"><code class="language-text">caw
+</code></pre>
+
+<h3 id="toc_15">替换到结尾的文字</h3>
+
+<pre class="line-numbers"><code class="language-text">c$
+</code></pre>
+
+<h3 id="toc_16">替换到第一个引号</h3>
+
+<pre class="line-numbers"><code class="language-text">cf&quot;
+</code></pre>
+
+<h3 id="toc_17">替换文字</h3>
+
+<pre class="line-numbers"><code class="language-text">s 单个字符
+S 整行
+</code></pre>
+
+<h3 id="toc_18">缩进</h3>
+
+<pre class="line-numbers"><code class="language-text">&gt;&gt; 
+&lt;&lt;
+.重复
+</code></pre>
+
+<h3 id="toc_19">undo</h3>
+
+<pre class="line-numbers"><code class="language-text">u
+</code></pre>
+
+<h3 id="toc_20">redo</h3>
+
+<pre class="line-numbers"><code class="language-text">control + r
+</code></pre>
+
+<h3 id="toc_21">水平移动</h3>
+
+<pre class="line-numbers"><code class="language-text">单词开头 w
+单词结尾 e
+上一个单词开头 b
+</code></pre>
+
+<h3 id="toc_22">光标定位</h3>
+
+<pre class="line-numbers"><code class="language-text">置中 zz
+行首 zt
+行尾 zb
+(画面不会移动) H、M、L：光标分别跳转到可视区域的最上面、中间、最下面。
+</code></pre>
+
+<h3 id="toc_23">查找指令</h3>
+
+<pre class="line-numbers"><code class="language-text">移动字符 f (find) F(上一个)
+移动到字符前一格 t (to) T(上一个)
+; 重复执行上次的查找
+```
+
+
+
+</code></pre>
 
 ]]></content>
   </entry>
