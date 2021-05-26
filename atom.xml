@@ -4,7 +4,7 @@
   <title><![CDATA[Mitirrli]]></title>
   <link href="https://mitirrli.github.io/blogs/atom.xml" rel="self"/>
   <link href="https://mitirrli.github.io/blogs/"/>
-  <updated>2021-04-29T14:22:59+08:00</updated>
+  <updated>2021-04-29T14:23:05+08:00</updated>
   <id>https://mitirrli.github.io/blogs/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://www.coderforart.com/">CoderForArt</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Chrome设置]]></title>
+    <link href="https://mitirrli.github.io/blogs/16219897088016.html"/>
+    <updated>2021-05-26T08:41:48+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16219897088016.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0">chrome黑夜模式</h2>
+
+<h3 id="toc_1">在地址栏输入以下命令 chrome://flags/#enable-force-dark 将 Default 改为 Enabled</h3>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[php题目]]></title>
+    <link href="https://mitirrli.github.io/blogs/16203624721911.html"/>
+    <updated>2021-05-07T12:41:12+08:00</updated>
+    <id>https://mitirrli.github.io/blogs/16203624721911.html</id>
+    <content type="html"><![CDATA[
+<h2 id="toc_0">mktime 时分秒月日年</h2>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[GIT常用命令]]></title>
